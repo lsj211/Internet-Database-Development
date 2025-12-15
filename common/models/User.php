@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This is the user model of backend.
+ */
 namespace common\models;
 
 use Yii;
@@ -208,5 +214,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Gets related messages authored by the user
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessages()
+    {
+        return $this->hasMany(Message::class, ['user_id' => 'id'])->orderBy(['created_at' => SORT_DESC]);
     }
 }

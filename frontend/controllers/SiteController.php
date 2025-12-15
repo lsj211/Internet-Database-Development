@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is used to manage the site's actions.
+ */
+
 namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
@@ -10,6 +17,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\User;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -28,13 +36,8 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout'],
                 'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
@@ -46,6 +49,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'send-email-code' => ['post'],
                 ],
             ],
         ];
@@ -161,6 +165,45 @@ class SiteController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * 发送邮箱验证码
+     */
+    public function actionSendEmailCode()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        $email = Yii::$app->request->post('email');
+        
+        if (!$email) {
+            return ['success' => false, 'message' => '请输入邮箱地址'];
+        }
+        
+        // 验证邮箱格式
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return ['success' => false, 'message' => '邮箱格式不正确'];
+        }
+        
+        // 检查邮箱是否已被注册
+        if (User::findOne(['email' => $email])) {
+            return ['success' => false, 'message' => '该邮箱已被注册'];
+        }
+        
+        // 发送验证码
+        try {
+            $model = new SignupForm();
+            $model->email = $email;
+            
+            if ($model->sendEmailCode()) {
+                return ['success' => true, 'message' => '验证码已发送到您的邮箱，请查收'];
+            } else {
+                return ['success' => false, 'message' => '验证码发送失败，请检查邮件配置'];
+            }
+        } catch (\Exception $e) {
+            Yii::error('发送邮件错误: ' . $e->getMessage());
+            return ['success' => false, 'message' => '发送失败: ' . $e->getMessage()];
+        }
     }
 
     /**
