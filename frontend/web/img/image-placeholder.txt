@@ -1,0 +1,14 @@
+<!-- 这是一个占位符图片，实际项目中应该替换为真实的抗战相关图片 -->
+<!-- 建议添加以下图片：
+- china-map-bg.jpg: 中国地图背景
+- hero1.jpg: 抗日英雄照片
+- hero2.jpg: 抗日英雄照片
+- hero3.jpg: 抗日英雄照片
+- memorial-site.jpg: 纪念馆照片
+- parade-formation.jpg: 阅兵方阵照片
+- victory-banner.jpg: 胜利横幅
+- team-photo.jpg: 团队合影
+- document1.jpg: 历史文件缩略图
+- document2.jpg: 历史文件缩略图
+- document3.jpg: 历史文件缩略图
+-->

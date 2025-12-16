@@ -78,6 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'sb-admin-2';
         return $this->render('index');
     }
 
@@ -147,6 +148,154 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    /**
+     * Displays admin page.
+     *
+     * @return mixed
+     */
+    public function actionAdmin()
+    {
+        $this->layout = 'admin';
+        return $this->render('admin');
+    }
+
+    /**
+     * Displays history page.
+     *
+     * @return mixed
+     */
+    public function actionHistory()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('history');
+    }
+
+    /**
+     * Displays document1 page.
+     *
+     * @return mixed
+     */
+    public function actionDocument1()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('document1');
+    }
+
+    /**
+     * Displays document2 page.
+     *
+     * @return mixed
+     */
+    public function actionDocument2()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('document2');
+    }
+
+    /**
+     * Displays document3 page.
+     *
+     * @return mixed
+     */
+    public function actionDocument3()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('document3');
+    }
+
+    /**
+     * Displays download page.
+     *
+     * @return mixed
+     */
+    public function actionDownload()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('download');
+    }
+
+    /**
+     * Displays team page.
+     *
+     * @return mixed
+     */
+    public function actionTeam()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('team');
+    }
+
+    /**
+     * Displays memorial page.
+     *
+     * @return mixed
+     */
+    public function actionMemorial()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('memorial');
+    }
+
+    /**
+     * Displays parade page.
+     *
+     * @return mixed
+     */
+    public function actionParade()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('parade');
+    }
+
+    /**
+     * Returns memorial video URL as JSON so frontend can plug in a real video link.
+     */
+    public function actionMemorialVideo()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $url = Yii::$app->params['memorialVideoUrl'] ?? 'https://example.com/videos/memorial.mp4';
+        return ['success' => true, 'url' => $url];
+    }
+
+    /**
+     * Serve personal download files from web/downloads/personal safely.
+     * Usage: /site/download-personal?file=zhang_san_frontend.zip
+     */
+    public function actionDownloadPersonal($file)
+    {
+        $this->layout = false;
+        $file = basename($file);
+        $basePath = Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'personal' . DIRECTORY_SEPARATOR;
+        $fullPath = $basePath . $file;
+        if (!is_file($fullPath)) {
+            throw new \yii\web\NotFoundHttpException('文件未找到');
+        }
+        return Yii::$app->response->sendFile($fullPath, $file, ['inline' => false]);
+    }
+
+    /**
+     * Returns anthem (anthem audio/video) URL for parade page.
+     */
+    public function actionAnthem()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $url = Yii::$app->params['anthemUrl'] ?? 'https://example.com/media/anthem.mp3';
+        return ['success' => true, 'url' => $url];
+    }
+
+    /**
+     * Displays formation page for a given type (infantry, airforce, navy, equipment)
+     */
+    public function actionFormation($type = 'infantry')
+    {
+        $this->layout = 'sb-admin-2';
+        $allowed = ['infantry','airforce','navy','equipment'];
+        if (!in_array($type, $allowed)) {
+            throw new \yii\web\BadRequestHttpException('Invalid formation type');
+        }
+        return $this->render('formation', ['type' => $type]);
     }
 
     /**
