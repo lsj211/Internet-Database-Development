@@ -38,7 +38,6 @@ $this->title = '阅兵仪式';
                     <li class="nav-item"><a class="nav-link" href="<?= Url::to(['site/index']) ?>">首页</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= Url::to(['site/team']) ?>">团队介绍</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= Url::to(['site/history']) ?>">抗战历史</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= Url::to(['message/index']) ?>">留言板</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= Url::to(['site/download']) ?>">作业下载</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= Url::to(['site/memorial']) ?>">烈士纪念</a></li>
                     <li class="nav-item active"><a class="nav-link" href="<?= Url::to(['site/parade']) ?>">阅兵仪式</a></li>

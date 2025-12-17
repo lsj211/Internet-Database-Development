@@ -31,6 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'email')->textInput(['id' => 'signup-email']) ?>
 
+                <?= $form->field($model, 'student_id')->textInput(['placeholder' => '请输入学号（可选）'])->label('学号') ?>
+
                 <div class="form-group field-signupform-emailverifycode">
                     <label class="control-label" for="signupform-emailverifycode">邮箱验证码</label>
                     <div class="input-group">

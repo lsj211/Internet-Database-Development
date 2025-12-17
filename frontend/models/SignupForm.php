@@ -22,6 +22,7 @@ class SignupForm extends Model
     public $password_confirm;
     public $verifyCode;        // 图片验证码
     public $emailVerifyCode;   // 邮箱验证码
+    public $student_id;        // 学号
 
 
     /**
@@ -53,6 +54,8 @@ class SignupForm extends Model
 
             ['emailVerifyCode', 'required', 'message' => '请输入邮箱验证码'],
             ['emailVerifyCode', 'validateEmailCode'],
+
+            ['student_id', 'string', 'max' => 50],
         ];
     }
 
@@ -145,6 +148,7 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->student_id = $this->student_id;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();

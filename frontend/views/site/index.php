@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is used to display the team's homepage with a background image and various cards for team introduction, statistics, and member profiles.
+ */
+
 /* @var $this yii\web\View */
 
 use yii\helpers\Url;
@@ -100,13 +106,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="mt-4 text-center small">
                     <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> 历史事件: 50+
+                        <i class="fas fa-circle text-primary"></i> 团队成员: <?= $stats['totalMembers'] ?> 人
                     </span>
                     <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> 英雄人物: 30+
+                        <i class="fas fa-circle text-success"></i> 英雄人物: <?= $stats['totalHeroes'] ?> 位
                     </span>
                     <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> 留言数量: 100+
+                        <i class="fas fa-circle text-info"></i> 历史资料: <?= $stats['totalMaterials'] ?> 份
                     </span>
                 </div>
             </div>
@@ -169,6 +175,52 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
+// 将统计数据传递给 JavaScript
+$chartData = [
+    'totalMembers' => $stats['totalMembers'],
+    'totalHeroes' => $stats['totalHeroes'],
+    'totalMaterials' => $stats['totalMaterials'],
+];
+
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
-$this->registerJsFile('@web/js/demo/chart-pie-demo.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+
+$js = <<<JS
+// 使用后端传递的真实数据
+Chart.defaults.font.family = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.color = '#858796';
+
+var ctx = document.getElementById("myPieChart");
+var myPieChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ["团队成员", "英雄人物", "历史资料"],
+    datasets: [{
+      data: [{$chartData['totalMembers']}, {$chartData['totalHeroes']}, {$chartData['totalMaterials']}],
+      backgroundColor: ['#8B0000', '#228B22', '#4169E1'],
+      hoverBackgroundColor: ['#A52A2A', '#32CD32', '#4682B4'],
+      hoverBorderColor: "rgba(234, 236, 244, 1)",
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        backgroundColor: "rgb(255,255,255)",
+        bodyColor: "#858796",
+        borderColor: '#dddfeb',
+        borderWidth: 1,
+        padding: 15,
+        displayColors: false,
+        caretPadding: 10,
+      },
+      legend: {
+        display: false
+      }
+    },
+    cutout: '80%',
+  },
+});
+JS;
+
+$this->registerJs($js, \yii\web\View::POS_READY);
 ?>

@@ -104,13 +104,6 @@ SbAdmin2Asset::register($this);
                 <span>抗战历史</span></a>
         </li>
 
-        <!-- Nav Item - 留言板 -->
-        <li class="nav-item <?= $this->context->route == 'message/index' ? 'active' : '' ?>">
-            <a class="nav-link" href="<?= Url::to(['/message/index']) ?>">
-                <i class="fas fa-fw fa-comments"></i>
-                <span>留言板</span></a>
-        </li>
-
         <!-- Nav Item - 作业下载 -->
         <li class="nav-item <?= $this->context->route == 'site/download' ? 'active' : '' ?>">
             <a class="nav-link" href="<?= Url::to(['/site/download']) ?>">
@@ -133,18 +126,73 @@ SbAdmin2Asset::register($this);
         </li>
 
         <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            个人中心
+        </div>
+
+        <!-- Nav Item - 个人主页 -->
+        <?php if (!Yii::$app->user->isGuest): ?>
+        <li class="nav-item <?= $this->context->route == 'site/profile' && isset(Yii::$app->request->get()['id']) && Yii::$app->request->get('id') == Yii::$app->user->id ? 'active' : '' ?>">
+            <a class="nav-link" href="<?= Url::to(['/site/profile', 'id' => Yii::$app->user->id]) ?>">
+                <i class="fas fa-fw fa-user"></i>
+                <span>我的主页</span></a>
+        </li>
+        <?php endif; ?>
+
+        <!-- Nav Item - 团队成员主页 -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMembers"
+                aria-expanded="true" aria-controls="collapseMembers">
+                <i class="fas fa-fw fa-users"></i>
+                <span>团队成员</span>
+            </a>
+            <div id="collapseMembers" class="collapse" aria-labelledby="headingMembers" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">访问成员主页:</h6>
+                    <?php 
+                    use common\models\User;
+                    // 优先显示有学号的用户
+                    $teamMembers = User::find()
+                        ->where(['in', 'status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE]])
+                        ->andWhere(['not', ['student_id' => null]])
+                        ->andWhere(['<>', 'student_id', ''])
+                        ->orderBy(['created_at' => SORT_DESC])
+                        ->limit(20)
+                        ->all();
+                    
+                    // 如果有学号的用户少于5个，再显示其他用户
+                    if (count($teamMembers) < 5) {
+                        $otherMembers = User::find()
+                            ->where(['in', 'status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE]])
+                            ->andWhere(['or', ['student_id' => null], ['student_id' => '']])
+                            ->orderBy(['created_at' => SORT_DESC])
+                            ->limit(20 - count($teamMembers))
+                            ->all();
+                        $teamMembers = array_merge($teamMembers, $otherMembers);
+                    }
+                    
+                    foreach ($teamMembers as $member): 
+                    ?>
+                        <a class="collapse-item" href="<?= Url::to(['/site/profile', 'id' => $member->id]) ?>">
+                            <i class="fas fa-user-circle"></i> <?= \yii\helpers\Html::encode($member->username) ?>
+                            <?php if ($member->student_id): ?>
+                                <small class="text-muted">(<?= \yii\helpers\Html::encode($member->student_id) ?>)</small>
+                            <?php endif; ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-        <!-- Sidebar Message -->
-        <div class="sidebar-card d-none d-lg-flex">
-            <img class="sidebar-card-illustration mb-2" src="<?= Url::to('@web/img/undraw_rocket.svg') ?>" alt="...">
-            <p class="text-center mb-2"><strong>后台管理</strong> 团队成员登录入口</p>
-            <a class="btn btn-success btn-sm" href="<?= Url::to(['/site/login']) ?>">进入后台</a>
         </div>
 
     </ul>
@@ -169,13 +217,52 @@ SbAdmin2Asset::register($this);
 
                     <div class="topbar-divider d-none d-sm-block"></div>
 
-                    <!-- Nav Item - 后台登录 -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::to(['/site/login']) ?>">
-                            <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            后台登录
-                        </a>
-                    </li>
+                    <!-- Nav Item - 用户信息 -->
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <!-- 未登录状态 -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Url::to(['/site/login']) ?>">
+                                <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <span class="d-none d-lg-inline text-gray-600">登录</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Url::to(['/site/signup']) ?>">
+                                <i class="fas fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <span class="d-none d-lg-inline text-gray-600">注册</span>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <!-- 已登录状态 -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    <?= Html::encode(Yii::$app->user->identity->username) ?>
+                                </span>
+                                <?php 
+                                $currentUser = Yii::$app->user->identity;
+                                $avatarUrl = $currentUser->avatar 
+                                    ? (strpos($currentUser->avatar, 'http') === 0 ? $currentUser->avatar : Url::to('@web' . $currentUser->avatar)) 
+                                    : Url::to('@web/img/undraw_profile.svg');
+                                ?>
+                                <img src="<?= $avatarUrl ?>" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;" alt="头像">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<?= Url::to(['/site/profile', 'id' => Yii::$app->user->id]) ?>">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    个人主页
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    退出登录
+                                </a>
+                            </div>
+                        </li>
+                    <?php endif; ?>
 
                 </ul>
 
@@ -235,6 +322,28 @@ SbAdmin2Asset::register($this);
         </div>
     </div>
 </div>
+
+<script>
+// 确保用户下拉菜单正常工作
+$(document).ready(function() {
+    // 初始化所有dropdown
+    $('.dropdown-toggle').dropdown();
+    
+    // 手动处理用户头像点击事件
+    $('#userDropdown').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).next('.dropdown-menu').toggle();
+    });
+    
+    // 点击其他地方关闭dropdown
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.dropdown').length) {
+            $('.dropdown-menu').hide();
+        }
+    });
+});
+</script>
 
 <?php $this->endBody() ?>
 </body>

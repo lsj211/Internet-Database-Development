@@ -1,7 +1,17 @@
 <?php
+
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is used to display the login page.
+ */
+
 use yii\helpers\Url;
 use yii\helpers\Html;
-$this->title = '后台登录';
+use yii\bootstrap\ActiveForm;
+use yii\captcha\Captcha;
+
+$this->title = '用户登录';
 ?>
 
 <div class="site-login container py-5">
@@ -10,40 +20,49 @@ $this->title = '后台登录';
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-4">
                     <div class="text-center mb-4">
-                        <h1 class="h4 text-gray-900">抗战纪念队后台管理</h1>
+                        <h1 class="h4 text-gray-900">抗战纪念队 - 用户登录</h1>
                     </div>
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="username" placeholder="用户名" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="password" placeholder="密码" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="captcha" placeholder="验证码" required>
-                        </div>
-                        <div class="form-group d-flex align-items-center">
-                            <img src="img/captcha.jpg" alt="验证码" style="height:40px;margin-right:10px;">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe">记住我</label>
+                    
+                    <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+
+                        <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => '用户名'])->label(false) ?>
+
+                        <?= $form->field($model, 'password')->passwordInput(['placeholder' => '密码'])->label(false) ?>
+
+                        <div class="row">
+                            <div class="col-8">
+                                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                                    'template' => '{input}{image}',
+                                    'imageOptions' => ['alt' => '验证码', 'style' => 'cursor:pointer;height:34px;'],
+                                    'options' => ['placeholder' => '验证码', 'class' => 'form-control']
+                                ])->label(false) ?>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check">
+                                    <?= $form->field($model, 'rememberMe')->checkbox([
+                                        'template' => '<div class="form-check">{input} {label}</div>',
+                                        'labelOptions' => ['class' => 'form-check-label'],
+                                        'class' => 'form-check-input'
+                                    ]) ?>
+                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">登录</button>
-                    </form>
+
+                        <div class="form-group">
+                            <?= Html::submitButton('登录', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                        </div>
+
+                    <?php ActiveForm::end(); ?>
+                    
                     <hr>
                     <div class="text-center">
-                        <a class="small" href="<?= Url::to(['site/forgot-password']) ?>">忘记密码？</a>
+                        <a class="small" href="<?= Url::to(['site/request-password-reset']) ?>">忘记密码？</a>
                     </div>
                     <div class="text-center">
-                        <a class="small" href="<?= Url::to(['site/index']) ?>">返回前台</a>
+                        <a class="small" href="<?= Url::to(['site/signup']) ?>">还没有账号？立即注册</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    const loginForm = document.getElementById('loginForm'); if(loginForm){ loginForm.addEventListener('submit', function(e){ e.preventDefault(); const username = document.getElementById('username').value; const password = document.getElementById('password').value; const captcha = document.getElementById('captcha').value; if(username === 'admin' && password === 'admin123' && captcha === '1234'){ window.location.href = 'admin.html'; } else { alert('用户名、密码或验证码错误！'); } }); }
-</script>

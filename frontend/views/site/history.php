@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is used to display the history of the War of Resistance Against Japan.
+ */
+
 /* @var $this yii\web\View */
 
 use yii\helpers\Url;
@@ -132,31 +138,60 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row" id="heroes-section">
     <div class="col-lg-12 mb-4">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">抗战英雄人物</h6>
+                <?php if (!Yii::$app->user->isGuest): ?>
+                <div>
+                    <a href="<?= Url::to(['/content/edit-hero']) ?>" class="btn btn-sm btn-success">
+                        <i class="fas fa-plus"></i> 新建英雄
+                    </a>
+                </div>
+                <?php endif; ?>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                 <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="<?= Url::to('@web/img/hero1.jpg') ?>" alt="杨靖宇" onerror="this.src='<?= Url::to('@web/img/hero1.png') ?>'">
+                    <?php foreach ($heroes as $hero): ?>
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="card h-100" style="font-size: 0.9rem;">
+                            <img class="card-img-top" src="<?= Url::to($hero->image_url) ?>" 
+                                 alt="<?= \yii\helpers\Html::encode($hero->name) ?>" 
+                                 style="max-height: 200px; object-fit: cover;"
+                                 onerror="this.src='<?= Url::to('@web/img/undraw_profile.svg') ?>'">
                             <div class="card-body">
-                                <h5 class="card-title">杨靖宇</h5>
-                                <p class="card-text"><strong>事迹：</strong>东北抗日联军主要领导人之一，在极端艰苦的条件下坚持抗战，最终壮烈牺牲。</p>
-                                <p class="card-text"><strong>贡献：</strong>领导东北抗日武装斗争，牵制大量日军，为全国抗战做出了重要贡献。</p>
+                                <h6 class="card-title mb-2"><?= \yii\helpers\Html::encode($hero->name) ?></h6>
+                                <?php if ($hero->title): ?>
+                                    <p class="card-text text-muted mb-2"><small><?= \yii\helpers\Html::encode($hero->title) ?></small></p>
+                                <?php endif; ?>
+                                <?php if ($hero->brief): ?>
+                                    <p class="card-text text-truncate mb-2" title="<?= \yii\helpers\Html::encode($hero->brief) ?>"><?= \yii\helpers\Html::encode($hero->brief) ?></p>
+                                <?php endif; ?>
+                                <?php if ($hero->deeds): ?>
+                                    <p class="card-text small mb-1"><strong>事迹：</strong><span class="text-truncate d-inline-block" style="max-width: 90%;" title="<?= \yii\helpers\Html::encode($hero->deeds) ?>"><?= \yii\helpers\Html::encode($hero->deeds) ?></span></p>
+                                <?php endif; ?>
+                                <?php if ($hero->contribution): ?>
+                                    <p class="card-text small mb-1"><strong>贡献：</strong><span class="text-truncate d-inline-block" style="max-width: 90%;" title="<?= \yii\helpers\Html::encode($hero->contribution) ?>"><?= \yii\helpers\Html::encode($hero->contribution) ?></span></p>
+                                <?php endif; ?>
+                                <?php if ($hero->birth_year || $hero->death_year): ?>
+                                    <p class="card-text"><small class="text-muted">
+                                        <?= $hero->birth_year ? $hero->birth_year : '?' ?>年 - <?= $hero->death_year ? $hero->death_year : '?' ?>年
+                                    </small></p>
+                                <?php endif; ?>
+                                <?php if (!Yii::$app->user->isGuest): ?>
+                                <div class="mt-2">
+                                    <a href="<?= Url::to(['/content/edit-hero', 'id' => $hero->id]) ?>" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-edit"></i> 编辑
+                                    </a>
+                                    <a href="<?= Url::to(['/content/delete-hero', 'id' => $hero->id]) ?>" 
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('确定要删除吗？')">
+                                        <i class="fas fa-trash"></i> 删除
+                                    </a>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="<?= Url::to('@web/img/hero2.jpg') ?>" alt="赵尚志" onerror="this.src='<?= Url::to('@web/img/hero2.jpg') ?>'">
-                            <div class="card-body">
-                                <h5 class="card-title">赵尚志</h5>
-                                <p class="card-text"><strong>事迹：</strong>东北抗日联军创建者和领导人，多次重创日伪军。</p>
-                                <p class="card-text"><strong>贡献：</strong>创建东北抗日游击根据地，发展抗日武装力量。</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -167,41 +202,54 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row" id="documents-section">
     <div class="col-lg-12 mb-4">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">抗战史料</h6>
+                <?php if (!Yii::$app->user->isGuest): ?>
+                <div>
+                    <a href="<?= Url::to(['/content/edit-material']) ?>" class="btn btn-sm btn-success">
+                        <i class="fas fa-plus"></i> 新建史料
+                    </a>
+                </div>
+                <?php endif; ?>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                 <div class="row">
+                    <?php foreach ($materials as $material): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
-                            <img class="card-img-top" src="<?= Url::to('@web/img/document1.jpg') ?>" alt="史料1" onerror="this.src='<?= Url::to('@web/img/undraw_posting_photo.svg') ?>'">
+                            <img class="card-img-top" src="<?= Url::to($material->image_url) ?>" 
+                                 alt="<?= \yii\helpers\Html::encode($material->title) ?>" 
+                                 onerror="this.src='<?= Url::to('@web/img/undraw_posting_photo.svg') ?>'">
                             <div class="card-body">
-                                <h5 class="card-title">抗日宣言</h5>
-                                <p class="card-text">1937年，中国共产党发表抗日救国十大纲领，号召全国人民团结抗战。</p>
-                                <a href="<?= Url::to(['/site/document1']) ?>" class="btn btn-primary">查看详情</a>
+                                <h5 class="card-title"><?= \yii\helpers\Html::encode($material->title) ?></h5>
+                                <?php if ($material->category): ?>
+                                    <span class="badge badge-primary mb-2"><?= \yii\helpers\Html::encode($material->category) ?></span>
+                                <?php endif; ?>
+                                <?php if ($material->event_date): ?>
+                                    <p class="card-text"><small class="text-muted"><?= Yii::$app->formatter->asDate($material->event_date, 'php:Y年m月d日') ?></small></p>
+                                <?php endif; ?>
+                                <?php if ($material->summary): ?>
+                                    <p class="card-text"><?= \yii\helpers\Html::encode($material->summary) ?></p>
+                                <?php endif; ?>
+                                <?php if ($material->source): ?>
+                                    <p class="card-text"><small class="text-muted">来源：<?= \yii\helpers\Html::encode($material->source) ?></small></p>
+                                <?php endif; ?>
+                                <?php if (!Yii::$app->user->isGuest): ?>
+                                <div class="mt-2">
+                                    <a href="<?= Url::to(['/content/edit-material', 'id' => $material->id]) ?>" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-edit"></i> 编辑
+                                    </a>
+                                    <a href="<?= Url::to(['/content/delete-material', 'id' => $material->id]) ?>" 
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('确定要删除吗？')">
+                                        <i class="fas fa-trash"></i> 删除
+                                    </a>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="<?= Url::to('@web/img/document2.jpg') ?>" alt="史料2" onerror="this.src='<?= Url::to('@web/img/undraw_posting_photo.svg') ?>'">
-                            <div class="card-body">
-                                <h5 class="card-title">台儿庄大捷</h5>
-                                <p class="card-text">1938年，中国军队在台儿庄地区重创日军，取得抗战以来第一个大捷。</p>
-                                <a href="<?= Url::to(['/site/document2']) ?>" class="btn btn-primary">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="<?= Url::to('@web/img/document3.jpg') ?>" alt="史料3" onerror="this.src='<?= Url::to('@web/img/undraw_posting_photo.svg') ?>'">
-                            <div class="card-body">
-                                <h5 class="card-title">百团大战</h5>
-                                <p class="card-text">1940年，八路军发动百团大战，沉重打击日军，鼓舞全国军民抗战信心。</p>
-                                <a href="<?= Url::to(['/site/document3']) ?>" class="btn btn-primary">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>

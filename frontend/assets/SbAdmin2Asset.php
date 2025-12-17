@@ -17,13 +17,13 @@ class SbAdmin2Asset extends AssetBundle
         'css/sb-admin-2.min.css',
     ];
     public $js = [
-        'vendor/jquery/jquery.min.js',
         'vendor/bootstrap/js/bootstrap.bundle.min.js',
         'vendor/jquery-easing/jquery.easing.min.js',
         'js/sb-admin-2.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
+        'yii\web\JqueryAsset',
     ];
 }
 

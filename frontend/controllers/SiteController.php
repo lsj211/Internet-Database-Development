@@ -18,6 +18,10 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
+use common\models\Hero;
+use common\models\HistoricalMaterial;
+use common\models\DownloadCounter;
+use common\models\ProfileComment;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -79,7 +83,19 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'sb-admin-2';
-        return $this->render('index');
+        
+        // 获取统计数据
+        $stats = [
+            'totalMembers' => User::find()->where(['status' => User::STATUS_ACTIVE])->count(),
+            'totalDownloads' => DownloadCounter::getTotalDownloads(),
+            'totalVisits' => \common\models\PageVisit::getTotalVisits(),
+            'totalHeroes' => Hero::find()->count(),
+            'totalMaterials' => HistoricalMaterial::find()->count(),
+        ];
+        
+        return $this->render('index', [
+            'stats' => $stats,
+        ]);
     }
 
     /**
@@ -89,6 +105,8 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'sb-admin-2';
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -169,7 +187,15 @@ class SiteController extends Controller
     public function actionHistory()
     {
         $this->layout = 'sb-admin-2';
-        return $this->render('history');
+        
+        // 从数据库加载英雄人物和史料
+        $heroes = Hero::getActiveHeroes();
+        $materials = HistoricalMaterial::getActiveMaterials();
+        
+        return $this->render('history', [
+            'heroes' => $heroes,
+            'materials' => $materials,
+        ]);
     }
 
     /**
@@ -213,7 +239,52 @@ class SiteController extends Controller
     public function actionDownload()
     {
         $this->layout = 'sb-admin-2';
-        return $this->render('download');
+        
+        // 获取团队和个人作业列表
+        $teamFiles = DownloadCounter::getFilesByType(DownloadCounter::TYPE_TEAM);
+        $personalFiles = DownloadCounter::getFilesByType(DownloadCounter::TYPE_PERSONAL);
+        
+        return $this->render('download', [
+            'teamFiles' => $teamFiles,
+            'personalFiles' => $personalFiles,
+        ]);
+    }
+    
+    /**
+     * 下载统计接口
+     */
+    public function actionRecordDownload()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        $id = Yii::$app->request->get('id');
+        
+        \Yii::info('下载统计请求 - ID: ' . $id, __METHOD__);
+        
+        if (!$id) {
+            \Yii::error('参数错误 - 没有提供ID', __METHOD__);
+            return ['success' => false, 'message' => '参数错误'];
+        }
+        
+        $result = DownloadCounter::incrementDownload($id);
+        \Yii::info('incrementDownload结果: ' . ($result ? 'true' : 'false'), __METHOD__);
+        
+        if ($result) {
+            $model = DownloadCounter::findOne($id);
+            if ($model) {
+                \Yii::info('更新成功 - 新计数: ' . $model->download_count, __METHOD__);
+                return [
+                    'success' => true, 
+                    'message' => '下载统计成功',
+                    'count' => $model->download_count
+                ];
+            } else {
+                \Yii::error('找不到模型 - ID: ' . $id, __METHOD__);
+            }
+        }
+        
+        \Yii::error('统计失败', __METHOD__);
+        return ['success' => false, 'message' => '统计失败'];
     }
 
     /**
@@ -224,7 +295,152 @@ class SiteController extends Controller
     public function actionTeam()
     {
         $this->layout = 'sb-admin-2';
-        return $this->render('team');
+        
+        // 获取团队统计数据
+        $stats = [
+            'totalMembers' => User::find()->where(['status' => User::STATUS_ACTIVE])->count(),
+            'totalDownloads' => DownloadCounter::getTotalDownloads(),
+            'totalVisits' => \common\models\PageVisit::getTotalVisits(),
+            'totalComments' => ProfileComment::find()->where(['status' => ProfileComment::STATUS_ACTIVE])->count(),
+        ];
+        
+        return $this->render('team', [
+            'stats' => $stats,
+        ]);
+    }
+
+    /**
+     * Edit user profile page.
+     *
+     * @return mixed
+     */
+    public function actionEditProfile()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/site/login']);
+        }
+
+        $this->layout = 'sb-admin-2';
+        $model = User::findOne(Yii::$app->user->id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            // 保存旧头像路径
+            $oldAvatar = $model->avatar;
+            
+            // 处理头像上传
+            $avatarFile = \yii\web\UploadedFile::getInstance($model, 'avatar');
+            if ($avatarFile) {
+                $uploadPath = Yii::getAlias('@frontend/web/uploads/avatars/');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0777, true);
+                }
+                $fileName = Yii::$app->user->id . '_' . time() . '.' . $avatarFile->extension;
+                if ($avatarFile->saveAs($uploadPath . $fileName)) {
+                    $model->avatar = '/uploads/avatars/' . $fileName;
+                }
+            } else {
+                // 如果没有上传新头像，保持原有头像
+                $model->avatar = $oldAvatar;
+            }
+
+            // 先验证
+            if (!$model->validate()) {
+                Yii::$app->session->setFlash('profile_error', '验证失败：' . json_encode($model->errors));
+                return $this->render('edit-profile', ['model' => $model]);
+            }
+
+            if ($model->save(false)) {
+                // 清除所有旧的flash消息
+                Yii::$app->session->removeAllFlashes();
+                // 设置新的成功消息
+                Yii::$app->session->setFlash('profile_success', '个人资料更新成功！');
+                return $this->redirect(['/site/profile', 'id' => Yii::$app->user->id]);
+            } else {
+                Yii::$app->session->setFlash('profile_error', '保存失败：' . json_encode($model->errors));
+            }
+        }
+
+        return $this->render('edit-profile', [
+            'model' => $model,
+        ]);
+    }
+
+    /**     * Displays user profile page.
+     *
+     * @param int $id 用户ID
+     * @return mixed
+     */
+    public function actionProfile($id = null)
+    {
+        $this->layout = 'sb-admin-2';
+        
+        // 如果没有指定ID，显示当前用户的主页
+        if ($id === null) {
+            if (Yii::$app->user->isGuest) {
+                return $this->redirect(['/site/login']);
+            }
+            $id = Yii::$app->user->id;
+        }
+        
+        $user = User::findOne($id);
+        if (!$user) {
+            throw new \yii\web\NotFoundHttpException('用户不存在');
+        }
+        
+        // 获取评论列表
+        $comments = ProfileComment::getProfileComments($id);
+        
+        // 处理评论提交
+        $commentModel = new ProfileComment();
+        if ($commentModel->load(Yii::$app->request->post())) {
+            if (!Yii::$app->user->isGuest) {
+                $commentModel->profile_user_id = $id;
+                $commentModel->comment_user_id = Yii::$app->user->id;
+                if ($commentModel->save()) {
+                    Yii::$app->session->setFlash('success', '评论发表成功！');
+                    return $this->refresh();
+                }
+            }
+        }
+        
+        return $this->render('profile', [
+            'user' => $user,
+            'comments' => $comments,
+            'commentModel' => $commentModel,
+        ]);
+    }
+
+    /**
+     * Post a comment or reply
+     */
+    public function actionPostComment()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        if (Yii::$app->user->isGuest) {
+            return ['success' => false, 'message' => '请先登录'];
+        }
+        
+        $model = new ProfileComment();
+        $model->profile_user_id = Yii::$app->request->post('profile_user_id');
+        $model->comment_user_id = Yii::$app->user->id;
+        $model->parent_id = Yii::$app->request->post('parent_id');
+        $model->content = Yii::$app->request->post('content');
+        
+        if ($model->save()) {
+            return [
+                'success' => true,
+                'message' => '评论成功',
+                'comment' => [
+                    'id' => $model->id,
+                    'content' => $model->content,
+                    'username' => Yii::$app->user->identity->username,
+                    'created_at' => Yii::$app->formatter->asDatetime($model->created_at),
+                ]
+            ];
+        }
+        
+        return ['success' => false, 'message' => '评论失败'];
     }
 
     /**
@@ -235,7 +451,67 @@ class SiteController extends Controller
     public function actionMemorial()
     {
         $this->layout = 'sb-admin-2';
-        return $this->render('memorial');
+        
+        // 增加页面访问计数
+        \common\models\PageVisit::incrementVisit('memorial');
+        
+        // 获取留言列表
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query' => \common\models\Message::find()->with('user')->orderBy(['created_at' => SORT_DESC]),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        // 处理留言提交
+        $model = new \common\models\Message();
+        if (!Yii::$app->user->isGuest && Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->id;
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', '追思已提交');
+                return $this->redirect(['memorial']);
+            }
+        }
+        
+        // 获取统计数据
+        $flowerCount = \common\models\FlowerOffering::getTotalCount();
+        $messageCount = \common\models\Message::find()->count();
+        $visitCount = \common\models\PageVisit::getVisitCount('memorial');
+
+        return $this->render('memorial', [
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+            'flowerCount' => $flowerCount,
+            'messageCount' => $messageCount,
+            'visitCount' => $visitCount,
+        ]);
+    }
+    
+    /**
+     * 献花功能
+     */
+    public function actionOfferFlower()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        $ip = Yii::$app->request->userIP;
+        
+        // 检查今日是否已献花
+        if (\common\models\FlowerOffering::hasOfferedToday($ip)) {
+            return ['success' => false, 'message' => '您今天已经献过花了'];
+        }
+        
+        $flower = new \common\models\FlowerOffering();
+        $flower->user_id = Yii::$app->user->isGuest ? null : Yii::$app->user->id;
+        $flower->ip_address = $ip;
+        $flower->created_at = time();
+        
+        if ($flower->save()) {
+            $totalCount = \common\models\FlowerOffering::getTotalCount();
+            return ['success' => true, 'message' => '献花成功！', 'count' => $totalCount];
+        }
+        
+        return ['success' => false, 'message' => '献花失败，请稍后重试'];
     }
 
     /**
@@ -305,9 +581,11 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->layout = 'sb-admin-2';
+        
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', '注册成功！请查收邮箱验证邮件。');
             return $this->goHome();
         }
 
@@ -362,18 +640,20 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        $this->layout = 'sb-admin-2';
+        
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', '密码重置链接已发送到您的邮箱，请查收。');
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error', '抱歉，无法为该邮箱地址重置密码。');
             }
         }
 
-        return $this->render('requestPasswordResetToken', [
+        return $this->render('request-password-reset', [
             'model' => $model,
         ]);
     }
@@ -387,6 +667,8 @@ class SiteController extends Controller
      */
     public function actionResetPassword($token)
     {
+        $this->layout = 'sb-admin-2';
+        
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidArgumentException $e) {
@@ -394,12 +676,12 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', '新密码已保存，请使用新密码登录。');
 
             return $this->goHome();
         }
 
-        return $this->render('resetPassword', [
+        return $this->render('reset-password', [
             'model' => $model,
         ]);
     }

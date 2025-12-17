@@ -61,6 +61,28 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            
+            // 个人资料字段验证
+            ['username', 'required'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'filter' => function($query) {
+                if (!$this->isNewRecord) {
+                    $query->andWhere(['<>', 'id', $this->id]);
+                }
+            }, 'message' => '此用户名已被使用。'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'filter' => function($query) {
+                if (!$this->isNewRecord) {
+                    $query->andWhere(['<>', 'id', $this->id]);
+                }
+            }, 'message' => '此邮箱已被使用。'],
+            
+            [['student_id', 'major', 'role', 'signature', 'avatar', 'homework_link'], 'string', 'max' => 255],
+            ['bio', 'string', 'max' => 1000],
+            ['age', 'integer', 'min' => 1, 'max' => 150],
+            
+            [['student_id', 'major', 'role', 'bio', 'age', 'signature', 'avatar', 'homework_link'], 'safe'],
         ];
     }
 

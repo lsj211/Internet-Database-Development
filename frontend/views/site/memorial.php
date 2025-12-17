@@ -1,5 +1,16 @@
 <?php
+
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is used to display the memorial page for the war heroes.
+ */
+
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use yii\widgets\ListView;
+
 $this->title = '纪念抗战烈士';
 ?>
 
@@ -59,10 +70,6 @@ $this->title = '纪念抗战烈士';
         <a class="nav-link" href="<?= Url::to(['site/history']) ?>">抗战历史</a>
     </li>
     <li class="nav-item">
-        <!-- 注意：留言板通常是独立控制器，指向 message/index -->
-        <a class="nav-link" href="<?= Url::to(['message/index']) ?>">留言板</a>
-    </li>
-    <li class="nav-item">
         <!-- 假设你有 actionDownload -->
         <a class="nav-link" href="<?= Url::to(['site/download']) ?>">作业下载</a>
     </li>
@@ -101,11 +108,11 @@ $this->title = '纪念抗战烈士';
                             <div class="mb-4">
                                 <h5 class="text-dark mb-3">献花致敬</h5>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <div class="flower mr-3" id="offerFlowerBtn" style="font-size:2.5rem;cursor:pointer;">
+                                    <div class="flower mr-3" id="offerFlowerBtn" style="font-size:2.5rem;cursor:pointer;" onclick="offerFlower()">
                                         <i class="fas fa-spa"></i>
                                     </div>
                                     <div>
-                                        <div class="h4 mb-0 text-primary" id="flowerCount">12543</div>
+                                        <div class="h4 mb-0 text-primary" id="flowerCount"><?= number_format($flowerCount) ?></div>
                                         <small class="text-muted">人已献花</small>
                                     </div>
                                 </div>
@@ -133,47 +140,58 @@ $this->title = '纪念抗战烈士';
                     <div class="col-lg-8 mx-auto">
                         <h4 class="text-white text-center mb-4">追思留言</h4>
                         
+                        <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
+                            <div class="alert alert-<?= $type ?> alert-dismissible fade show">
+                                <?= Html::encode($message) ?>
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        <?php endforeach; ?>
+                        
                         <!-- Condolence Form -->
                         <div class="card mb-4" id="condolenceForm" style="display: none;">
                             <div class="card-body">
                                 <h5 class="card-title">写下您的追思</h5>
-                                <form id="messageForm">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="condolenceName" placeholder="您的姓名（可选）" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" id="condolenceMessage" rows="4" placeholder="写下您对烈士的追思和缅怀..." required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">提交追思</button>
-                                </form>
+                                <?php if (Yii::$app->user->isGuest): ?>
+                                    <p class="text-muted">
+                                        请先 <?= Html::a('登录', Url::to(['site/login'])) ?> 或 <?= Html::a('注册', Url::to(['site/signup'])) ?> 后再留言。
+                                    </p>
+                                <?php else: ?>
+                                    <?php $form = ActiveForm::begin(['action' => ['site/memorial'], 'options' => ['class' => 'form-vertical']]); ?>
+                                        <?= $form->field($model, 'content')->textarea(['rows' => 4, 'placeholder' => '写下您对烈士的追思和缅怀...'])->label(false) ?>
+                                        <div class="form-group">
+                                            <?= Html::submitButton('提交追思', ['class' => 'btn btn-primary']) ?>
+                                        </div>
+                                    <?php ActiveForm::end(); ?>
+                                <?php endif; ?>
                             </div>
                         </div>
 
                         <!-- Messages List -->
                         <div id="condolenceMessages">
-                            <div class="condolence-card">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <strong>匿名</strong>
-                                    <small class="text-muted">2023-12-15 14:30</small>
-                                </div>
-                                <p class="mb-0">英雄们，你们用生命捍卫了民族的尊严，你们的精神永照后人。致敬！</p>
-                            </div>
-
-                            <div class="condolence-card">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <strong>历史研究者</strong>
-                                    <small class="text-muted">2023-12-14 16:45</small>
-                                </div>
-                                <p class="mb-0">在抗日战争中，无数普通中国人展现了非凡的勇气和牺牲精神。他们的事迹将永远铭刻在中华民族的历史上。</p>
-                            </div>
-
-                            <div class="condolence-card">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <strong>学生</strong>
-                                    <small class="text-muted">2023-12-13 10:20</small>
-                                </div>
-                                <p class="mb-0">通过学习抗战历史，我深刻感受到和平来之不易。缅怀先烈，珍视和平。</p>
-                            </div>
+                            <?= ListView::widget([
+                                'dataProvider' => $dataProvider,
+                                'itemView' => function($model){
+                                    /** @var common\models\Message $model */
+                                    $username = $model->user ? Html::encode($model->user->username) : '匿名';
+                                    $time = Yii::$app->formatter->asDatetime($model->created_at);
+                                    return '<div class="condolence-card">'
+                                        . '<div class="d-flex justify-content-between align-items-start mb-2">'
+                                        . '<strong>' . $username . '</strong>'
+                                        . '<small class="text-muted">' . $time . '</small>'
+                                        . '</div>'
+                                        . '<p class="mb-0">' . nl2br(Html::encode($model->content)) . '</p>'
+                                        . '</div>';
+                                },
+                                'summary' => '',
+                                'emptyText' => '<div class="condolence-card text-center text-muted">还没有追思留言，快来写下第一条吧！</div>',
+                                'pager' => [
+                                    'firstPageLabel' => '首页',
+                                    'lastPageLabel' => '末页',
+                                    'prevPageLabel' => '上一页',
+                                    'nextPageLabel' => '下一页',
+                                    'options' => ['class' => 'pagination justify-content-center'],
+                                ]
+                            ]); ?>
                         </div>
                     </div>
                 </div>
@@ -185,20 +203,16 @@ $this->title = '纪念抗战烈士';
                             <div class="card-body">
                                 <h5 class="card-title text-center mb-4">纪念数据</h5>
                                 <div class="row text-center">
-                                    <div class="col-md-3">
-                                        <div class="h3 text-primary" id="totalFlowers">12,543</div>
+                                    <div class="col-md-4">
+                                        <div class="h3 text-primary" id="totalFlowers"><?= number_format($flowerCount) ?></div>
                                         <small class="text-muted">献花总数</small>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="h3 text-success" id="totalMessages">156</div>
+                                    <div class="col-md-4">
+                                        <div class="h3 text-success" id="totalMessages"><?= $messageCount ?></div>
                                         <small class="text-muted">追思留言</small>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="h3 text-info" id="onlineUsers">89</div>
-                                        <small class="text-muted">当前在线</small>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="h3 text-warning" id="totalViews">5,678</div>
+                                    <div class="col-md-4">
+                                        <div class="h3 text-warning" id="totalViews"><?= number_format($visitCount) ?></div>
                                         <small class="text-muted">访问次数</small>
                                     </div>
                                 </div>
@@ -239,35 +253,36 @@ $this->title = '纪念抗战烈士';
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <script>
-        // 从localStorage加载数据，如果没有则使用默认值
-        let flowerCount = parseInt(localStorage.getItem('flowerCount')) || 12543;
-        let messageCount = parseInt(localStorage.getItem('messageCount')) || 156;
-
-        // 页面加载时显示当前数量
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('flowerCount').textContent = flowerCount.toLocaleString();
-            document.getElementById('totalFlowers').textContent = flowerCount.toLocaleString();
-            document.getElementById('totalMessages').textContent = messageCount;
-        });
-
         // 献花功能
         function offerFlower() {
-            const flower = document.querySelector('.flower');
+            const flower = document.getElementById('offerFlowerBtn');
             flower.classList.add('active');
 
-            setTimeout(() => {
+            fetch('<?= Url::to(['site/offer-flower']) ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: '<?= Yii::$app->request->csrfParam ?>=<?= Yii::$app->request->csrfToken ?>'
+            })
+            .then(response => response.json())
+            .then(data => {
+                setTimeout(() => {
+                    flower.classList.remove('active');
+                }, 1000);
+                
+                if (data.success) {
+                    document.getElementById('flowerCount').textContent = data.count.toLocaleString();
+                    document.getElementById('totalFlowers').textContent = data.count.toLocaleString();
+                    showNotification(data.message, 'success');
+                } else {
+                    showNotification(data.message, 'warning');
+                }
+            })
+            .catch(error => {
                 flower.classList.remove('active');
-            }, 1000);
-
-            flowerCount++;
-            document.getElementById('flowerCount').textContent = flowerCount.toLocaleString();
-            document.getElementById('totalFlowers').textContent = flowerCount.toLocaleString();
-
-            // 保存到localStorage
-            localStorage.setItem('flowerCount', flowerCount.toString());
-
-            // 显示献花成功提示
-            showNotification('献花成功！感谢您的缅怀。', 'success');
+                showNotification('献花失败，请稍后重试', 'danger');
+            });
         }
 
         // 显示追思表单
@@ -276,12 +291,12 @@ $this->title = '纪念抗战烈士';
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
         }
 
-        // 播放纪念视频（通过后端接口获取可替换的视频链接）
+        // 播放纪念视频
         function playMemorialVideo() {
             const modal = $('#memorialVideoModal');
             const video = document.getElementById('memorialVideo');
             const source = document.getElementById('memorialVideoSource');
-            // 获取视频链接接口
+            
             fetch('<?= Url::to(['site/memorial-video']) ?>')
                 .then(res => res.json())
                 .then(data => {
@@ -297,47 +312,8 @@ $this->title = '纪念抗战烈士';
                 .catch(() => showNotification('视频接口请求失败', 'danger'));
         }
 
-        // 提交追思留言
-        document.getElementById('messageForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('condolenceName').value || '匿名';
-            const message = document.getElementById('condolenceMessage').value;
-            
-            // 创建新的留言卡片
-            const newCard = document.createElement('div');
-            newCard.className = 'condolence-card';
-            newCard.innerHTML = `
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <strong>${name}</strong>
-                    <small class="text-muted">${new Date().toLocaleString()}</small>
-                </div>
-                <p class="mb-0">${message}</p>
-            `;
-            
-            // 添加到留言列表顶部
-            const messagesContainer = document.getElementById('condolenceMessages');
-            messagesContainer.insertBefore(newCard, messagesContainer.firstChild);
-            
-            // 更新计数
-            messageCount++;
-            document.getElementById('totalMessages').textContent = messageCount;
-
-            // 保存到localStorage
-            localStorage.setItem('messageCount', messageCount.toString());
-            
-            // 清空表单
-            this.reset();
-            
-            // 隐藏表单
-            document.getElementById('condolenceForm').style.display = 'none';
-            
-            showNotification('追思留言提交成功！', 'success');
-        });
-
         // 显示通知
         function showNotification(message, type) {
-            // 创建通知元素
             const notification = document.createElement('div');
             notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
             notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
@@ -350,36 +326,10 @@ $this->title = '纪念抗战烈士';
             
             document.body.appendChild(notification);
             
-            // 3秒后自动移除
             setTimeout(() => {
                 $(notification).alert('close');
             }, 3000);
         }
-
-        // 模拟实时数据更新
-        setInterval(() => {
-            const onlineUsers = Math.floor(Math.random() * 20) + 80;
-            document.getElementById('onlineUsers').textContent = onlineUsers;
-        }, 30000); // 每30秒更新一次
-
-        // 献花数持久化逻辑
-        function getFlowerCount() {
-            return parseInt(localStorage.getItem('flowerCount') || '12543', 10);
-        }
-        function setFlowerCount(val) {
-            localStorage.setItem('flowerCount', val);
-        }
-        function updateFlowerCountUI() {
-            document.getElementById('flowerCount').textContent = getFlowerCount().toLocaleString();
-        }
-        document.addEventListener('DOMContentLoaded', updateFlowerCountUI);
-        document.getElementById('offerFlowerBtn').onclick = function() {
-            let count = getFlowerCount() + 1;
-            setFlowerCount(count);
-            updateFlowerCountUI();
-            this.classList.add('active');
-            setTimeout(()=>this.classList.remove('active'), 1000);
-        };
     </script>
 
 </body>

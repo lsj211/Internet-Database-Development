@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is used to display the team introduction page.
+ */
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 $this->title = '团队介绍';
@@ -7,6 +14,79 @@ $this->title = '团队介绍';
 <div class="container-fluid py-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><?= Html::encode($this->title) ?></h1>
+    </div>
+
+    <!-- 统计数据圆圈 -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                团队成员</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $stats['totalMembers'] ?> 人</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                总下载次数</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $stats['totalDownloads'] ?> 次</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-download fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                网站访问</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $stats['totalVisits'] ?> 次</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-eye fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                留言总数</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $stats['totalComments'] ?> 条</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <div class="row">
@@ -40,13 +120,38 @@ $this->title = '团队介绍';
                                     <th>专业</th>
                                     <th>分工</th>
                                     <th>个人简介</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>刘越帅</td><td>2313752</td><td>信息安全</td><td>队长，统筹+部分后端</td><td>负责项目整体规划与协调，使用 Yii2 框架编写 Controller 层文件，处理后台用户交互逻辑。</td></tr>
-                                <tr><td>杨竣羽</td><td>2313043</td><td>信息安全</td><td>前端+动态图形</td><td>负责网站前端设计与实现，使用 HTML5、CSS3 和 JavaScript 开发响应式页面和动态图形展示模块。</td></tr>
-                                <tr><td>程娜</td><td>2311828</td><td>计算机科学与技术</td><td>数据库设计与管理</td><td>擅长数据库设计与优化，负责项目的数据库架构设计与维护。</td></tr>
-                                <tr><td>罗仕杰</td><td>2313965</td><td>计算机科学与技术</td><td>文档撰写与测试</td><td>细心严谨，负责项目文档编写和功能测试，确保项目质量。</td></tr>
+                                <?php 
+                                $members = [
+                                    ['name' => '刘越帅', 'student_id' => '2313752', 'major' => '信息安全', 'role' => '队长，统筹+部分后端', 'bio' => '负责项目整体规划与协调，使用 Yii2 框架编写 Controller 层文件，处理后台用户交互逻辑。'],
+                                    ['name' => '杨竣羽', 'student_id' => '2313043', 'major' => '信息安全', 'role' => '前端+动态图形', 'bio' => '负责网站前端设计与实现，使用 HTML5、CSS3 和 JavaScript 开发响应式页面和动态图形展示模块。'],
+                                    ['name' => '程娜', 'student_id' => '2311828', 'major' => '计算机科学与技术', 'role' => '数据库设计与管理', 'bio' => '擅长数据库设计与优化，负责项目的数据库架构设计与维护。'],
+                                    ['name' => '罗仕杰', 'student_id' => '2313965', 'major' => '计算机科学与技术', 'role' => '文档撰写与测试', 'bio' => '细心严谨，负责项目文档编写和功能测试，确保项目质量。'],
+                                ];
+                                foreach ($members as $member):
+                                    // 尝试根据学号找到对应用户
+                                    $user = \common\models\User::find()->where(['student_id' => $member['student_id']])->one();
+                                ?>
+                                <tr>
+                                    <td><?= Html::encode($member['name']) ?></td>
+                                    <td><?= Html::encode($member['student_id']) ?></td>
+                                    <td><?= Html::encode($member['major']) ?></td>
+                                    <td><?= Html::encode($member['role']) ?></td>
+                                    <td><?= Html::encode($member['bio']) ?></td>
+                                    <td>
+                                        <?php if ($user): ?>
+                                            <a href="<?= Url::to(['/site/profile', 'id' => $user->id]) ?>" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-user"></i> 个人主页
+                                            </a>
+                                        <?php else: ?>
+                                            <span class="text-muted">暂无</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -55,11 +160,4 @@ $this->title = '团队介绍';
         </div>
     </div>
 
-    <footer class="sticky-footer bg-white mt-4">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; 抗战纪念队 2023</span>
-            </div>
-        </div>
-    </footer>
 </div>

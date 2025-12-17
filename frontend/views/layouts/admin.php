@@ -69,13 +69,6 @@ SbAdmin2Asset::register($this);
                 <span>抗战历史</span></a>
         </li>
 
-        <!-- Nav Item - 留言管理 -->
-        <li class="nav-item">
-            <a class="nav-link" href="<?= Url::to(['/message/index']) ?>">
-                <i class="fas fa-fw fa-comments"></i>
-                <span>留言管理</span></a>
-        </li>
-
         <!-- Nav Item - 作业管理 -->
         <li class="nav-item">
             <a class="nav-link" href="#">
