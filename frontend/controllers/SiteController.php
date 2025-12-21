@@ -199,6 +199,29 @@ class SiteController extends Controller
     }
 
     /**
+     * 英雄详情页面
+     * @param int $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionHeroDetail($id)
+    {
+        $this->layout = 'sb-admin-2';
+
+        $hero = Hero::find()
+            ->where(['id' => $id, 'status' => Hero::STATUS_ACTIVE])
+            ->one();
+
+        if (!$hero) {
+            throw new \yii\web\NotFoundHttpException('英雄不存在');
+        }
+
+        return $this->render('hero-detail', [
+            'model' => $hero,
+        ]);
+    }
+
+    /**
      * Displays document1 page.
      *
      * @return mixed
@@ -229,6 +252,17 @@ class SiteController extends Controller
     {
         $this->layout = 'sb-admin-2';
         return $this->render('document3');
+    }
+
+    /**
+     * Displays document4 page.
+     *
+     * @return mixed
+     */
+    public function actionDocument4()
+    {
+        $this->layout = 'sb-admin-2';
+        return $this->render('document4');
     }
 
     /**
@@ -563,15 +597,44 @@ class SiteController extends Controller
 
     /**
      * Displays formation page for a given type (infantry, airforce, navy, equipment)
+     * and optional year (null/1949/2025) to show different era equipment & troops.
+     *
+     * @param string $type
+     * @param int|null $year
+     * @return string
+     * @throws \yii\web\BadRequestHttpException
      */
-    public function actionFormation($type = 'infantry')
+    public function actionFormation($type = 'infantry', $year = null)
     {
         $this->layout = 'sb-admin-2';
-        $allowed = ['infantry','airforce','navy','equipment'];
-        if (!in_array($type, $allowed)) {
+        $allowedTypes = ['infantry','airforce','navy','equipment'];
+        if (!in_array($type, $allowedTypes, true)) {
             throw new \yii\web\BadRequestHttpException('Invalid formation type');
         }
-        return $this->render('formation', ['type' => $type]);
+
+        // 将 URL 传入的字符串年份统一转换为整数，便于后续校验
+        if ($year !== null) {
+            $year = (int)$year;
+        }
+
+        $allowedYears = [null, 1949, 2025];
+        if (!in_array($year, $allowedYears, true)) {
+            throw new \yii\web\BadRequestHttpException('Invalid formation year');
+        }
+
+        // 无年份时，显示总览页面；有具体年份时，跳转到对应专门页面
+        if ($year === null) {
+            return $this->render('formation', [
+                'type' => $type,
+                'year' => null,
+            ]);
+        }
+
+        $view = sprintf('formation-%s-%d', $type, $year);
+        return $this->render($view, [
+            'type' => $type,
+            'year' => $year,
+        ]);
     }
 
     /**

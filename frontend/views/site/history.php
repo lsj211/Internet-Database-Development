@@ -151,14 +151,19 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                 <div class="row">
                     <?php foreach ($heroes as $hero): ?>
+                    <?php $heroDetailUrl = Url::to(['site/hero-detail', 'id' => $hero->id]); ?>
                     <div class="col-lg-4 col-md-6 mb-3">
                         <div class="card h-100" style="font-size: 0.9rem;">
-                            <img class="card-img-top" src="<?= Url::to($hero->image_url) ?>" 
-                                 alt="<?= \yii\helpers\Html::encode($hero->name) ?>" 
-                                 style="max-height: 200px; object-fit: cover;"
-                                 onerror="this.src='<?= Url::to('@web/img/undraw_profile.svg') ?>'">
+                            <a href="<?= $heroDetailUrl ?>">
+                                <img class="card-img-top" src="<?= Url::to($hero->image_url) ?>" 
+                                     alt="<?= \yii\helpers\Html::encode($hero->name) ?>" 
+                                     style="max-height: 200px; object-fit: cover;"
+                                     onerror="this.src='<?= Url::to('@web/img/undraw_profile.svg') ?>'">
+                            </a>
                             <div class="card-body">
-                                <h6 class="card-title mb-2"><?= \yii\helpers\Html::encode($hero->name) ?></h6>
+                                <h6 class="card-title mb-2">
+                                    <a href="<?= $heroDetailUrl ?>"><?= \yii\helpers\Html::encode($hero->name) ?></a>
+                                </h6>
                                 <?php if ($hero->title): ?>
                                     <p class="card-text text-muted mb-2"><small><?= \yii\helpers\Html::encode($hero->title) ?></small></p>
                                 <?php endif; ?>
@@ -215,13 +220,31 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                 <div class="row">
                     <?php foreach ($materials as $material): ?>
+                    <?php
+                        $detailUrl = null;
+                        if (strpos($material->image_url, 'document1.jpg') !== false) {
+                            $detailUrl = Url::to(['site/document1']);
+                        } elseif (strpos($material->image_url, 'document2.jpg') !== false) {
+                            $detailUrl = Url::to(['site/document2']);
+                        } elseif (strpos($material->image_url, 'document3.jpg') !== false) {
+                            $detailUrl = Url::to(['site/document3']);
+                        } elseif (strpos($material->image_url, 'document4.jpg') !== false) {
+                            $detailUrl = Url::to(['site/document4']);
+                        }
+                    ?>
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
+                            <?php if ($detailUrl): ?><a href="<?= $detailUrl ?>"><?php endif; ?>
                             <img class="card-img-top" src="<?= Url::to($material->image_url) ?>" 
                                  alt="<?= \yii\helpers\Html::encode($material->title) ?>" 
                                  onerror="this.src='<?= Url::to('@web/img/undraw_posting_photo.svg') ?>'">
+                            <?php if ($detailUrl): ?></a><?php endif; ?>
                             <div class="card-body">
-                                <h5 class="card-title"><?= \yii\helpers\Html::encode($material->title) ?></h5>
+                                <?php if ($detailUrl): ?>
+                                    <h5 class="card-title"><a href="<?= $detailUrl ?>"><?= \yii\helpers\Html::encode($material->title) ?></a></h5>
+                                <?php else: ?>
+                                    <h5 class="card-title"><?= \yii\helpers\Html::encode($material->title) ?></h5>
+                                <?php endif; ?>
                                 <?php if ($material->category): ?>
                                     <span class="badge badge-primary mb-2"><?= \yii\helpers\Html::encode($material->category) ?></span>
                                 <?php endif; ?>

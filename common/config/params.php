@@ -6,6 +6,6 @@ return [
     'senderName' => '抗战纪念队',
     'user.passwordResetTokenExpire' => 3600,
     // 可配置的视频/音频接口地址，便于后续对接真实媒体文件
-    'memorialVideoUrl' => 'https://example.com/videos/memorial.mp4',
+    'memorialVideoUrl' => '/videos/memorial.mp4',
     'anthemUrl' => 'https://example.com/media/anthem.mp3',
 ];

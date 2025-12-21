@@ -235,24 +235,126 @@ $this->title = '阅兵仪式';
                     </div>
                 </div>
 
-                <!-- Virtual Reality Notice -->
+                <!-- Parade Quiz -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card bg-gradient-primary text-white">
+                        <div class="card bg-gradient-primary text-white mb-4">
                             <div class="card-body text-center">
-                                <h5 class="card-title">虚拟现实阅兵体验</h5>
-                                <p class="card-text">通过现代技术，重现抗战胜利阅兵的盛大场面，让历史鲜活起来。</p>
-                                <button class="btn btn-light btn-lg" onclick="startVRExperience()">
-                                    <i class="fas fa-vr-cardboard"></i> 开始VR体验
+                                <h5 class="card-title">阅兵知识小测验</h5>
+                                <p class="card-text mb-3">通过 5 道小题，检验一下你对阅兵流程、方阵和抗战历史的了解程度。</p>
+                                <button class="btn btn-light btn-lg" onclick="openParadeQuiz()">
+                                    <i class="fas fa-question-circle"></i> 开始答题
                                 </button>
                                 <p class="mt-2 mb-0">
-                                    <small>建议使用VR眼镜获得最佳体验</small>
+                                    <small>答完后会给出得分和简单评价，欢迎多次挑战。</small>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- 阅兵知识小测验 Modal -->
+    <div class="modal fade" id="paradeQuizModal" tabindex="-1" role="dialog" aria-labelledby="paradeQuizModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paradeQuizModalLabel">阅兵知识小测验</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="paradeQuizForm">
+                        <div class="mb-3" data-quiz-question="1">
+                            <p class="font-weight-bold">1. 在本页面设计的阅兵时间线中，哪一个环节标志着阅兵正式开始？</p>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q1" id="q1a" value="a">
+                                <label class="custom-control-label" for="q1a">A. 步兵方阵通过天安门</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q1" id="q1b" value="b">
+                                <label class="custom-control-label" for="q1b">B. 升国旗，奏国歌</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q1" id="q1c" value="c">
+                                <label class="custom-control-label" for="q1c">C. 装备展示开始</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" data-quiz-question="2">
+                            <p class="font-weight-bold">2. 在本系统的阅兵流程中，哪一个方阵最先接受检阅？</p>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q2" id="q2a" value="a">
+                                <label class="custom-control-label" for="q2a">A. 海军方阵</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q2" id="q2b" value="b">
+                                <label class="custom-control-label" for="q2b">B. 步兵方阵</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q2" id="q2c" value="c">
+                                <label class="custom-control-label" for="q2c">C. 空军方阵</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" data-quiz-question="3">
+                            <p class="font-weight-bold">3. 本系统中，哪一个模块主要用于回顾抗战中的英雄人物与历史事件？</p>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q3" id="q3a" value="a">
+                                <label class="custom-control-label" for="q3a">A. 抗战历史板块</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q3" id="q3b" value="b">
+                                <label class="custom-control-label" for="q3b">B. 作业下载板块</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q3" id="q3c" value="c">
+                                <label class="custom-control-label" for="q3c">C. 团队介绍板块</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" data-quiz-question="4">
+                            <p class="font-weight-bold">4. 阅兵中的“抗战装备展示”主要体现了哪一方面的内容？</p>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q4" id="q4a" value="a">
+                                <label class="custom-control-label" for="q4a">A. 仅展示现代高科技武器</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q4" id="q4b" value="b">
+                                <label class="custom-control-label" for="q4b">B. 展示抗战时期战士使用的典型装备</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q4" id="q4c" value="c">
+                                <label class="custom-control-label" for="q4c">C. 只展示礼仪用旗帜与服装</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-1" data-quiz-question="5">
+                            <p class="font-weight-bold">5. 本系统的“参与阅兵”按钮，主要想营造怎样的一种体验？</p>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q5" id="q5a" value="a">
+                                <label class="custom-control-label" for="q5a">A. 用户可以真正报名参加现实中的阅兵</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q5" id="q5b" value="b">
+                                <label class="custom-control-label" for="q5b">B. 通过虚拟人数和动画，增加参与感和互动性</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" name="q5" id="q5c" value="c">
+                                <label class="custom-control-label" for="q5c">C. 用来统计真实报名人数并上报后台</label>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="paradeQuizResult" class="mt-3 text-center text-primary font-weight-bold" style="display:none;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="paradeQuizNextBtn" onclick="submitParadeQuizStep()">提交本题</button>
+                </div>
             </div>
         </div>
     </div>
@@ -264,7 +366,128 @@ $this->title = '阅兵仪式';
         function shareOnWechat(){ showNotification('已生成微信分享链接，请复制分享','info'); }
         function shareOnWeibo(){ showNotification('已分享到微博','info'); }
         function shareOnQQ(){ showNotification('已分享到QQ','info'); }
-        function startVRExperience(){ showNotification('VR体验功能正在开发中，敬请期待！','warning'); }
+        // 阅兵知识小测验逻辑：逐题作答，答错给出解析，然后进入下一题
+
+        const paradeQuizConfig = {
+            total: 5,
+            answers: {
+                q1: {
+                    correct: 'b',
+                    explanation: '在时间线里写明：09:00 升国旗、奏国歌，阅兵仪式正式开始，所以 B 是正确答案。'
+                },
+                q2: {
+                    correct: 'b',
+                    explanation: '时间线中 09:30 是步兵方阵接受检阅，走在空军和海军前面，所以最先接受检阅的是步兵方阵。'
+                },
+                q3: {
+                    correct: 'a',
+                    explanation: '“抗战历史”板块集中展示英雄人物、历史事件和史料详情，是回顾抗战历史的主要模块。'
+                },
+                q4: {
+                    correct: 'b',
+                    explanation: '本页面中的“抗战装备展示”介绍的是抗战时期战士使用的典型装备，而不是单纯的现代高科技武器或礼仪用品。'
+                },
+                q5: {
+                    correct: 'b',
+                    explanation: '“参与阅兵”通过增加虚拟人数、加入小人动画，营造的是一种互动参与感，而不是现实报名统计。'
+                }
+            }
+        };
+
+        let paradeQuizCurrent = 1;
+        let paradeQuizScore = 0;
+
+        function showParadeQuizQuestion(index){
+            const blocks = document.querySelectorAll('#paradeQuizForm [data-quiz-question]');
+            blocks.forEach(function(block){
+                const v = parseInt(block.getAttribute('data-quiz-question'), 10);
+                block.style.display = (v === index) ? '' : 'none';
+            });
+
+            const btn = document.getElementById('paradeQuizNextBtn');
+            if (btn) {
+                if (index < paradeQuizConfig.total) {
+                    btn.textContent = `提交本题并进入下一题 (${index}/${paradeQuizConfig.total})`;
+                } else {
+                    btn.textContent = `提交最后一题 (${index}/${paradeQuizConfig.total})`;
+                }
+            }
+        }
+
+        function resetParadeQuiz(){
+            paradeQuizCurrent = 1;
+            paradeQuizScore = 0;
+
+            const form = document.getElementById('paradeQuizForm');
+            if (form && typeof form.reset === 'function') {
+                form.reset();
+            }
+            const resultEl = document.getElementById('paradeQuizResult');
+            if (resultEl) {
+                resultEl.style.display = 'none';
+                resultEl.textContent = '';
+            }
+            showParadeQuizQuestion(paradeQuizCurrent);
+        }
+
+        function openParadeQuiz(){
+            try {
+                $('#paradeQuizModal').modal('show');
+            } catch (e) {
+                // 如果 Bootstrap JS 未加载，仍然保证内容可见
+                const modal = document.getElementById('paradeQuizModal');
+                if (modal) modal.style.display = 'block';
+            }
+            resetParadeQuiz();
+        }
+
+        function submitParadeQuizStep(){
+            const form = document.getElementById('paradeQuizForm');
+            if (!form) return;
+
+            const qName = 'q' + paradeQuizCurrent;
+            const config = paradeQuizConfig.answers[qName];
+            if (!config) return;
+
+            const checked = form.querySelector('input[name="' + qName + '"]:checked');
+            if (!checked) {
+                showNotification('请先选择本题的一个选项','warning');
+                return;
+            }
+
+            if (checked.value === config.correct) {
+                paradeQuizScore++;
+                showNotification('回答正确！继续下一题～','success');
+            } else {
+                showNotification('回答错误：' + config.explanation, 'danger');
+            }
+
+            // 进入下一题或展示总结果
+            if (paradeQuizCurrent < paradeQuizConfig.total) {
+                paradeQuizCurrent++;
+                showParadeQuizQuestion(paradeQuizCurrent);
+            } else {
+                const resultEl = document.getElementById('paradeQuizResult');
+                if (resultEl) {
+                    let msg = `本次你一共答对 ${paradeQuizScore} / ${paradeQuizConfig.total} 题。`;
+                    if (paradeQuizScore === paradeQuizConfig.total) {
+                        msg += ' 太棒了，你对阅兵流程和本系统非常熟悉！';
+                    } else if (paradeQuizScore >= 3) {
+                        msg += ' 表现不错，对阅兵已经有比较全面的了解。';
+                    } else {
+                        msg += ' 建议多看看“抗战历史”和各个方阵页面，再来挑战一次！';
+                    }
+                    resultEl.textContent = msg;
+                    resultEl.style.display = 'block';
+                }
+
+                const btn = document.getElementById('paradeQuizNextBtn');
+                if (btn) {
+                    btn.textContent = '重新开始小测验';
+                    btn.onclick = function(){ resetParadeQuiz(); };
+                }
+            }
+        }
         function showNotification(message,type){ const notification=document.createElement('div'); notification.className=`alert alert-${type} alert-dismissible fade show position-fixed`; notification.style.cssText='top:20px; right:20px; z-index:9999; min-width:300px;'; notification.innerHTML=`${message}<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>`; document.body.appendChild(notification); setTimeout(()=>{ try{ $(notification).alert('close'); }catch(e){ notification.remove(); } },3000); }
         function loadAnthem(){ fetch('<?= Url::to(['site/anthem']) ?>').then(r=>r.json()).then(data=>{ if(data && data.url){ const audio = document.getElementById('anthemAudio'); if(audio){ // replace source
                 const src = audio.querySelector('source') || null;
