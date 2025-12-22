@@ -14,6 +14,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 /**
  * HistoricalMaterialController implements the CRUD actions for HistoricalMaterial model.
@@ -26,6 +28,15 @@ class HistoricalMaterialController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -75,9 +86,12 @@ class HistoricalMaterialController extends Controller
     {
         $model = new HistoricalMaterial();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $this->handleImageUpload($model);
+            if ($model->save()) {
             Yii::$app->session->setFlash('success', '史料创建成功');
             return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -96,9 +110,12 @@ class HistoricalMaterialController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $this->handleImageUpload($model);
+            if ($model->save()) {
             Yii::$app->session->setFlash('success', '史料更新成功');
             return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -135,5 +152,23 @@ class HistoricalMaterialController extends Controller
         }
 
         throw new NotFoundHttpException('请求的页面不存在。');
+    }
+
+    private function handleImageUpload(HistoricalMaterial $model)
+    {
+        $imageFile = UploadedFile::getInstance($model, 'imageFile');
+        if (!$imageFile) {
+            return;
+        }
+
+        $fileName = 'material_' . time() . '_' . uniqid() . '.' . $imageFile->extension;
+        $uploadPath = Yii::getAlias('@frontend/web/uploads/materials/');
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+
+        if ($imageFile->saveAs($uploadPath . $fileName)) {
+            $model->image_url = '@web/uploads/materials/' . $fileName;
+        }
     }
 }

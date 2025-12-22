@@ -143,13 +143,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">抗战英雄人物</h6>
-                <?php if (!Yii::$app->user->isGuest): ?>
-                <div>
-                    <a href="<?= Url::to(['/content/edit-hero']) ?>" class="btn btn-sm btn-success">
-                        <i class="fas fa-plus"></i> 新建英雄
-                    </a>
-                </div>
-                <?php endif; ?>
             </div>
             <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                 <div class="row">
@@ -184,18 +177,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?= $hero->birth_year ? $hero->birth_year : '?' ?>年 - <?= $hero->death_year ? $hero->death_year : '?' ?>年
                                     </small></p>
                                 <?php endif; ?>
-                                <?php if (!Yii::$app->user->isGuest): ?>
-                                <div class="mt-2">
-                                    <a href="<?= Url::to(['/content/edit-hero', 'id' => $hero->id]) ?>" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-edit"></i> 编辑
-                                    </a>
-                                    <a href="<?= Url::to(['/content/delete-hero', 'id' => $hero->id]) ?>" 
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('确定要删除吗？')">
-                                        <i class="fas fa-trash"></i> 删除
-                                    </a>
-                                </div>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -212,13 +193,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">抗战史料</h6>
-                <?php if (!Yii::$app->user->isGuest): ?>
-                <div>
-                    <a href="<?= Url::to(['/content/edit-material']) ?>" class="btn btn-sm btn-success">
-                        <i class="fas fa-plus"></i> 新建史料
-                    </a>
-                </div>
-                <?php endif; ?>
             </div>
             <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                 <div class="row">
@@ -259,18 +233,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php endif; ?>
                                 <?php if ($material->source): ?>
                                     <p class="card-text"><small class="text-muted">来源：<?= \yii\helpers\Html::encode($material->source) ?></small></p>
-                                <?php endif; ?>
-                                <?php if (!Yii::$app->user->isGuest): ?>
-                                <div class="mt-2">
-                                    <a href="<?= Url::to(['/content/edit-material', 'id' => $material->id]) ?>" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-edit"></i> 编辑
-                                    </a>
-                                    <a href="<?= Url::to(['/content/delete-material', 'id' => $material->id]) ?>" 
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('确定要删除吗？')">
-                                        <i class="fas fa-trash"></i> 删除
-                                    </a>
-                                </div>
                                 <?php endif; ?>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ return [
     'supportEmail' => '1461167893@qq.com',
     'senderEmail' => '1461167893@qq.com',
     'senderName' => '抗战纪念队',
+    'backendBaseUrl' => null,
     'user.passwordResetTokenExpire' => 3600,
     // 可配置的视频/音频接口地址，便于后续对接真实媒体文件
     'memorialVideoUrl' => '/videos/memorial.mp4',

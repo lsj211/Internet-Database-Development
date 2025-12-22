@@ -162,10 +162,26 @@ function ensureComposerPhar($phpExe, $projectRoot) {
         return [false, "下载 composer installer 失败（网络/SSL）。\n" . implode("\n", $d1['output'])];
     }
 
-    $d2 = execCommand("\"$phpExe\" -r \"copy('https://composer.github.io/installer.sig', 'installer.sig');\"", $projectRoot);
-    if ($d2['return'] !== 0 || !file_exists($sigFile)) {
+    $sigUrls = [
+        'https://composer.github.io/installer.sig',
+        'https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig',
+    ];
+    $d2 = null;
+    foreach ($sigUrls as $sigUrl) {
+        $d2 = execCommand("\"$phpExe\" -r \"copy('{$sigUrl}', 'installer.sig');\"", $projectRoot);
+        if ($d2['return'] === 0 && file_exists($sigFile)) break;
+    }
+    if (!$d2 || $d2['return'] !== 0 || !file_exists($sigFile)) {
         @unlink($installer);
-        return [false, "下载 installer.sig 失败。\n" . implode("\n", $d2['output'])];
+
+        // Fallback: direct composer.phar download (no signature check).
+        $directUrl = 'https://getcomposer.org/download/latest-stable/composer.phar';
+        $direct = execCommand("\"$phpExe\" -r \"copy('{$directUrl}', 'composer.phar');\"", $projectRoot);
+        if ($direct['return'] === 0 && file_exists($composerPhar)) {
+            return [true, "composer.phar downloaded without signature check.\n" . implode("\n", $direct['output'])];
+        }
+
+        return [false, "installer.sig download failed.\n" . implode("\n", $d2 ? $d2['output'] : []) . "\n\nDirect composer.phar download failed:\n" . implode("\n", $direct['output'])];
     }
 
     $expected = strtolower(trim((string)@file_get_contents($sigFile)));
@@ -310,10 +326,8 @@ if ($action) {
                 echo json_encode(['success'=>true,'message'=>'main-local.php 已存在，跳过 init'], JSON_UNESCAPED_UNICODE);
                 break;
             }
-            $envChoice = ($cfg['init_env'] ?? 'dev') === 'prod' ? '1' : '0';
-            $cmd = isWindows()
-                ? 'cmd /c "echo ' . $envChoice . ' | "' . $phpExe . '" init --interactive=0"'
-                : 'sh -c "echo ' . escapeshellarg($envChoice) . ' | ' . escapeshellarg($phpExe) . ' init --interactive=0"';
+            $envName = (($cfg['init_env'] ?? 'dev') === 'prod') ? 'Production' : 'Development';
+            $cmd = "\"$phpExe\" init --env={$envName} --overwrite=All";
 
             $res = execCommand($cmd, $projectRoot);
             echo json_encode([

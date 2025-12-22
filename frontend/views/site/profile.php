@@ -11,7 +11,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $user common\models\User */
+/* @var $user common\models\Member */
 /* @var $comments array */
 /* @var $commentModel common\models\ProfileComment */
 

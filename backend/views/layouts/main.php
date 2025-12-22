@@ -36,11 +36,14 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => '管理员信息', 'url' => ['/site/profile']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => '英雄管理', 'url' => ['/hero/index']];
+        $menuItems[] = ['label' => '史料管理', 'url' => ['/historical-material/index']];
+        $menuItems[] = ['label' => '注册管理员', 'url' => ['/site/register-admin']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

@@ -133,7 +133,7 @@ $this->title = '团队介绍';
                                 ];
                                 foreach ($members as $member):
                                     // 尝试根据学号找到对应用户
-                                    $user = \common\models\User::find()->where(['student_id' => $member['student_id']])->one();
+                                    $user = \common\models\Member::find()->where(['student_id' => $member['student_id']])->one();
                                 ?>
                                 <tr>
                                     <td><?= Html::encode($member['name']) ?></td>

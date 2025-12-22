@@ -34,7 +34,7 @@ class FlowerOffering extends ActiveRecord
             [['ip_address', 'created_at'], 'required'],
             [['user_id', 'created_at'], 'integer'],
             [['ip_address'], 'string', 'max' => 45],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Member::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -50,7 +50,7 @@ class FlowerOffering extends ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasOne(Member::class, ['id' => 'user_id']);
     }
     
     /**

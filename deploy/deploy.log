@@ -124,3 +124,434 @@ Use the `composer fund` command to find out more!
 Yii Migration Tool (based on Yii v2.0.53)
 
 No new migrations found. Your system is up-to-date.
+[2025-12-22 14:56:34] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+[2025-12-22 14:56:42] è¿”å›ç : 0
+[2025-12-22 14:56:42] è¾“å‡º:
+
+[2025-12-22 14:56:42] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://composer.github.io/installer.sig', 'installer.sig');"
+[2025-12-22 14:56:43] è¿”å›ç : 0
+[2025-12-22 14:56:43] è¾“å‡º:
+PHP Warning:  copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+PHP Warning:  copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+[2025-12-22 14:58:33] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+[2025-12-22 14:58:48] è¿”å›ç : 0
+[2025-12-22 14:58:48] è¾“å‡º:
+
+[2025-12-22 14:58:48] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://composer.github.io/installer.sig', 'installer.sig');"
+[2025-12-22 14:58:48] è¿”å›ç : 0
+[2025-12-22 14:58:48] è¾“å‡º:
+PHP Warning:  copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+PHP Warning:  copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+[2025-12-22 15:01:02] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+[2025-12-22 15:01:05] è¿”å›ç : 0
+[2025-12-22 15:01:05] è¾“å‡º:
+
+[2025-12-22 15:01:05] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://composer.github.io/installer.sig', 'installer.sig');"
+[2025-12-22 15:01:06] è¿”å›ç : 0
+[2025-12-22 15:01:06] è¾“å‡º:
+PHP Warning:  copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+PHP Warning:  copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+[2025-12-22 15:01:06] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://getcomposer.org/installer.sig', 'installer.sig');"
+[2025-12-22 15:01:08] è¿”å›ç : 0
+[2025-12-22 15:01:08] è¾“å‡º:
+PHP Warning:  copy(https://getcomposer.org/installer.sig): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in Command line code on line 1
+
+Warning: copy(https://getcomposer.org/installer.sig): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in Command line code on line 1
+[2025-12-22 15:02:17] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+[2025-12-22 15:02:27] è¿”å›ç : 0
+[2025-12-22 15:02:27] è¾“å‡º:
+
+[2025-12-22 15:02:27] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://composer.github.io/installer.sig', 'installer.sig');"
+[2025-12-22 15:02:27] è¿”å›ç : 0
+[2025-12-22 15:02:27] è¾“å‡º:
+PHP Warning:  copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+PHP Warning:  copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+[2025-12-22 15:02:27] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig', 'installer.sig');"
+[2025-12-22 15:02:50] è¿”å›ç : 0
+[2025-12-22 15:02:50] è¾“å‡º:
+PHP Warning:  copy(https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig): Failed to open stream: HTTP request failed! in Command line code on line 1
+
+Warning: copy(https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig): Failed to open stream: HTTP request failed! in Command line code on line 1
+[2025-12-22 15:11:02] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 15:11:02] è¿”å›ç : 0
+[2025-12-22 15:11:02] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 15:11:02] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 15:14:40] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 15:14:40] è¿”å›ç : 0
+[2025-12-22 15:14:40] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 15:14:40] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 15:14:42] è¿”å›ç : 0
+[2025-12-22 15:14:42] è¾“å‡º:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 15:14:42] æ‰§è¡Œå‘½ä»¤: cmd /c "echo 0 | "G:\xampp\php\php.exe" init --interactive=0"
+[2025-12-22 15:14:42] è¿”å›ç : 0
+[2025-12-22 15:14:42] è¾“å‡º:
+Yii Application Initialization Tool v1.0
+
+Which environment do you want the application to be initialized in?
+
+  [0] Development
+  [1] Production
+
+  Your choice [0-1, or "q" to quit]
+  Initialize the application under 'Development' environment? [yes|no]
+  Quit initialization.
+[2025-12-22 15:15:18] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 15:15:18] è¿”å›ç : 0
+[2025-12-22 15:15:18] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 15:15:18] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 15:15:19] è¿”å›ç : 0
+[2025-12-22 15:15:19] è¾“å‡º:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 15:15:19] æ‰§è¡Œå‘½ä»¤: cmd /c "echo 0 | "G:\xampp\php\php.exe" init --interactive=0"
+[2025-12-22 15:15:20] è¿”å›ç : 0
+[2025-12-22 15:15:20] è¾“å‡º:
+Yii Application Initialization Tool v1.0
+
+Which environment do you want the application to be initialized in?
+
+  [0] Development
+  [1] Production
+
+  Your choice [0-1, or "q" to quit]
+  Initialize the application under 'Development' environment? [yes|no]
+  Quit initialization.
+[2025-12-22 15:25:20] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 15:25:21] è¿”å›ç : 0
+[2025-12-22 15:25:21] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 15:25:21] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 15:25:22] è¿”å›ç : 0
+[2025-12-22 15:25:22] è¾“å‡º:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 15:25:22] æ‰§è¡Œå‘½ä»¤: cmd /c "echo 0 | "G:\xampp\php\php.exe" init --interactive=0"
+[2025-12-22 15:25:22] è¿”å›ç : 0
+[2025-12-22 15:25:22] è¾“å‡º:
+Yii Application Initialization Tool v1.0
+
+Which environment do you want the application to be initialized in?
+
+  [0] Development
+  [1] Production
+
+  Your choice [0-1, or "q" to quit]
+  Initialize the application under 'Development' environment? [yes|no]
+  Quit initialization.
+[2025-12-22 15:28:52] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 15:28:53] è¿”å›ç : 0
+[2025-12-22 15:28:53] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 15:28:53] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 15:28:55] è¿”å›ç : 0
+[2025-12-22 15:28:55] è¾“å‡º:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 15:28:55] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" init --env=Development --overwrite=All
+[2025-12-22 15:28:55] è¿”å›ç : 0
+[2025-12-22 15:28:55] è¾“å‡º:
+Yii Application Initialization Tool v1.0
+
+
+  Start initialization ...
+
+   generate backend/config/codeception-local.php
+   generate backend/config/main-local.php
+   generate backend/config/params-local.php
+   generate backend/config/test-local.php
+   generate backend/web/index-test.php
+   generate backend/web/index.php
+   generate backend/web/robots.txt
+   generate common/config/codeception-local.php
+   generate common/config/main-local.php
+   generate common/config/params-local.php
+   generate common/config/test-local.php
+   generate console/config/main-local.php
+   generate console/config/params-local.php
+   generate console/config/test-local.php
+   generate frontend/config/codeception-local.php
+   generate frontend/config/main-local.php
+   generate frontend/config/params-local.php
+   generate frontend/config/test-local.php
+   generate frontend/web/index-test.php
+   generate frontend/web/index.php
+   generate frontend/web/robots.txt
+   generate yii
+   generate yii_test
+   generate yii_test.bat
+   generate cookie validation key in backend/config/main-local.php
+   generate cookie validation key in common/config/codeception-local.php
+   generate cookie validation key in frontend/config/main-local.php
+      chmod 0777 backend/runtime
+      chmod 0777 backend/web/assets
+      chmod 0777 console/runtime
+      chmod 0777 frontend/runtime
+      chmod 0777 frontend/web/assets
+      chmod 0755 yii
+      chmod 0755 yii_test
+
+  ... initialization completed.
+
+[2025-12-22 15:28:55] æ‰§è¡Œå‘½ä»¤: "G:\xampp\mysql\bin\mysql.exe" -h "localhost" -P "3307" -u "root" < "C:\Users\Lenovo\AppData\Local\Temp\yii2_create_db_1766413735.sql"
+[2025-12-22 15:28:56] è¿”å›ç : 0
+[2025-12-22 15:28:56] è¾“å‡º:
+
+[2025-12-22 15:28:56] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" yii migrate --interactive=0
+[2025-12-22 15:28:57] è¿”å›ç : 0
+[2025-12-22 15:28:57] è¾“å‡º:
+Yii Migration Tool (based on Yii v2.0.53)
+
+No new migrations found. Your system is up-to-date.
+[2025-12-22 15:33:06] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+[2025-12-22 15:33:11] è¿”å›ç : 0
+[2025-12-22 15:33:11] è¾“å‡º:
+
+[2025-12-22 15:33:11] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://composer.github.io/installer.sig', 'installer.sig');"
+[2025-12-22 15:33:11] è¿”å›ç : 0
+[2025-12-22 15:33:11] è¾“å‡º:
+PHP Warning:  copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+PHP Warning:  copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+[2025-12-22 15:33:11] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig', 'installer.sig');"
+[2025-12-22 15:33:12] è¿”å›ç : 0
+[2025-12-22 15:33:12] è¾“å‡º:
+
+[2025-12-22 15:33:12] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer-setup.php --install-dir=. --filename=composer.phar
+[2025-12-22 15:33:55] è¿”å›ç : 0
+[2025-12-22 15:33:55] è¾“å‡º:
+All settings correct for using Composer
+Downloading...
+
+Composer (version 2.9.2) successfully installed to: G:\xampp\htdocs\Internet-Database-Development\composer.phar
+Use it: php ./composer.phar
+
+[2025-12-22 15:33:55] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 15:33:56] è¿”å›ç : 0
+[2025-12-22 15:33:56] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 15:33:56] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 15:35:23] è¿”å›ç : 0
+[2025-12-22 15:35:23] è¾“å‡º:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Package operations: 22 installs, 0 updates, 0 removals
+    Failed to download yiisoft/yii2-composer from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yiisoft/yii2-composer (2.0.11) into cache
+    Failed to download cebe/markdown from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing cebe/markdown (1.2.1) into cache
+    Failed to download doctrine/deprecations from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing doctrine/deprecations (1.1.4) into cache
+    Failed to download symfony/polyfill-intl-normalizer from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing symfony/polyfill-intl-normalizer (v1.32.0) into cache
+    Failed to download symfony/polyfill-intl-idn from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing symfony/polyfill-intl-idn (v1.32.0) into cache
+    Failed to download doctrine/lexer from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing doctrine/lexer (2.1.1) into cache
+    Failed to download egulias/email-validator from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing egulias/email-validator (3.2.6) into cache
+    Failed to download ezyang/htmlpurifier from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing ezyang/htmlpurifier (v4.19.0) into cache
+    Failed to download psr/container from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing psr/container (2.0.2) into cache
+    Failed to download symfony/deprecation-contracts from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing symfony/deprecation-contracts (v3.5.1) into cache
+    Failed to download symfony/polyfill-iconv from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing symfony/polyfill-iconv (v1.32.0) into cache
+    Failed to download symfony/polyfill-mbstring from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing symfony/polyfill-mbstring (v1.32.0) into cache
+    Failed to download yidas/yii2-bower-asset from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yidas/yii2-bower-asset (2.0.13.1) into cache
+    Failed to download yiisoft/yii2 from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yiisoft/yii2 (2.0.53) into cache
+    Failed to download yiisoft/yii2-bootstrap from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yiisoft/yii2-bootstrap (2.0.11) into cache
+    Failed to download yiisoft/yii2-debug from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yiisoft/yii2-debug (2.1.27) into cache
+    Failed to download fakerphp/faker from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing fakerphp/faker (v1.23.1) into cache
+    Failed to download yiisoft/yii2-faker from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yiisoft/yii2-faker (2.0.5) into cache
+    Failed to download phpspec/php-diff from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing phpspec/php-diff (v1.1.3) into cache
+    Failed to download yiisoft/yii2-gii from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yiisoft/yii2-gii (2.1.4) into cache
+    Failed to download swiftmailer/swiftmailer from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing swiftmailer/swiftmailer (v6.3.0) into cache
+    Failed to download yiisoft/yii2-swiftmailer from dist: The zip extension and unzip/7z commands are both missing, skipping.
+The php.ini used by your command-line PHP is: G:\xampp\php\php.ini
+    Now trying to download from source
+  - Syncing yiisoft/yii2-swiftmailer (2.1.3) into cache
+    0 [>---------------------------]    0 [->--------------------------]
+  - Installing yiisoft/yii2-composer (2.0.11): Cloning b684b01ecb from cache
+  - Installing cebe/markdown (1.2.1): Cloning 9bac5e971d from cache
+  - Installing doctrine/deprecations (1.1.4): Cloning 31610dbb31 from cache
+  - Installing symfony/polyfill-intl-normalizer (v1.32.0): Cloning 3833d7255c from cache
+  - Installing symfony/polyfill-intl-idn (v1.32.0): Cloning 9614ac4d80 from cache
+  - Installing doctrine/lexer (2.1.1): Cloning 861c870e8b from cache
+  - Installing egulias/email-validator (3.2.6): Cloning e5997fa97e from cache
+  - Installing ezyang/htmlpurifier (v4.19.0): Cloning b287d2a16a from cache
+  - Installing psr/container (2.0.2): Cloning c71ecc56df from cache
+  - Installing symfony/deprecation-contracts (v3.5.1): Cloning 74c71c939a from cache
+  - Installing symfony/polyfill-iconv (v1.32.0): Cloning 5f3b930437 from cache
+  - Installing symfony/polyfill-mbstring (v1.32.0): Cloning 6d857f4d76 from cache
+  - Installing yidas/yii2-bower-asset (2.0.13.1): Cloning 056dd55087 from cache
+  - Installing yiisoft/yii2 (2.0.53): Cloning 6c622fb824 from cache
+  - Installing yiisoft/yii2-bootstrap (2.0.11): Cloning 83d144f408 from cache
+  - Installing yiisoft/yii2-debug (2.1.27): Cloning 44e1589149 from cache
+  - Installing fakerphp/faker (v1.23.1): Cloning bfb4fe148a from cache
+  - Installing yiisoft/yii2-faker (2.0.5): Cloning 8c36165714 from cache
+  - Installing phpspec/php-diff (v1.1.3): Cloning fc1156187f from cache
+  - Installing yiisoft/yii2-gii (2.1.4): Cloning d879cb1863 from cache
+  - Installing swiftmailer/swiftmailer (v6.3.0): Cloning 8a5d5072dc from cache
+  - Installing yiisoft/yii2-swiftmailer (2.1.3): Cloning 7b7ec871b4 from cache
+    0 [>---------------------------]    0 [->--------------------------]
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 15:35:24] æ‰§è¡Œå‘½ä»¤: "G:\xampp\mysql\bin\mysql.exe" -h "localhost" -P "3307" -u "root" < "C:\Users\Lenovo\AppData\Local\Temp\yii2_create_db_1766414124.sql"
+[2025-12-22 15:35:24] è¿”å›ç : 0
+[2025-12-22 15:35:24] è¾“å‡º:
+
+[2025-12-22 15:35:24] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" yii migrate --interactive=0
+[2025-12-22 15:35:24] è¿”å›ç : 0
+[2025-12-22 15:35:24] è¾“å‡º:
+Yii Migration Tool (based on Yii v2.0.53)
+
+No new migrations found. Your system is up-to-date.
+[2025-12-22 16:27:05] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 16:27:05] è¿”å›ç : 0
+[2025-12-22 16:27:05] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 16:27:05] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 16:27:07] è¿”å›ç : 0
+[2025-12-22 16:27:07] è¾“å‡º:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 16:27:07] æ‰§è¡Œå‘½ä»¤: "G:\xampp\mysql\bin\mysql.exe" -h "localhost" -P "3307" -u "root" < "C:\Users\Lenovo\AppData\Local\Temp\yii2_create_db_1766417227.sql"
+[2025-12-22 16:27:07] è¿”å›ç : 0
+[2025-12-22 16:27:07] è¾“å‡º:
+
+[2025-12-22 16:27:07] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" yii migrate --interactive=0
+[2025-12-22 16:27:07] è¿”å›ç : 0
+[2025-12-22 16:27:07] è¾“å‡º:
+Yii Migration Tool (based on Yii v2.0.53)
+
+Total 1 new migration to be applied:
+	m251222_120000_create_member_table
+
+*** applying m251222_120000_create_member_table
+    > create table {{%member}} ... done (time: 0.134s)
+*** applied m251222_120000_create_member_table (time: 0.163s)
+
+
+1 migration was applied.
+
+Migrated up successfully.

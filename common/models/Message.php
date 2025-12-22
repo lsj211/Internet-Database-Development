@@ -21,7 +21,7 @@ use yii\db\Expression;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property User $user
+ * @property Member $user
  */
 class Message extends ActiveRecord
 {
@@ -54,7 +54,7 @@ class Message extends ActiveRecord
             [['user_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['content'], 'string'],
             [['status'], 'default', 'value' => self::STATUS_ACTIVE],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Member::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -72,6 +72,6 @@ class Message extends ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasOne(Member::class, ['id' => 'user_id']);
     }
 }

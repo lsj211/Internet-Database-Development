@@ -16,8 +16,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use common\models\User;
+use frontend\models\MemberLoginForm;
+use common\models\Member;
 use common\models\Hero;
 use common\models\HistoricalMaterial;
 use common\models\DownloadCounter;
@@ -89,7 +89,7 @@ class SiteController extends Controller
         
         // 获取统计数据
         $stats = [
-            'totalMembers' => User::find()->where(['status' => User::STATUS_ACTIVE])->count(),
+            'totalMembers' => Member::find()->where(['status' => Member::STATUS_ACTIVE])->count(),
             'totalDownloads' => DownloadCounter::getTotalDownloads(),
             'totalVisits' => \common\models\PageVisit::getTotalVisits(),
             'totalHeroes' => Hero::find()->count(),
@@ -115,7 +115,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new MemberLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -170,17 +170,6 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
-    }
-
-    /**
-     * Displays admin page.
-     *
-     * @return mixed
-     */
-    public function actionAdmin()
-    {
-        $this->layout = 'admin';
-        return $this->render('admin');
     }
 
     /**
@@ -376,7 +365,7 @@ class SiteController extends Controller
         
         // 获取团队统计数据
         $stats = [
-            'totalMembers' => User::find()->where(['status' => User::STATUS_ACTIVE])->count(),
+            'totalMembers' => Member::find()->where(['status' => Member::STATUS_ACTIVE])->count(),
             'totalDownloads' => DownloadCounter::getTotalDownloads(),
             'totalVisits' => \common\models\PageVisit::getTotalVisits(),
             'totalComments' => ProfileComment::find()->where(['status' => ProfileComment::STATUS_ACTIVE])->count(),
@@ -399,7 +388,7 @@ class SiteController extends Controller
         }
 
         $this->layout = 'sb-admin-2';
-        $model = User::findOne(Yii::$app->user->id);
+        $model = Member::findOne(Yii::$app->user->id);
 
         if ($model->load(Yii::$app->request->post())) {
             // 保存旧头像路径
@@ -460,7 +449,7 @@ class SiteController extends Controller
             $id = Yii::$app->user->id;
         }
         
-        $user = User::findOne($id);
+        $user = Member::findOne($id);
         if (!$user) {
             throw new \yii\web\NotFoundHttpException('用户不存在');
         }
@@ -727,7 +716,7 @@ class SiteController extends Controller
         }
         
         // 检查邮箱是否已被注册
-        if (User::findOne(['email' => $email])) {
+        if (Member::findOne(['email' => $email])) {
             return ['success' => false, 'message' => '该邮箱已被注册'];
         }
         

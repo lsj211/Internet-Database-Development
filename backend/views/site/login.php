@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\captcha\Captcha;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
@@ -22,6 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
+
+                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                    'captchaAction' => 'site/captcha',
+                    'template' => '{input}{image}',
+                    'imageOptions' => ['alt' => '验证码', 'style' => 'cursor:pointer;height:34px;'],
+                    'options' => ['placeholder' => '验证码', 'class' => 'form-control']
+                ]) ?>
 
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
 

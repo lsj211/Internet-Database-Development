@@ -15,6 +15,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 /**
  * HeroController implements the CRUD actions for Hero model.
@@ -27,6 +28,15 @@ class HeroController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -76,9 +86,12 @@ class HeroController extends Controller
     {
         $model = new Hero();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $this->handleImageUpload($model);
+            if ($model->save()) {
             Yii::$app->session->setFlash('success', '英雄创建成功');
             return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -97,9 +110,12 @@ class HeroController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $this->handleImageUpload($model);
+            if ($model->save()) {
             Yii::$app->session->setFlash('success', '英雄更新成功');
             return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -136,5 +152,23 @@ class HeroController extends Controller
         }
 
         throw new NotFoundHttpException('请求的页面不存在。');
+    }
+
+    private function handleImageUpload(Hero $model)
+    {
+        $imageFile = UploadedFile::getInstance($model, 'imageFile');
+        if (!$imageFile) {
+            return;
+        }
+
+        $fileName = 'hero_' . time() . '_' . uniqid() . '.' . $imageFile->extension;
+        $uploadPath = Yii::getAlias('@frontend/web/uploads/heroes/');
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+
+        if ($imageFile->saveAs($uploadPath . $fileName)) {
+            $model->image_url = '@web/uploads/heroes/' . $fileName;
+        }
     }
 }

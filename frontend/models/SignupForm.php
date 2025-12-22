@@ -9,7 +9,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use common\models\Member;
 
 /**
  * Signup form
@@ -33,14 +33,14 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\Member', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\Member', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 8, 'max' => 128],
@@ -145,20 +145,20 @@ class SignupForm extends Model
             return null;
         }
         
-        $user = new User();
+        $user = new Member();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->student_id = $this->student_id;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
-        $user->status = User::STATUS_ACTIVE; // 直接激活用户，跳过邮件验证
+        $user->status = Member::STATUS_ACTIVE; // 直接激活用户，跳过邮件验证
         return $user->save();
     }
 
     /**
      * Sends confirmation email to user
-     * @param User $user user model to with email should be send
+     * @param Member $user user model to with email should be send
      * @return bool whether the email was sent
      */
     protected function sendEmail($user)

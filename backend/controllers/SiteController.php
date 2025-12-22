@@ -13,6 +13,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use backend\models\AdminSignupForm;
+use backend\models\AdminProfileForm;
 
 /**
  * Site controller
@@ -29,11 +31,16 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'captcha'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'profile'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['register-admin'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -57,6 +64,10 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
         ];
     }
 
@@ -67,7 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->redirect(['site/profile']);
     }
 
     /**
@@ -83,7 +94,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goHome();
         } else {
             $model->password = '';
 
@@ -103,5 +114,48 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * Admin profile page (view/edit).
+     *
+     * @return string|\yii\web\Response
+     */
+    public function actionProfile()
+    {
+        $user = Yii::$app->user->identity;
+        $model = new AdminProfileForm($user);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', '管理员信息已更新');
+            return $this->redirect(['site/profile']);
+        }
+
+        return $this->render('profile', [
+            'model' => $model,
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * Register admin account (backend only).
+     *
+     * @return string|\yii\web\Response
+     */
+    public function actionRegisterAdmin()
+    {
+        $model = new AdminSignupForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', '管理员账号创建成功');
+            return $this->redirect(['site/index']);
+        }
+
+        $model->password = '';
+        $model->password_confirm = '';
+
+        return $this->render('register-admin', [
+            'model' => $model,
+        ]);
     }
 }

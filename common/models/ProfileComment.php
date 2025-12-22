@@ -61,8 +61,8 @@ class ProfileComment extends \yii\db\ActiveRecord
             [['profile_user_id', 'comment_user_id', 'parent_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['content'], 'string'],
             [['status'], 'default', 'value' => self::STATUS_ACTIVE],
-            [['profile_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['profile_user_id' => 'id']],
-            [['comment_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['comment_user_id' => 'id']],
+            [['profile_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Member::class, 'targetAttribute' => ['profile_user_id' => 'id']],
+            [['comment_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Member::class, 'targetAttribute' => ['comment_user_id' => 'id']],
         ];
     }
 
@@ -88,7 +88,7 @@ class ProfileComment extends \yii\db\ActiveRecord
      */
     public function getProfileUser()
     {
-        return $this->hasOne(User::class, ['id' => 'profile_user_id']);
+        return $this->hasOne(Member::class, ['id' => 'profile_user_id']);
     }
 
     /**
@@ -96,7 +96,7 @@ class ProfileComment extends \yii\db\ActiveRecord
      */
     public function getCommentUser()
     {
-        return $this->hasOne(User::class, ['id' => 'comment_user_id']);
+        return $this->hasOne(Member::class, ['id' => 'comment_user_id']);
     }
 
     /**

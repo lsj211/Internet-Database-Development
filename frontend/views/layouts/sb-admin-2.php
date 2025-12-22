@@ -14,6 +14,12 @@ use yii\helpers\Url;
 use frontend\assets\SbAdmin2Asset;
 
 SbAdmin2Asset::register($this);
+$baseUrl = Yii::$app->request->baseUrl;
+$backendBaseUrl = preg_replace('#/frontend/web$#', '/backend/web', $baseUrl);
+if ($backendBaseUrl === $baseUrl) {
+    $backendBaseUrl = '/backend/web';
+}
+$backendLoginUrl = $backendBaseUrl . '/index.php?r=site/login';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -159,10 +165,10 @@ SbAdmin2Asset::register($this);
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">访问成员主页:</h6>
                     <?php 
-                    use common\models\User;
+                    use common\models\Member;
                     // 优先显示有学号的用户
-                    $teamMembers = User::find()
-                        ->where(['in', 'status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE]])
+                    $teamMembers = Member::find()
+                        ->where(['in', 'status', [Member::STATUS_ACTIVE, Member::STATUS_INACTIVE]])
                         ->andWhere(['not', ['student_id' => null]])
                         ->andWhere(['<>', 'student_id', ''])
                         ->orderBy(['created_at' => SORT_DESC])
@@ -171,8 +177,8 @@ SbAdmin2Asset::register($this);
                     
                     // 如果有学号的用户少于5个，再显示其他用户
                     if (count($teamMembers) < 5) {
-                        $otherMembers = User::find()
-                            ->where(['in', 'status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE]])
+                        $otherMembers = Member::find()
+                            ->where(['in', 'status', [Member::STATUS_ACTIVE, Member::STATUS_INACTIVE]])
                             ->andWhere(['or', ['student_id' => null], ['student_id' => '']])
                             ->orderBy(['created_at' => SORT_DESC])
                             ->limit(20 - count($teamMembers))
@@ -226,6 +232,12 @@ SbAdmin2Asset::register($this);
                     <!-- Nav Item - 用户信息 -->
                     <?php if (Yii::$app->user->isGuest): ?>
                         <!-- 未登录状态 -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Html::encode($backendLoginUrl) ?>">
+                                <i class="fas fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <span class="d-none d-lg-inline text-gray-600">后台登录</span>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= Url::to(['/site/login']) ?>">
                                 <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
