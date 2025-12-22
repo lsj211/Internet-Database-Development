@@ -1,0 +1,126 @@
+[2025-12-22 12:27:48] 执行命令: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 12:27:49] 返回码: 0
+[2025-12-22 12:27:49] 输出:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 12:27:49] 执行命令: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 12:27:50] 返回码: 0
+[2025-12-22 12:27:50] 输出:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 12:27:50] 执行命令: "G:\xampp\mysql\bin\mysql.exe" -h localhost -P 3306 -u root -e "CREATE DATABASE IF NOT EXISTS `yii2advanced` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+[2025-12-22 12:27:53] 返回码: 1
+[2025-12-22 12:27:53] 输出:
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+[2025-12-22 12:28:26] 执行命令: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 12:28:26] 返回码: 0
+[2025-12-22 12:28:26] 输出:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 12:28:26] 执行命令: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 12:28:28] 返回码: 0
+[2025-12-22 12:28:28] 输出:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 12:28:28] 执行命令: "G:\xampp\mysql\bin\mysql.exe" -h localhost -P 3306 -u root -e "CREATE DATABASE IF NOT EXISTS `yii2advanced` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+[2025-12-22 12:28:28] 返回码: 1
+[2025-12-22 12:28:28] 输出:
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+[2025-12-22 12:30:24] 执行命令: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 12:30:24] 返回码: 0
+[2025-12-22 12:30:24] 输出:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 12:30:24] 执行命令: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 12:30:26] 返回码: 0
+[2025-12-22 12:30:26] 输出:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 12:30:26] 执行命令: "G:\xampp\mysql\bin\mysql.exe" -h localhost -P 3306 -u root -e "CREATE DATABASE IF NOT EXISTS `yii2advanced` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+[2025-12-22 12:30:26] 返回码: 1
+[2025-12-22 12:30:26] 输出:
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+[2025-12-22 12:31:40] 执行命令: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 12:31:41] 返回码: 0
+[2025-12-22 12:31:41] 输出:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 12:31:41] 执行命令: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 12:31:42] 返回码: 0
+[2025-12-22 12:31:42] 输出:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 12:31:42] 执行命令: "G:\xampp\mysql\bin\mysql.exe" -h localhost -P 3306 -u root -e "CREATE DATABASE IF NOT EXISTS `yii2advanced` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+[2025-12-22 12:31:42] 返回码: 1
+[2025-12-22 12:31:42] 输出:
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+[2025-12-22 12:33:51] 执行命令: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 12:33:52] 返回码: 0
+[2025-12-22 12:33:52] 输出:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 12:33:52] 执行命令: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 12:33:53] 返回码: 0
+[2025-12-22 12:33:53] 输出:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 12:33:53] 执行命令: "G:\xampp\mysql\bin\mysql.exe" -h "localhost" -P "3306" -u "root" < "C:\Users\Lenovo\AppData\Local\Temp\yii2_create_db_1766403233.sql"
+[2025-12-22 12:33:53] 返回码: 1
+[2025-12-22 12:33:53] 输出:
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+[2025-12-22 12:41:40] 执行命令: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-22 12:41:40] 返回码: 0
+[2025-12-22 12:41:40] 输出:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-22 12:41:40] 执行命令: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-22 12:41:42] 返回码: 0
+[2025-12-22 12:41:42] 输出:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-22 12:41:42] 执行命令: "G:\xampp\mysql\bin\mysql.exe" -h "localhost" -P "3307" -u "root" < "C:\Users\Lenovo\AppData\Local\Temp\yii2_create_db_1766403702.sql"
+[2025-12-22 12:41:42] 返回码: 0
+[2025-12-22 12:41:42] 输出:
+
+[2025-12-22 12:41:42] 执行命令: "G:\xampp\php\php.exe" yii migrate --interactive=0
+[2025-12-22 12:41:43] 返回码: 0
+[2025-12-22 12:41:43] 输出:
+Yii Migration Tool (based on Yii v2.0.53)
+
+No new migrations found. Your system is up-to-date.

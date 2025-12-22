@@ -1,0 +1,207 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+body{
+  font-family: "Microsoft YaHei","Segoe UI",Arial,sans-serif;
+  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.container{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  max-width:920px;
+  width:100%;
+  padding:32px;
+}
+.header{ text-align:center; margin-bottom:18px; }
+.header h1{ color:#333; font-size:28px; margin-bottom:8px; }
+.header p{ color:#666; font-size:14px; line-height:1.6; }
+.header .warn{ color:#9b2c2c; font-weight:800; margin-top:8px; }
+
+.info-box{
+  background:#fff3cd;
+  border:1px solid #ffc107;
+  border-radius:10px;
+  padding:14px 16px;
+  margin:18px 0;
+}
+.info-box h3{ color:#856404; margin-bottom:10px; font-size:16px; }
+.env-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px 14px;
+  font-size:14px;
+  color:#856404;
+}
+.env-grid div{ display:flex; justify-content:space-between; gap:12px; }
+.env-grid b{ color:#6b4f00; }
+.tiny{ display:flex; justify-content:flex-end; gap:8px; margin-top:10px; }
+.tiny-btn{
+  border:1px solid #d8b400;
+  background:#fff7da;
+  color:#6b4f00;
+  padding:6px 10px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:800;
+  font-size:12px;
+}
+.tiny-btn:hover{ filter:brightness(0.98); }
+
+.progress-bar{
+  width:100%;
+  height:10px;
+  background:#e0e0e0;
+  border-radius:999px;
+  overflow:hidden;
+  margin: 8px 0 18px;
+}
+.progress-fill{
+  height:100%;
+  background: linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+  transition: width .35s ease;
+}
+
+.steps{ margin-top:8px; }
+.step{
+  background:#f8f9fa;
+  border-left:4px solid #667eea;
+  padding:16px 16px;
+  margin-bottom:12px;
+  border-radius:8px;
+  transition: all .2s;
+}
+.step.active{ background:#e3f2fd; border-left-color:#2196F3; }
+.step.success{ background:#e8f5e9; border-left-color:#4CAF50; }
+.step.error{ background:#ffebee; border-left-color:#f44336; }
+
+.step-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.step-title{ font-size:15px; font-weight:900; color:#333; }
+.step-status{
+  padding:4px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.status-pending{ background:#e0e0e0; color:#666; }
+.status-running{ background:#2196F3; color:#fff; animation:pulse 1.4s infinite; }
+.status-success{ background:#4CAF50; color:#fff; }
+.status-error{ background:#f44336; color:#fff; }
+@keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.65} }
+
+.step-content{ color:#666; font-size:14px; line-height:1.6; }
+.step-output{
+  margin-top:10px;
+  padding:10px;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size:12px;
+  max-height:200px;
+  overflow:auto;
+  white-space:pre-wrap;
+}
+
+.btn{
+  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  color:#fff;
+  border:none;
+  padding:14px 22px;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  transition: transform .15s, box-shadow .15s;
+  width:100%;
+  margin-top:14px;
+}
+.btn:hover{ transform: translateY(-1px); box-shadow:0 10px 25px rgba(102,126,234,.35); }
+.btn:active{ transform: translateY(0); }
+.btn:disabled{ background:#ccc; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.btn-secondary{
+  background:#f1f1f1;
+  color:#333;
+}
+.btn-secondary:hover{ box-shadow:none; }
+
+.success-box{
+  background:#d4edda;
+  border:1px solid #28a745;
+  border-radius:14px;
+  padding:22px;
+  text-align:center;
+  margin-top:18px;
+}
+.success-box h2{ color:#155724; margin-bottom:10px; }
+.success-box p{ color:#155724; margin:10px 0; }
+.success-links a{
+  display:inline-block;
+  margin:8px 10px;
+  padding:10px 18px;
+  background:#28a745;
+  color:#fff;
+  text-decoration:none;
+  border-radius:999px;
+  font-weight:900;
+}
+.success-links a:hover{ background:#218838; }
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.modal-card{
+  background:#fff;
+  width:100%;
+  max-width:580px;
+  border-radius:16px;
+  padding:18px 18px 14px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+.modal-card h2{ font-size:20px; margin-bottom:8px; color:#333; }
+.muted{ color:#666; font-size:13px; margin-bottom:12px; }
+code{ background:#f4f4f4; padding:2px 6px; border-radius:6px; }
+
+.form-group{ margin:12px 0; }
+.form-group label{ display:block; margin-bottom:6px; color:#333; font-weight:900; }
+.form-group input, .form-group select{
+  width:100%;
+  padding:10px 12px;
+  border:2px solid #e0e0e0;
+  border-radius:10px;
+  font-size:14px;
+}
+.form-group input:focus, .form-group select:focus{
+  outline:none;
+  border-color:#667eea;
+}
+.hint{ font-size:12px; color:#666; margin-top:6px; }
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+.modal-actions .btn{ margin-top:0; }
