@@ -74,8 +74,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">抗战历史</h1>
-    <div>
-        <select class="form-control" id="categoryFilter">
+    <div class="d-flex align-items-center">
+        <span class="text-muted mr-3">
+            <i class="fas fa-eye"></i> 本页访问: <strong><?= isset($visitCount) ? number_format($visitCount) : 0 ?></strong>
+        </span>
+        <select class="form-control" id="categoryFilter" style="width: auto;">
             <option value="all">全部</option>
             <option value="timeline">时间轴</option>
             <option value="heroes">英雄人物</option>

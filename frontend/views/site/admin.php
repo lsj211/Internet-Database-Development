@@ -56,9 +56,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">页面访问量
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">页面总访问量
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">2,543</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= number_format(\common\models\PageVisit::getTotalVisits()) ?></div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-eye fa-2x text-gray-300"></i>
@@ -157,4 +157,66 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
+</div>
+
+<!-- 页面访问统计详情 -->
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">各页面访问统计</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>页面名称</th>
+                                <th>访问次数</th>
+                                <th>最后更新时间</th>
+                                <th>占比</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $pageStats = \common\models\PageVisit::getAllPageStats();
+                            $nameMap = \common\models\PageVisit::getPageNameMap();
+                            $totalVisits = \common\models\PageVisit::getTotalVisits();
+                            $index = 1;
+                            foreach ($pageStats as $stat): 
+                                $percentage = $totalVisits > 0 ? ($stat->visit_count / $totalVisits * 100) : 0;
+                            ?>
+                            <tr>
+                                <td><?= $index++ ?></td>
+                                <td>
+                                    <i class="fas fa-file-alt text-primary"></i> 
+                                    <?= isset($nameMap[$stat->page_name]) ? $nameMap[$stat->page_name] : $stat->page_name ?>
+                                </td>
+                                <td><strong><?= number_format($stat->visit_count) ?></strong></td>
+                                <td><?= date('Y-m-d H:i:s', $stat->updated_at) ?></td>
+                                <td>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-info" role="progressbar" 
+                                             style="width: <?= round($percentage, 2) ?>%" 
+                                             aria-valuenow="<?= round($percentage, 2) ?>" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="100">
+                                            <?= round($percentage, 2) ?>%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php if (empty($pageStats)): ?>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">暂无访问记录</td>
+                            </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

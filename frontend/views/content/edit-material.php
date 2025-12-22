@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is part of the frontend views for editing historical material content.
+ */
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;

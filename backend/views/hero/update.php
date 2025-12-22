@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is part of the backend views for hero update.
+ */
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

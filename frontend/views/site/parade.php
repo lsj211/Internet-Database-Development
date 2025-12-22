@@ -55,6 +55,7 @@ $this->title = '阅兵仪式';
                 <div class="text-center text-white mb-5">
                     <h1 class="display-4 font-weight-bold">抗战胜利阅兵仪式</h1>
                     <p class="lead">重温历史荣耀，致敬英雄精神</p>
+                    <p class="text-light"><i class="fas fa-eye"></i> 本页访问量: <strong><?= isset($visitCount) ? number_format($visitCount) : 0 ?></strong> 次</p>
                     <div class="flag mt-4">
                         <i class="fas fa-flag"></i>
                     </div>
@@ -200,7 +201,7 @@ $this->title = '阅兵仪式';
 
                 <!-- Interactive Elements -->
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="card bg-white mb-4">
                             <div class="card-body text-center">
                                 <h5 class="card-title">参与阅兵</h5>
@@ -210,25 +211,6 @@ $this->title = '阅兵仪式';
                                 </button>
                                 <div class="mt-3">
                                     <small class="text-muted">当前参与人数: <span id="participantCount">1,234</span></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card bg-white mb-4">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">分享阅兵</h5>
-                                <p class="card-text">将这个庄严的时刻分享给更多人</p>
-                                <div class="btn-group">
-                                    <button class="btn btn-outline-primary" onclick="shareOnWechat()">
-                                        <i class="fab fa-weixin"></i> 微信
-                                    </button>
-                                    <button class="btn btn-outline-info" onclick="shareOnWeibo()">
-                                        <i class="fab fa-weibo"></i> 微博
-                                    </button>
-                                    <button class="btn btn-outline-danger" onclick="shareOnQQ()">
-                                        <i class="fab fa-qq"></i> QQ
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -363,9 +345,7 @@ $this->title = '阅兵仪式';
         let participantCount = 1234;
         function joinParade(){ participantCount++; const el = document.getElementById('participantCount'); if(el) el.textContent = participantCount.toLocaleString(); showNotification('欢迎加入阅兵仪式！','success'); addSoldierToFormation(); }
         function addSoldierToFormation(){ const formations = document.querySelectorAll('.formation'); if(!formations.length) return; const randomFormation = formations[Math.floor(Math.random()*formations.length)]; const newSoldier = document.createElement('div'); newSoldier.className='soldier'; newSoldier.style.background='#ff6b6b'; randomFormation.appendChild(newSoldier); }
-        function shareOnWechat(){ showNotification('已生成微信分享链接，请复制分享','info'); }
-        function shareOnWeibo(){ showNotification('已分享到微博','info'); }
-        function shareOnQQ(){ showNotification('已分享到QQ','info'); }
+
         // 阅兵知识小测验逻辑：逐题作答，答错给出解析，然后进入下一题
 
         const paradeQuizConfig = {

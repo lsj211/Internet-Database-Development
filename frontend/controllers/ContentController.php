@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is part of the frontend controllers for content management.
+ */
+
 namespace frontend\controllers;
 
 use Yii;

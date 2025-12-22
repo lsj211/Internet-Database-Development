@@ -74,6 +74,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">传承红色记忆，致敬抗战先烈</h1>
+    <span class="text-muted">
+        <i class="fas fa-eye"></i> 首页访问: <strong><?= isset($stats['indexVisits']) ? number_format($stats['indexVisits']) : 0 ?></strong>
+    </span>
 </div>
 
 <!-- Content Row -->

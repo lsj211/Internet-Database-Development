@@ -5,6 +5,7 @@
  * Coding by chengna 2311828
  * This is the user model of backend.
  */
+
 namespace common\models;
 
 use Yii;

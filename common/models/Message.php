@@ -17,6 +17,7 @@ use yii\db\Expression;
  * @property int $id
  * @property int $user_id
  * @property string $content
+ * @property int $status
  * @property int $created_at
  * @property int $updated_at
  *
@@ -24,6 +25,9 @@ use yii\db\Expression;
  */
 class Message extends ActiveRecord
 {
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 1;
+    
     public static function tableName()
     {
         return '{{%message}}';
@@ -47,8 +51,9 @@ class Message extends ActiveRecord
     {
         return [
             [['user_id', 'content'], 'required'],
-            [['user_id', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['content'], 'string'],
+            [['status'], 'default', 'value' => self::STATUS_ACTIVE],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -58,6 +63,7 @@ class Message extends ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => '用户',
+            'status' => '状态',
             'content' => '留言内容',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',

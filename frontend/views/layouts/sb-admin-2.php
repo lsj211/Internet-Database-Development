@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is part of the frontend layouts for admin panel.
+ */
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -283,6 +289,10 @@ SbAdmin2Asset::register($this);
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright &copy; 抗战纪念队 <?= date('Y') ?></span>
+                    <span class="ml-3 text-muted">
+                        <i class="fas fa-eye"></i> 总访问量: 
+                        <strong><?= \common\models\PageVisit::getTotalVisits() ?></strong> 次
+                    </span>
                 </div>
             </div>
         </footer>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2025-12-17 07:33:58
+-- 生成日期： 2025-12-22 09:43:25
 -- 服务器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -35,14 +35,14 @@ CREATE TABLE `download_counter` (
   `download_count` int(11) DEFAULT 0 COMMENT '下载次数',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='统计_下载计数表';
 
 --
 -- 转存表中的数据 `download_counter`
 --
 
 INSERT INTO `download_counter` (`id`, `file_name`, `file_type`, `file_url`, `download_count`, `created_at`, `updated_at`) VALUES
-(1, '团队作业-需求文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 3, 1765941420, 1765944007),
+(1, '团队作业-需求文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 4, 1765941420, 1766391303),
 (2, '团队作业-设计文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 1, 1765941420, 1765945023),
 (3, '团队作业-实现文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1765941420, 1765941420),
 (4, '团队作业-用户手册.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 1, 1765941420, 1765944009),
@@ -65,7 +65,7 @@ CREATE TABLE `flower_offering` (
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID，游客为NULL',
   `ip_address` varchar(45) NOT NULL COMMENT 'IP地址',
   `created_at` int(11) NOT NULL COMMENT '献花时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互动_献花记录表';
 
 --
 -- 转存表中的数据 `flower_offering`
@@ -94,7 +94,7 @@ CREATE TABLE `hero` (
   `status` smallint(6) DEFAULT 1 COMMENT '状态 1启用 0禁用',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='内容_抗战英雄表';
 
 --
 -- 转存表中的数据 `hero`
@@ -125,7 +125,7 @@ CREATE TABLE `historical_material` (
   `status` smallint(6) DEFAULT 1 COMMENT '状态 1启用 0禁用',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='内容_历史资料表';
 
 --
 -- 转存表中的数据 `historical_material`
@@ -147,16 +147,17 @@ CREATE TABLE `message` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `content` text NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT 1 COMMENT '状态 1正常 0删除',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互动_留言消息表';
 
 --
 -- 转存表中的数据 `message`
 --
 
-INSERT INTO `message` (`id`, `user_id`, `content`, `created_at`, `updated_at`) VALUES
-(3, 7, '永远怀念！\r\n', 1765937199, 1765937199);
+INSERT INTO `message` (`id`, `user_id`, `content`, `status`, `created_at`, `updated_at`) VALUES
+(3, 7, '永远怀念！\r\n', 1, 1765937199, 1765937199);
 
 -- --------------------------------------------------------
 
@@ -184,7 +185,8 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m251217_000004_create_historical_material_table', 1765941420),
 ('m251217_000005_create_download_counter_table', 1765941420),
 ('m251217_050234_extend_user_table_add_profile_fields', 1765947813),
-('m251217_050249_create_profile_comment_table', 1765947813);
+('m251217_050249_create_profile_comment_table', 1765947813),
+('m251222_082353_update_tables_to_standard_naming', 1766391925);
 
 -- --------------------------------------------------------
 
@@ -196,15 +198,20 @@ CREATE TABLE `page_visit` (
   `id` int(11) NOT NULL,
   `page_name` varchar(100) NOT NULL COMMENT '页面名称',
   `visit_count` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
+  `status` smallint(6) NOT NULL DEFAULT 1 COMMENT '状态 1启用 0禁用',
+  `created_at` int(11) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `updated_at` int(11) NOT NULL COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='统计_页面访问统计表';
 
 --
 -- 转存表中的数据 `page_visit`
 --
 
-INSERT INTO `page_visit` (`id`, `page_name`, `visit_count`, `updated_at`) VALUES
-(1, 'memorial', 19, 1765953212);
+INSERT INTO `page_visit` (`id`, `page_name`, `visit_count`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'memorial', 29, 1, 0, 1766392917),
+(2, 'index', 6, 1, 1766392278, 1766392841),
+(3, 'history', 3, 1, 1766392282, 1766392880),
+(4, 'parade', 2, 1, 1766392874, 1766392886);
 
 -- --------------------------------------------------------
 
@@ -221,7 +228,7 @@ CREATE TABLE `profile_comment` (
   `status` smallint(6) DEFAULT 1 COMMENT '状态 1正常 0删除',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互动_个人主页评论表';
 
 --
 -- 转存表中的数据 `profile_comment`
@@ -230,16 +237,7 @@ CREATE TABLE `profile_comment` (
 INSERT INTO `profile_comment` (`id`, `profile_user_id`, `comment_user_id`, `parent_id`, `content`, `status`, `created_at`, `updated_at`) VALUES
 (1, 7, 7, NULL, '哈喽，欢迎来到我的主页', 1, 1765948775, 1765948775),
 (2, 7, 7, NULL, '哈喽，欢迎来到我的主页', 1, 1765948775, 1765948775),
-(3, 7, 7, 1, '是何意味', 1, 1765948790, 1765948790),
-(4, 8, 8, NULL, '让世界热闹起来吧~', 1, 1765951425, 1765951425),
-(5, 8, 8, NULL, '让世界热闹起来吧~', 1, 1765951426, 1765951426),
-(6, 7, 8, 1, '1', 1, 1765951446, 1765951446),
-(7, 8, 7, 5, '1111', 1, 1765951549, 1765951549),
-(8, 8, 7, NULL, '矮love油', 1, 1765951626, 1765951626),
-(9, 8, 7, NULL, '矮love油', 1, 1765951627, 1765951627),
-(10, 8, 7, NULL, '11', 1, 1765953089, 1765953089),
-(11, 8, 7, NULL, '11', 1, 1765953089, 1765953089),
-(12, 8, 7, NULL, '1', 1, 1765953169, 1765953169);
+(3, 7, 7, 1, '是何意味', 1, 1765948790, 1765948790);
 
 -- --------------------------------------------------------
 
@@ -266,7 +264,7 @@ CREATE TABLE `user` (
   `signature` varchar(255) DEFAULT NULL COMMENT '个性签名',
   `avatar` varchar(500) DEFAULT NULL COMMENT '头像URL',
   `homework_link` varchar(500) DEFAULT NULL COMMENT '作业链接'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='核心_用户表';
 
 --
 -- 转存表中的数据 `user`
@@ -274,7 +272,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `student_id`, `major`, `role`, `bio`, `age`, `signature`, `avatar`, `homework_link`) VALUES
 (7, '程娜', 'HIJj1N0ZFVO5OFx3Ipp5KgaIep6Zpf90', '$2y$13$0Zts/97u97W0jUhsRBCTkOR0iZ6bGTuCwdlRYS/JKgqaInedhUIvy', NULL, '2311828@mail.nankai.edu.cn', 10, 1765797657, 1765950144, 'lAxW0QT3ZOd1gBpsY3VOdPV83mI1gWOT_1765797657', '2311828', '计算机科学与技术', '数据库和后端', '我是来自南开大学的程娜', 21, '这是一条非常有个性的个性签名', '/uploads/avatars/7_1765950144.jpg', 'https://github.com/Dou-Dou-Da-D1'),
-(8, '芙宁娜', 'cDPuZoX-tId4DB14WJvQa0qNUvfWj0Xv', '$2y$13$LLYHxTJIawf.aryG29nhn.T48y.a6YAHBO2p3rq.T4rBNvDUr5kPq', NULL, 'chengna136@gmail.com', 10, 1765950319, 1765951403, 'MnfONvhMbcb33OvXaOo2R6wtzaWdD2C7_1765950319', '2666666', '表演', '枫丹人人皆知的大明星', '欢唱，以我之名。（age字段设置的不能超过500，限制发挥了）', 50, '当当！', '/uploads/avatars/8_1765951403.jpg', 'https://github.com/Dou-Dou-Da-D1');
+(9, '刘越帅', 'gqiMdw0XHWnBxKFjzW1qdfcDB-eyjRxr', '$2y$13$IQAN6JhMRNLho/4n79/CpetCxB8QcGisHZi.c2/jSo4Tw/f/nwMVe', NULL, '2917769103@qq.com', 10, 1766392477, 1766392477, 'dQTZu3Cz8a1k_QFj8n1SldYqXNGj_vEK_1766392477', '2313752', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, '杨竣羽', 'v8H9O3QWq5agBZLy1sY-z7_ycWUbt0iu', '$2y$13$YB9ONFh99aiyMGzMyUe.sudmIRZ5WC1Z2loFOTxYKVU78yZ5RcbdS', NULL, '2939216907@qq.com', 10, 1766392581, 1766392581, '048nZ0kUPunm0RWgIrdAv4cjGb-MYLe-_1766392581', '2313043', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- 转储表的索引
@@ -391,7 +390,7 @@ ALTER TABLE `message`
 -- 使用表AUTO_INCREMENT `page_visit`
 --
 ALTER TABLE `page_visit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `profile_comment`
@@ -403,7 +402,7 @@ ALTER TABLE `profile_comment`
 -- 使用表AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 限制导出的表

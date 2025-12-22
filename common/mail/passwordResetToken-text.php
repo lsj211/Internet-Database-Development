@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is part of the password reset email template.
+ */
+
 /* @var $this yii\web\View */
 /* @var $user common\models\User */
 

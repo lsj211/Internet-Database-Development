@@ -84,6 +84,9 @@ class SiteController extends Controller
     {
         $this->layout = 'sb-admin-2';
         
+        // 增加页面访问计数
+        \common\models\PageVisit::incrementVisit('index');
+        
         // 获取统计数据
         $stats = [
             'totalMembers' => User::find()->where(['status' => User::STATUS_ACTIVE])->count(),
@@ -91,6 +94,7 @@ class SiteController extends Controller
             'totalVisits' => \common\models\PageVisit::getTotalVisits(),
             'totalHeroes' => Hero::find()->count(),
             'totalMaterials' => HistoricalMaterial::find()->count(),
+            'indexVisits' => \common\models\PageVisit::getVisitCount('index'),
         ];
         
         return $this->render('index', [
@@ -188,6 +192,9 @@ class SiteController extends Controller
     {
         $this->layout = 'sb-admin-2';
         
+        // 增加页面访问计数
+        \common\models\PageVisit::incrementVisit('history');
+        
         // 从数据库加载英雄人物和史料
         $heroes = Hero::getActiveHeroes();
         $materials = HistoricalMaterial::getActiveMaterials();
@@ -195,6 +202,7 @@ class SiteController extends Controller
         return $this->render('history', [
             'heroes' => $heroes,
             'materials' => $materials,
+            'visitCount' => \common\models\PageVisit::getVisitCount('history'),
         ]);
     }
 
@@ -556,7 +564,13 @@ class SiteController extends Controller
     public function actionParade()
     {
         $this->layout = 'sb-admin-2';
-        return $this->render('parade');
+        
+        // 增加页面访问计数
+        \common\models\PageVisit::incrementVisit('parade');
+        
+        return $this->render('parade', [
+            'visitCount' => \common\models\PageVisit::getVisitCount('parade'),
+        ]);
     }
 
     /**
@@ -591,7 +605,8 @@ class SiteController extends Controller
     public function actionAnthem()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $url = Yii::$app->params['anthemUrl'] ?? 'https://example.com/media/anthem.mp3';
+        // 使用本地音频文件
+        $url = Yii::$app->request->baseUrl . '/audio/anthem.mp3';
         return ['success' => true, 'url' => $url];
     }
 

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is part of the backend views for historical material view.
+ */
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 

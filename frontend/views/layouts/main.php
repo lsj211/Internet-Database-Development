@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Team: DBIS, NKU
+ * Coding by chengna 2311828
+ * This file is part of the frontend layouts for main site.
+ */
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
