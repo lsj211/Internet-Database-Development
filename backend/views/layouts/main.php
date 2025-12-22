@@ -7,7 +7,6 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
@@ -28,26 +27,32 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    $frontendBaseUrl = preg_replace('#/backend/web$#', '/frontend/web', Yii::$app->request->baseUrl);
+    if ($frontendBaseUrl === Yii::$app->request->baseUrl) {
+        $frontendBaseUrl = '/frontend/web';
+    }
+    $frontendHomeUrl = $frontendBaseUrl . '/index.php';
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => '抗战纪念队后台',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => '管理员信息', 'url' => ['/site/profile']],
-    ];
+    $menuItems = [];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => '返回前台', 'url' => $frontendHomeUrl];
     } else {
+        $menuItems[] = ['label' => '管理员信息', 'url' => ['/site/profile']];
         $menuItems[] = ['label' => '英雄管理', 'url' => ['/hero/index']];
         $menuItems[] = ['label' => '史料管理', 'url' => ['/historical-material/index']];
         $menuItems[] = ['label' => '注册管理员', 'url' => ['/site/register-admin']];
+        $menuItems[] = ['label' => '返回前台', 'url' => $frontendHomeUrl];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                '退出 (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
@@ -61,21 +66,10 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>

@@ -35,7 +35,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'profile'],
+                        'actions' => ['logout', 'index', 'profile', 'send-email-code'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -50,6 +50,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'send-email-code' => ['post'],
                 ],
             ],
         ];
@@ -157,5 +158,36 @@ class SiteController extends Controller
         return $this->render('register-admin', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Send admin email verification code.
+     *
+     * @return array
+     */
+    public function actionSendEmailCode()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $email = Yii::$app->request->post('email');
+        if (!$email) {
+            return ['success' => false, 'message' => '请输入邮箱地址'];
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return ['success' => false, 'message' => '邮箱格式不正确'];
+        }
+
+        if (\common\models\User::findOne(['email' => $email])) {
+            return ['success' => false, 'message' => '该邮箱已被注册'];
+        }
+
+        $model = new AdminSignupForm();
+        $model->email = $email;
+        if ($model->sendEmailCode()) {
+            return ['success' => true, 'message' => '验证码已发送到您的邮箱，请查收'];
+        }
+
+        return ['success' => false, 'message' => '验证码发送失败，请检查邮件配置'];
     }
 }
