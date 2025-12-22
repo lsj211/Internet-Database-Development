@@ -40,12 +40,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="card border-left-<?= $color ?>">
                             <div class="card-body">
                                 <h6><?= \yii\helpers\Html::encode($file->file_name) ?></h6>
-                                <a href="<?= $file->file_url ?>" 
-                                   class="btn btn-<?= $color ?> btn-sm download-link" 
-                                   data-id="<?= $file->id ?>"
-                                   target="_blank">
-                                    <i class="fas fa-download fa-sm"></i> 下载
-                                </a>
+                                <?php if (strpos($file->file_url, 'local:') === 0): ?>
+                                    <!-- 本地文件 -->
+                                    <a href="<?= Url::to(['site/download-file', 'id' => $file->id]) ?>" 
+                                       class="btn btn-<?= $color ?> btn-sm">
+                                        <i class="fas fa-download fa-sm"></i> 下载
+                                    </a>
+                                <?php else: ?>
+                                    <!-- 外部链接 -->
+                                    <a href="<?= $file->file_url ?>" 
+                                       class="btn btn-<?= $color ?> btn-sm download-link" 
+                                       data-id="<?= $file->id ?>"
+                                       target="_blank">
+                                        <i class="fas fa-download fa-sm"></i> 下载
+                                    </a>
+                                <?php endif; ?>
                                 <small class="text-muted d-block mt-1">
                                     已下载：<span id="count-<?= $file->id ?>"><?= $file->download_count ?></span> 次
                                 </small>
@@ -83,12 +92,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><?= \yii\helpers\Html::encode($file->file_name) ?></td>
                                 <td><span id="count-<?= $file->id ?>"><?= $file->download_count ?></span></td>
                                 <td>
-                                    <a href="<?= $file->file_url ?>" 
-                                       class="btn btn-primary btn-sm download-link" 
-                                       data-id="<?= $file->id ?>"
-                                       target="_blank">
-                                        <i class="fas fa-download fa-sm"></i> 下载
-                                    </a>
+                                    <?php if (strpos($file->file_url, 'local:') === 0): ?>
+                                        <!-- 本地文件，使用download-file action -->
+                                        <a href="<?= Url::to(['site/download-file', 'id' => $file->id]) ?>" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-download fa-sm"></i> 下载
+                                        </a>
+                                    <?php else: ?>
+                                        <!-- 外部链接，使用原来的方式 -->
+                                        <a href="<?= $file->file_url ?>" 
+                                           class="btn btn-primary btn-sm download-link" 
+                                           data-id="<?= $file->id ?>"
+                                           target="_blank">
+                                            <i class="fas fa-download fa-sm"></i> 下载
+                                        </a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -115,7 +133,9 @@ console.log('页面加载完成，jQuery版本:', $.fn.jquery);
 $('#personalWorkTable').DataTable({
     "language": {
         "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Chinese.json"
-    }
+    },
+    "lengthMenu": [[3, 6, 9, 12], [3, 6, 9, 12]],
+    "pageLength": 3
 });
 
 // 下载链接点击事件
@@ -160,6 +180,4 @@ JS;
 
 $this->registerJs($js, \yii\web\View::POS_READY);
 ?>
-});
 </script>
-?>

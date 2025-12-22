@@ -46,10 +46,18 @@ class m251217_000005_create_download_counter_table extends Migration
                 ['团队作业-部署文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
                 ['团队作业-项目展示PPT.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
                 ['团队作业-录屏讲解.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
-                ['杨竣羽-个人作业.pdf', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
-                ['罗仕杰-个人作业.pdf', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
-                ['程娜-个人作业.pdf', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
-                ['刘越帅-个人作业.pdf', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
+                ['杨竣羽-个人作业1.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
+                ['杨竣羽-个人作业2.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
+                ['杨竣羽-个人作业3.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
+                ['罗仕杰-个人作业1.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
+                ['罗仕杰-个人作业2.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
+                ['罗仕杰-个人作业3.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, time(), time()],
+                ['程娜-个人作业1.zip', 'personal', 'local:2311828/作业1(2311828_程娜).zip', 0, time(), time()],
+                ['程娜-个人作业2.zip', 'personal', 'local:2311828/作业2(2311828_程娜).zip', 0, time(), time()],
+                ['程娜-个人作业3.zip', 'personal', 'local:2311828/作业3(2311828_程娜).zip', 0, time(), time()],
+                ['刘越帅-个人作业1.zip', 'personal', 'local:2313752/作业1(2313752_刘越帅).zip', 0, time(), time()],
+                ['刘越帅-个人作业2.zip', 'personal', 'local:2313752/作业2(2313752_刘越帅).zip', 0, time(), time()],
+                ['刘越帅-个人作业3.zip', 'personal', 'local:2313752/作业3(2313752_刘越帅).zip', 0, time(), time()],
             ]
         );
     }

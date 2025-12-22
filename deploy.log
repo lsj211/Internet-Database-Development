@@ -1,0 +1,16 @@
+[2025-12-22 10:58:20] 执行命令: mysql -u root -e "CREATE DATABASE IF NOT EXISTS yii2advanced CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+[2025-12-22 10:58:20] 返回码: 0
+[2025-12-22 10:58:20] 输出: 
+[2025-12-22 10:58:20] 执行命令: php yii migrate --interactive=0
+[2025-12-22 10:58:20] 返回码: 0
+[2025-12-22 10:58:20] 输出: Yii Migration Tool (based on Yii v2.0.53)
+
+No new migrations found. Your system is up-to-date.
+[2025-12-22 10:59:51] 执行命令: mysql -u root -e "CREATE DATABASE IF NOT EXISTS yii2advanced CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+[2025-12-22 10:59:51] 返回码: 0
+[2025-12-22 10:59:51] 输出: 
+[2025-12-22 10:59:51] 执行命令: php yii migrate --interactive=0
+[2025-12-22 10:59:51] 返回码: 0
+[2025-12-22 10:59:51] 输出: Yii Migration Tool (based on Yii v2.0.53)
+
+No new migrations found. Your system is up-to-date.

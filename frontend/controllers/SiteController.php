@@ -293,6 +293,42 @@ class SiteController extends Controller
     }
     
     /**
+     * 下载本地文件
+     */
+    public function actionDownloadFile($id)
+    {
+        $file = DownloadCounter::findOne($id);
+        
+        if (!$file) {
+            throw new \yii\web\NotFoundHttpException('文件不存在');
+        }
+        
+        // 检查是否为本地文件（以 local: 开头）
+        if (strpos($file->file_url, 'local:') === 0) {
+            // 提取本地路径
+            $localPath = substr($file->file_url, 6); // 移除 "local:" 前缀
+            $filePath = Yii::getAlias('@app') . '/../data/personal/' . $localPath;
+            
+            if (!file_exists($filePath)) {
+                throw new \yii\web\NotFoundHttpException('文件不存在：' . $localPath);
+            }
+            
+            // 增加下载计数
+            DownloadCounter::incrementDownload($id);
+            
+            // 从实际文件路径中提取原始文件名
+            $originalFileName = basename($filePath);
+            
+            // 发送文件，使用原始文件名
+            return Yii::$app->response->sendFile($filePath, $originalFileName);
+        } else {
+            // 外部链接，重定向
+            DownloadCounter::incrementDownload($id);
+            return $this->redirect($file->file_url);
+        }
+    }
+    
+    /**
      * 下载统计接口
      */
     public function actionRecordDownload()
