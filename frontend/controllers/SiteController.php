@@ -18,6 +18,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\MemberLoginForm;
 use common\models\Member;
+use common\models\User;
 use common\models\Hero;
 use common\models\HistoricalMaterial;
 use common\models\DownloadCounter;
@@ -192,6 +193,26 @@ class SiteController extends Controller
             'heroes' => $heroes,
             'materials' => $materials,
             'visitCount' => \common\models\PageVisit::getVisitCount('history'),
+        ]);
+    }
+
+    /**
+     * 管理员主页（只读展示）
+     * @param int $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionAdminProfile($id)
+    {
+        $this->layout = 'sb-admin-2';
+
+        $admin = User::findOne($id);
+        if (!$admin) {
+            throw new \yii\web\NotFoundHttpException('用户不存在');
+        }
+
+        return $this->render('admin-profile', [
+            'user' => $admin,
         ]);
     }
 

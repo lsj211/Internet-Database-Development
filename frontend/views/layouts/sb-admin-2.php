@@ -165,30 +165,19 @@ $backendLoginUrl = $backendBaseUrl . '/index.php?r=site/login';
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">访问成员主页:</h6>
                     <?php 
-                    use common\models\Member;
+                    use common\models\User;
                     // 优先显示有学号的用户
-                    $teamMembers = Member::find()
-                        ->where(['in', 'status', [Member::STATUS_ACTIVE, Member::STATUS_INACTIVE]])
+                    $teamMembers = User::find()
+                        ->where(['in', 'status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE]])
                         ->andWhere(['not', ['student_id' => null]])
                         ->andWhere(['<>', 'student_id', ''])
                         ->orderBy(['created_at' => SORT_DESC])
                         ->limit(20)
                         ->all();
                     
-                    // 如果有学号的用户少于5个，再显示其他用户
-                    if (count($teamMembers) < 5) {
-                        $otherMembers = Member::find()
-                            ->where(['in', 'status', [Member::STATUS_ACTIVE, Member::STATUS_INACTIVE]])
-                            ->andWhere(['or', ['student_id' => null], ['student_id' => '']])
-                            ->orderBy(['created_at' => SORT_DESC])
-                            ->limit(20 - count($teamMembers))
-                            ->all();
-                        $teamMembers = array_merge($teamMembers, $otherMembers);
-                    }
-                    
                     foreach ($teamMembers as $member): 
                     ?>
-                        <a class="collapse-item" href="<?= Url::to(['/site/profile', 'id' => $member->id]) ?>">
+                        <a class="collapse-item" href="<?= Url::to(['/site/admin-profile', 'id' => $member->id]) ?>">
                             <i class="fas fa-user-circle"></i> <?= \yii\helpers\Html::encode($member->username) ?>
                             <?php if ($member->student_id): ?>
                                 <small class="text-muted">(<?= \yii\helpers\Html::encode($member->student_id) ?>)</small>
