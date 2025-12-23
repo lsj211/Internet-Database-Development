@@ -16,6 +16,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use frontend\models\MemberLoginForm;
 use common\models\Member;
 use common\models\User as AdminUser;
@@ -634,7 +635,12 @@ class SiteController extends Controller
     public function actionMemorialVideo()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $url = Yii::$app->params['memorialVideoUrl'] ?? 'https://example.com/videos/memorial.mp4';
+        $url = Yii::$app->params['memorialVideoUrl'] ?? null;
+        if (!$url) {
+            $url = Url::to('@web/videos/memorial.mp4');
+        } elseif (strpos($url, '/') === 0) {
+            $url = Yii::$app->request->baseUrl . $url;
+        }
         return ['success' => true, 'url' => $url];
     }
 

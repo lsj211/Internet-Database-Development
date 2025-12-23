@@ -32,7 +32,7 @@ $this->title = '纪念抗战烈士';
     .border-left-primary { border-left: 4px solid var(--primary) !important; }
     .btn-primary { background-color: var(--primary); border-color: var(--primary); }
     .btn-primary:hover { background-color: #A52A2A; border-color: #A52A2A; }
-    body { background-image: url('img/china-map-bg.jpg'); background-size: cover; background-attachment: fixed; background-repeat: no-repeat; }
+    body { background-image: url('<?= Url::to('@web/img/china-map-bg.jpg') ?>'); background-size: cover; background-attachment: fixed; background-repeat: no-repeat; }
     .card { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); }
 
     .memorial-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
@@ -311,6 +311,24 @@ $this->title = '纪念抗战烈士';
                 })
                 .catch(() => showNotification('视频接口请求失败', 'danger'));
         }
+
+        // 关闭弹窗时停止视频，避免仍有声音
+        function stopMemorialVideo() {
+            const video = document.getElementById('memorialVideo');
+            const source = document.getElementById('memorialVideoSource');
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+                video.removeAttribute('src');
+                video.load();
+            }
+            if (source) {
+                source.removeAttribute('src');
+            }
+        }
+
+        $('#memorialVideoModal').on('hide.bs.modal hidden.bs.modal', stopMemorialVideo);
+        $('#memorialVideoModal').on('click', '[data-dismiss="modal"]', stopMemorialVideo);
 
         // 显示通知
         function showNotification(message, type) {
