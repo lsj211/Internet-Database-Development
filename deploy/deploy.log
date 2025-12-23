@@ -555,3 +555,55 @@ Total 1 new migration to be applied:
 1 migration was applied.
 
 Migrated up successfully.
+[2025-12-23 11:29:06] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+[2025-12-23 11:29:11] è¿”å›ç : 0
+[2025-12-23 11:29:11] è¾“å‡º:
+
+[2025-12-23 11:29:11] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://composer.github.io/installer.sig', 'installer.sig');"
+[2025-12-23 11:29:11] è¿”å›ç : 0
+[2025-12-23 11:29:11] è¾“å‡º:
+PHP Warning:  copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(): php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+PHP Warning:  copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+
+Warning: copy(https://composer.github.io/installer.sig): Failed to open stream: php_network_getaddresses: getaddrinfo for composer.github.io failed: ²»ÖªµÀÕâÑùµÄÖ÷»ú¡£  in Command line code on line 1
+[2025-12-23 11:29:11] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" -r "copy('https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig', 'installer.sig');"
+[2025-12-23 11:29:13] è¿”å›ç : 0
+[2025-12-23 11:29:13] è¾“å‡º:
+
+[2025-12-23 11:29:13] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer-setup.php --install-dir=. --filename=composer.phar
+[2025-12-23 11:29:42] è¿”å›ç : 0
+[2025-12-23 11:29:42] è¾“å‡º:
+All settings correct for using Composer
+Downloading...
+
+Composer (version 2.9.2) successfully installed to: G:\xampp\htdocs\Internet-Database-Development\composer.phar
+Use it: php ./composer.phar
+
+[2025-12-23 11:29:42] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar -V
+[2025-12-23 11:29:43] è¿”å›ç : 0
+[2025-12-23 11:29:43] è¾“å‡º:
+Composer version 2.9.2 2025-11-19 21:57:25
+PHP version 8.2.12 (G:\xampp\php\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+[2025-12-23 11:29:43] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" composer.phar install --no-interaction
+[2025-12-23 11:29:45] è¿”å›ç : 0
+[2025-12-23 11:29:45] è¾“å‡º:
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating autoload files
+14 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+[2025-12-23 11:29:45] æ‰§è¡Œå‘½ä»¤: "G:\xampp\mysql\bin\mysql.exe" -h "localhost" -P "3307" -u "root" < "C:\Users\Lenovo\AppData\Local\Temp\yii2_create_db_1766485785.sql"
+[2025-12-23 11:29:47] è¿”å›ç : 0
+[2025-12-23 11:29:47] è¾“å‡º:
+
+[2025-12-23 11:29:47] æ‰§è¡Œå‘½ä»¤: "G:\xampp\php\php.exe" yii migrate --interactive=0
+[2025-12-23 11:29:47] è¿”å›ç : 0
+[2025-12-23 11:29:47] è¾“å‡º:
+Yii Migration Tool (based on Yii v2.0.53)
+
+No new migrations found. Your system is up-to-date.

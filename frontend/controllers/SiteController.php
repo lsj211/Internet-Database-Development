@@ -322,8 +322,9 @@ class SiteController extends Controller
         // 检查是否为本地文件（以 local: 开头）
         if (strpos($file->file_url, 'local:') === 0) {
             // 提取本地路径
-            $localPath = substr($file->file_url, 6); // 移除 "local:" 前缀
-            $filePath = Yii::getAlias('@app') . '/../data/personal/' . $localPath;
+            $localPath = ltrim(substr($file->file_url, 6), '/\\'); // 移除 "local:" 前缀
+            $baseDir = $file->file_type === DownloadCounter::TYPE_TEAM ? 'team' : 'personal';
+            $filePath = Yii::getAlias('@app') . '/../data/' . $baseDir . '/' . $localPath;
             
             if (!file_exists($filePath)) {
                 throw new \yii\web\NotFoundHttpException('文件不存在：' . $localPath);
