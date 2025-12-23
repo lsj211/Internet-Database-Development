@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- 主机： 127.0.0.1
--- 生成日期： 2025-12-23 06:53:38
+-- 主机： 127.0.0.1:3307
+-- 生成日期： 2025-12-23 16:27:52
 -- 服务器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -35,32 +35,32 @@ CREATE TABLE `download_counter` (
   `download_count` int(11) DEFAULT 0 COMMENT '下载次数',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='统计_下载计数表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- 转存表中的数据 `download_counter`
 --
 
 INSERT INTO `download_counter` (`id`, `file_name`, `file_type`, `file_url`, `download_count`, `created_at`, `updated_at`) VALUES
-(1, '团队作业-需求文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 4, 1766466683, 1766391303),
-(2, '团队作业-设计文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 1, 1766466683, 1765945023),
-(3, '团队作业-实现文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(4, '团队作业-用户手册.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 1, 1766466683, 1765944009),
-(5, '团队作业-部署文档.pdf', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(6, '团队作业-项目展示PPT', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(7, '团队作业-录屏讲解', 'team', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 1, 1766466683, 1765953209),
-(8, '杨竣羽-个人作业1.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(9, '杨竣羽-个人作业2.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(10, '杨竣羽-个人作业3.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(11, '罗仕杰-个人作业1.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(12, '罗仕杰-个人作业2.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(13, '罗仕杰-个人作业3.zip', 'personal', 'https://www.researching.cn/ArticlePdf/m00051/2018/33/5/2018-05-0055.pdf', 0, 1766466683, 1766466683),
-(14, '程娜-个人作业1.zip', 'personal', 'local:2311828/作业1(2311828_程娜).zip', 1, 1766466683, 1766466937),
-(15, '程娜-个人作业2.zip', 'personal', 'local:2311828/作业2(2311828_程娜).zip', 0, 1766466683, 1766466683),
-(16, '程娜-个人作业3.zip', 'personal', 'local:2311828/作业3(2311828_程娜).zip', 0, 1766466683, 1766466683),
-(17, '刘越帅-个人作业1.zip', 'personal', 'local:2313752/作业1(2313752_刘越帅).zip', 0, 1766466683, 1766466683),
-(18, '刘越帅-个人作业2.zip', 'personal', 'local:2313752/作业2(2313752_刘越帅).zip', 0, 1766466683, 1766466683),
-(19, '刘越帅-个人作业3.zip', 'personal', 'local:2313752/作业3(2313752_刘越帅).zip', 0, 1766466683, 1766466683);
+(1, '团队作业-需求文档.pdf', 'team', 'local:团队作业-需求文档.pdf', 1, 1766497390, 1766498609),
+(2, '团队作业-设计文档.pdf', 'team', 'local:团队作业-设计文档.pdf', 0, 1766497390, 1766497390),
+(3, '团队作业-实现文档.pdf', 'team', 'local:团队作业-实现文档.pdf', 0, 1766497390, 1766497390),
+(4, '团队作业-用户手册.pdf', 'team', 'local:团队作业-用户手册.pdf', 1, 1766497390, 1766497595),
+(5, '团队作业-部署文档.md', 'team', 'local:团队作业-部署文档.md', 0, 1766497390, 1766497390),
+(6, '团队作业-项目展示PPT.pptx', 'team', 'local:团队作业-项目展示PPT.pptx', 0, 1766497390, 1766497390),
+(7, '团队作业-录屏讲解.mp4', 'team', 'local:团队作业-录屏讲解.mp4', 1, 1766497390, 1766498612),
+(8, '杨竣羽-个人作业1.zip', 'personal', 'local:2313043/作业1(2313043_杨竣羽).zip', 0, 1766497390, 1766497390),
+(9, '杨竣羽-个人作业2.zip', 'personal', 'local:2313043/作业2(2313043_杨竣羽).zip', 0, 1766497390, 1766497390),
+(10, '杨竣羽-个人作业3.zip', 'personal', 'local:2313043/作业3(2313043_杨竣羽).zip', 0, 1766497390, 1766497390),
+(11, '罗仕杰-个人作业1.zip', 'personal', 'local:2313965/作业1(2313965_罗仕杰).zip', 0, 1766497390, 1766497390),
+(12, '罗仕杰-个人作业2.zip', 'personal', 'local:2313965/作业2(2313965_罗仕杰).zip', 0, 1766497390, 1766497390),
+(13, '罗仕杰-个人作业3.zip', 'personal', 'local:2313965/作业3(2313965_罗仕杰).zip', 0, 1766497390, 1766497390),
+(14, '程娜-个人作业1.zip', 'personal', 'local:2311828/作业1(2311828_程娜).zip', 0, 1766497390, 1766497390),
+(15, '程娜-个人作业2.zip', 'personal', 'local:2311828/作业2(2311828_程娜).zip', 0, 1766497390, 1766497390),
+(16, '程娜-个人作业3.zip', 'personal', 'local:2311828/作业3(2311828_程娜).zip', 0, 1766497390, 1766497390),
+(17, '刘越帅-个人作业1.zip', 'personal', 'local:2313752/作业1(2313752_刘越帅).zip', 1, 1766497390, 1766497426),
+(18, '刘越帅-个人作业2.zip', 'personal', 'local:2313752/作业2(2313752_刘越帅).zip', 0, 1766497390, 1766497390),
+(19, '刘越帅-个人作业3.zip', 'personal', 'local:2313752/作业3(2313752_刘越帅).zip', 0, 1766497390, 1766497390);
 
 -- --------------------------------------------------------
 
@@ -73,14 +73,15 @@ CREATE TABLE `flower_offering` (
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID，游客为NULL',
   `ip_address` varchar(45) NOT NULL COMMENT 'IP地址',
   `created_at` int(11) NOT NULL COMMENT '献花时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互动_献花记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='互动_献花记录表';
 
 --
 -- 转存表中的数据 `flower_offering`
 --
 
 INSERT INTO `flower_offering` (`id`, `user_id`, `ip_address`, `created_at`) VALUES
-(1, 7, '::1', 1765938055);
+(1, 7, '::1', 1765938055),
+(2, NULL, '::1', 1766496805);
 
 -- --------------------------------------------------------
 
@@ -102,17 +103,17 @@ CREATE TABLE `hero` (
   `status` smallint(6) DEFAULT 1 COMMENT '状态 1启用 0禁用',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='内容_抗战英雄表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='内容_抗战英雄表';
 
 --
 -- 转存表中的数据 `hero`
 --
 
 INSERT INTO `hero` (`id`, `name`, `title`, `image_url`, `brief`, `deeds`, `contribution`, `birth_year`, `death_year`, `sort_order`, `status`, `created_at`, `updated_at`) VALUES
-(1, '杨靖宇', '东北抗日联军第一路军总司令', '@web/uploads/heroes/hero_1765941868_6942226c82b44.jpg', '中国共产党优秀党员，无产阶级革命家，著名抗日英雄', '率部与日寇血战于白山黑水之间，在冰天雪地、弹尽粮绝的情况下，孤身一人与大量敌人周旋战斗几昼夜，直至壮烈牺牲', '组建抗日联军，坚持东北游击战争', 1905, 1940, 1, 1, 1766466682, 1766466682),
-(2, '赵尚志', '东北抗日联军创建者和领导人', '@web/uploads/heroes/hero_1765941913_69422299a8744.jpg', '抗日民族英雄，东北抗联创建人和杰出领导人', '多次重创日伪军，冰趟雪卧，威震敌胆，给日本侵略军以沉重打击', '创建东北抗日游击根据地，发展抗日武装力量', 1908, 1942, 2, 1, 1766466682, 1766466682),
-(3, '赵一曼', '东北抗日联军第三军二团政治委员', '@web/uploads/heroes/hero_1765941959_694222c73a47d.jpg', '著名抗日民族女英雄，为国捐躯的革命烈士', '领导游击队多次给日伪军以沉重打击，被捕后受尽酷刑，宁死不屈', '领导游击队战斗，是杰出的女性抗日英雄', 1905, 1936, 3, 1, 1766466682, 1766466682),
-(4, '张自忠', '第33集团军总司令', '@web/uploads/heroes/hero_1765941985_694222e18a1c0.jpg', '国民革命军上将，抗日名将，民族英雄', '在枣宜会战中殉国，是抗战中牺牲的最高将领', '指挥多次重要战役，身先士卒，壮烈殉国', 1891, 1940, 4, 1, 1766466682, 1766466682);
+(1, '杨靖宇', '东北抗日联军第一路军总司令', '@web/uploads/heroes/hero_1765941868_6942226c82b44.jpg', '中国共产党优秀党员，无产阶级革命家，著名抗日英雄', '率部与日寇血战于白山黑水之间，在冰天雪地、弹尽粮绝的情况下，孤身一人与大量敌人周旋战斗几昼夜，直至壮烈牺牲', '组建抗日联军，坚持东北游击战争', 1905, 1940, 1, 1, 1766400389, 1766489564),
+(2, '赵尚志', '东北抗日联军创建者和领导人', '@web/uploads/heroes/hero_1765941913_69422299a8744.jpg', '抗日民族英雄，东北抗联创建人和杰出领导人', '多次重创日伪军，冰趟雪卧，威震敌胆，给日本侵略军以沉重打击', '创建东北抗日游击根据地，发展抗日武装力量', 1908, 1942, 2, 1, 1766400389, 1766400389),
+(3, '赵一曼', '东北抗日联军第三军二团政治委员', '@web/uploads/heroes/hero_1765941959_694222c73a47d.jpg', '著名抗日民族女英雄，为国捐躯的革命烈士', '领导游击队多次给日伪军以沉重打击，被捕后受尽酷刑，宁死不屈', '领导游击队战斗，是杰出的女性抗日英雄', 1905, 1936, 3, 1, 1766400389, 1766400389),
+(4, '张自忠', '第33集团军总司令', '@web/uploads/heroes/hero_1765941985_694222e18a1c0.jpg', '国民革命军上将，抗日名将，民族英雄', '在枣宜会战中殉国，是抗战中牺牲的最高将领', '指挥多次重要战役，身先士卒，壮烈殉国', 1891, 1940, 4, 1, 1766400389, 1766400389);
 
 -- --------------------------------------------------------
 
@@ -133,17 +134,17 @@ CREATE TABLE `historical_material` (
   `status` smallint(6) DEFAULT 1 COMMENT '状态 1启用 0禁用',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='内容_历史资料表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='内容_历史资料表';
 
 --
 -- 转存表中的数据 `historical_material`
 --
 
 INSERT INTO `historical_material` (`id`, `title`, `category`, `image_url`, `summary`, `content`, `event_date`, `source`, `sort_order`, `status`, `created_at`, `updated_at`) VALUES
-(1, '抗日救国十大纲领', '宣言', '@web/uploads/materials/material_1765943018_694226eab04f6.jpg', '1937年，中国共产党发表抗日救国十大纲领，号召全国人民团结抗战', '为了动员全国人民参加抗战，争取抗战的胜利，中国共产党提出了全面抗战路线和持久战的战略总方针，制定了一套完整的抗战政策和策略', '1937-08-25', '中共中央', 1, 1, 1766466682, 1766466682),
-(2, '台儿庄大捷', '战役', '@web/uploads/materials/material_1765943145_6942276944a1e.jpg', '1938年，中国军队在台儿庄地区重创日军，取得抗战以来第一个大捷', '台儿庄战役是抗日战争时期徐州会战中的一次重要战役。此次战役振奋了全民族的抗战精神，坚定了抗战的信心', '1938-03-16', '国民革命军', 2, 1, 1766466682, 1766466682),
-(3, '百团大战', '战役', '@web/uploads/materials/material_1765943201_694227a1075aa.jpg', '1940年，八路军发动百团大战，沉重打击日军，鼓舞全国军民抗战信心', '百团大战是抗日战争时期，八路军在华北敌后发动的一次大规模进攻和反\"扫荡\"的战役。这次战役共进行大小战斗1800余次，攻克据点2900余个', '1940-08-20', '八路军总部', 3, 1, 1766466682, 1766466682),
-(4, '淞沪会战', '战役', '@web/uploads/materials/material_1765943235_694227c34dac7.jpg', '1937年淞沪会战，中国军队浴血奋战三个月，粉碎了日军三个月灭亡中国的狂妄计划', '淞沪会战历时三个月，中国军队英勇抗击，虽然最终失利，但粉碎了日本速战速决的战略企图，为后方工业内迁赢得了宝贵时间', '1937-08-13', '国民革命军', 4, 1, 1766466682, 1766466682);
+(1, '抗日救国十大纲领', '宣言', '@web/uploads/materials/material_1765943018_694226eab04f6.jpg', '1937年，中国共产党发表抗日救国十大纲领，号召全国人民团结抗战。', '为了动员全国人民参加抗战，争取抗战的胜利，中国共产党提出了全面抗战路线和持久战的战略总方针，制定了一套完整的抗战政策和策略', '1937-08-25', '中共中央', 1, 1, 1766400390, 1766469915),
+(2, '台儿庄大捷', '战役', '@web/uploads/materials/material_1765943145_6942276944a1e.jpg', '1938年，中国军队在台儿庄地区重创日军，取得抗战以来第一个大捷', '台儿庄战役是抗日战争时期徐州会战中的一次重要战役。此次战役振奋了全民族的抗战精神，坚定了抗战的信心', '1938-03-16', '国民革命军', 2, 1, 1766400390, 1766400390),
+(3, '百团大战', '战役', '@web/uploads/materials/material_1765943201_694227a1075aa.jpg', '1940年，八路军发动百团大战，沉重打击日军，鼓舞全国军民抗战信心', '百团大战是抗日战争时期，八路军在华北敌后发动的一次大规模进攻和反\"扫荡\"的战役。这次战役共进行大小战斗1800余次，攻克据点2900余个', '1940-08-20', '八路军总部', 3, 1, 1766400390, 1766400390),
+(4, '淞沪会战', '战役', '@web/uploads/materials/material_1765943235_694227c34dac7.jpg', '1937年淞沪会战，中国军队浴血奋战三个月，粉碎了日军三个月灭亡中国的狂妄计划', '淞沪会战历时三个月，中国军队英勇抗击，虽然最终失利，但粉碎了日本速战速决的战略企图，为后方工业内迁赢得了宝贵时间', '1937-08-13', '国民革命军', 4, 1, 1766400390, 1766400390);
 
 -- --------------------------------------------------------
 
@@ -177,8 +178,7 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `verification_token`, `status`, `created_at`, `updated_at`, `student_id`, `major`, `role`, `bio`, `age`, `signature`, `avatar`, `homework_link`) VALUES
-(1, '程娜', 'jUR1G-sccfWNSh01umb4THbLY8fJjoNN', '$2y$13$QCrNag14gbV.M9DBiCsvo.YGxEZwdcxcndXBRwIufv/uz8Jbm/04K', NULL, '1461167893@qq.com', '4YeHw_FPWU78-dxjVVZJTLr6tafK-VfS_1766467257', 10, 1766467257, 1766467420, '2311828', '计算机科学与技术', '数据库', '', 21, '这是一条个性签名', '/uploads/avatars/1_1766467420.jpg', ''),
-(2, '普通的用户', 'B4tWAec4UKyEsgW88PId2n06wZrEr9Wu', '$2y$13$UsMP1WvlddyzlA8Dhv3JXuu/R2osmT3mV4Szt7Mnv9LRYj/P7s1IS', NULL, 'chengna136@gmail.com', '91-yZf3EZTUiSEauRB2iqxTqGGPPr6jy_1766468759', 10, 1766468759, 1766468759, '2311828', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, '111', '-cQy9Gd0HNsWxC7rv603qq4KkdSFRJxl', '$2y$13$YAWRVaPUCRPFHC0B64LnK.pnmM.mrVDC5Jil.LzdBQ9AmSMAED9jW', 'SPsaKDhrvJoUwHnoqoIZwGsZD5EZEMj__1766455874', '1515342758@qq.com', 'HhqA-f9eGRZizBd05vfOPk_JDcm9WmhW_1766418639', 10, 1766418639, 1766455874, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -193,14 +193,15 @@ CREATE TABLE `message` (
   `status` smallint(6) NOT NULL DEFAULT 1 COMMENT '状态 1正常 0删除',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互动_留言消息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='互动_留言消息表';
 
 --
 -- 转存表中的数据 `message`
 --
 
 INSERT INTO `message` (`id`, `user_id`, `content`, `status`, `created_at`, `updated_at`) VALUES
-(3, 7, '永远怀念！', 1, 1765937199, 1765937199);
+(3, 7, '永远怀念！', 1, 1765937199, 1765937199),
+(4, 1, '你好', 1, 1766480588, 1766480588);
 
 -- --------------------------------------------------------
 
@@ -211,30 +212,31 @@ INSERT INTO `message` (`id`, `user_id`, `content`, `status`, `created_at`, `upda
 CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- 转存表中的数据 `migration`
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
-('m000000_000000_base', 1766394492),
-('m130524_201442_init', 1766466682),
-('m190124_110200_add_verification_token_column_to_user_table', 1766466682),
-('m251215_000001_create_message_table', 1766466682),
-('m251217_000001_create_flower_offering_table', 1766466682),
-('m251217_000002_create_page_visit_table', 1766466682),
-('m251217_000003_create_hero_table', 1766466682),
-('m251217_000004_create_historical_material_table', 1766466682),
-('m251217_000005_create_download_counter_table', 1766466683),
-('m251217_050234_extend_user_table_add_profile_fields', 1766466683),
-('m251217_050249_create_profile_comment_table', 1766466683),
-('m251222_082353_update_tables_to_standard_naming', 1766466683),
-('m251222_090638_update_chengna_download_urls', 1766466683),
-('m251222_093621_insert_all_initial_data', 1766466683),
-('m251222_100000_update_liuyueshuai_download_urls', 1766466683),
-('m251222_120000_create_member_table', 1766466804),
-('m251223_055025_update_profile_comment_foreign_keys', 1766469092);
+('m000000_000000_base', 1763648156),
+('m130524_201442_init', 1763648174),
+('m190124_110200_add_verification_token_column_to_user_table', 1763648174),
+('m251215_000001_create_message_table', 1766400379),
+('m251217_000001_create_flower_offering_table', 1766400389),
+('m251217_000002_create_page_visit_table', 1766400389),
+('m251217_000003_create_hero_table', 1766400389),
+('m251217_000004_create_historical_material_table', 1766400390),
+('m251217_000005_create_download_counter_table', 1766497390),
+('m251217_050234_extend_user_table_add_profile_fields', 1766400390),
+('m251217_050249_create_profile_comment_table', 1766484207),
+('m251222_082353_update_tables_to_standard_naming', 1766400390),
+('m251222_090638_update_chengna_download_urls', 1766400390),
+('m251222_093621_insert_all_initial_data', 1766400390),
+('m251222_100000_update_liuyueshuai_download_urls', 1766400390),
+('m251222_120000_create_member_table', 1766417227),
+('m251222_130000_update_luoshi_jie_download_urls', 1766482596),
+('m251223_074210_update_yangjunyu_download_urls', 1766484207);
 
 -- --------------------------------------------------------
 
@@ -249,17 +251,17 @@ CREATE TABLE `page_visit` (
   `status` smallint(6) NOT NULL DEFAULT 1 COMMENT '状态 1启用 0禁用',
   `created_at` int(11) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `updated_at` int(11) NOT NULL COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='统计_页面访问统计表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='统计_页面访问统计表';
 
 --
 -- 转存表中的数据 `page_visit`
 --
 
 INSERT INTO `page_visit` (`id`, `page_name`, `visit_count`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'memorial', 35, 1, 0, 1766468392),
-(2, 'index', 22, 1, 1766392278, 1766469174),
-(3, 'history', 9, 1, 1766392282, 1766468561),
-(4, 'parade', 7, 1, 1766392874, 1766468391);
+(1, 'memorial', 54, 1, 0, 1766497395),
+(2, 'index', 69, 1, 1766392278, 1766496768),
+(3, 'history', 25, 1, 1766392282, 1766484667),
+(4, 'parade', 9, 1, 1766392874, 1766461912);
 
 -- --------------------------------------------------------
 
@@ -276,18 +278,14 @@ CREATE TABLE `profile_comment` (
   `status` smallint(6) DEFAULT 1 COMMENT '状态 1正常 0删除',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互动_个人主页评论表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- 转存表中的数据 `profile_comment`
 --
 
 INSERT INTO `profile_comment` (`id`, `profile_user_id`, `comment_user_id`, `parent_id`, `content`, `status`, `created_at`, `updated_at`) VALUES
-(10, 1, 2, NULL, '你好', 1, 1766469115, 1766469115),
-(11, 2, 2, NULL, '我好', 1, 1766469124, 1766469124),
-(12, 2, 2, 11, '1', 1, 1766469139, 1766469139),
-(13, 1, 1, 10, '111', 1, 1766469186, 1766469186),
-(14, 2, 1, 11, '111', 1, 1766469196, 1766469196);
+(1, 1, 1, NULL, '111', 1, 1766484504, 1766484504);
 
 -- --------------------------------------------------------
 
@@ -321,10 +319,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `student_id`, `major`, `role`, `bio`, `age`, `signature`, `avatar`, `homework_link`) VALUES
+(1, '123', 'xl0TgPrHEnqUGvwLij-VpeSB3wBopX74', '$2y$13$g1QQKYEYpTf9xLhJR9IBPO0fZuiprt3m6fc3GYsKFVVa93vWC366u', NULL, '1111111111@qq.com', 9, 1765454410, 1765454410, '34UXxerTlOnzVZWs-gMgP1z0up7fxpOS_1765454410', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, '程娜', 'HIJj1N0ZFVO5OFx3Ipp5KgaIep6Zpf90', '$2y$13$0Zts/97u97W0jUhsRBCTkOR0iZ6bGTuCwdlRYS/JKgqaInedhUIvy', NULL, '2311828@mail.nankai.edu.cn', 10, 1765797657, 1765950144, 'lAxW0QT3ZOd1gBpsY3VOdPV83mI1gWOT_1765797657', '2311828', '计算机科学与技术', '数据库和后端', '我是来自南开大学的程娜', 21, '这是一条非常有个性的个性签名', '/uploads/avatars/7_1765950144.jpg', 'https://github.com/Dou-Dou-Da-D1'),
 (9, '刘越帅', 'gqiMdw0XHWnBxKFjzW1qdfcDB-eyjRxr', '$2y$13$IQAN6JhMRNLho/4n79/CpetCxB8QcGisHZi.c2/jSo4Tw/f/nwMVe', NULL, '2917769103@qq.com', 10, 1766392477, 1766392477, 'dQTZu3Cz8a1k_QFj8n1SldYqXNGj_vEK_1766392477', '2313752', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (10, '杨竣羽', 'v8H9O3QWq5agBZLy1sY-z7_ycWUbt0iu', '$2y$13$YB9ONFh99aiyMGzMyUe.sudmIRZ5WC1Z2loFOTxYKVU78yZ5RcbdS', NULL, '2939216907@qq.com', 10, 1766392581, 1766392581, '048nZ0kUPunm0RWgIrdAv4cjGb-MYLe-_1766392581', '2313043', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, '罗仕杰', 'A4FeRBLx4ngqwNx8YcQxwkiUoesMfw4M', '$2y$13$xBrO6i6EhnFcg3EpeElm.ePXc.KEhWWUfN6vvRPlihXt.61Td/RW.', NULL, '1515342758@qq.com', 10, 1766393531, 1766393531, 'Y2h10pDl90e2Nn7B9IRyc1CFYDqI1HnU_1766393531', '2313965', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(11, '罗仕杰', 'A4FeRBLx4ngqwNx8YcQxwkiUoesMfw4M', '$2y$13$cYdAFZ/AAtiel10tJBxOYOF2QGiiqWZ2OxDuW2j/fvHNuhXhIxrZO', NULL, '1515342758@qq.com', 10, 1766393531, 1766489491, 'Y2h10pDl90e2Nn7B9IRyc1CFYDqI1HnU_1766393531', '2313965', '计算机科学与技术', '', '', NULL, '哈哈哈', '/uploads/avatars/admin_11_1766489491.png', NULL),
+(12, 'lsj111', 'VuE_zltQVR-MErQve1e1u88oWSQ359jP', '$2y$13$XKgVgGDJjUnuyAulhf.B/eQ0hhA7J4ZJTAfXZqlZ4dMJ5qUloj8Ce', NULL, '1515@qq.com', 10, 1766421269, 1766421269, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- 转储表的索引
@@ -426,13 +426,13 @@ ALTER TABLE `download_counter`
 -- 使用表AUTO_INCREMENT `flower_offering`
 --
 ALTER TABLE `flower_offering`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `hero`
 --
 ALTER TABLE `hero`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `historical_material`
@@ -444,13 +444,13 @@ ALTER TABLE `historical_material`
 -- 使用表AUTO_INCREMENT `member`
 --
 ALTER TABLE `member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `page_visit`
@@ -462,13 +462,13 @@ ALTER TABLE `page_visit`
 -- 使用表AUTO_INCREMENT `profile_comment`
 --
 ALTER TABLE `profile_comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- 限制导出的表
