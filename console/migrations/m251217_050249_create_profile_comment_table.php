@@ -33,7 +33,7 @@ class m251217_050249_create_profile_comment_table extends Migration
             'fk-profile_comment-profile_user_id',
             '{{%profile_comment}}',
             'profile_user_id',
-            '{{%user}}',
+            '{{%member}}',
             'id',
             'CASCADE'
         );
@@ -42,7 +42,7 @@ class m251217_050249_create_profile_comment_table extends Migration
             'fk-profile_comment-comment_user_id',
             '{{%profile_comment}}',
             'comment_user_id',
-            '{{%user}}',
+            '{{%member}}',
             'id',
             'CASCADE'
         );
