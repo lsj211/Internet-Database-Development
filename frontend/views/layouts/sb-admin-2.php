@@ -154,20 +154,21 @@ $backendLoginUrl = $backendBaseUrl . '/index.php?r=site/login';
         </li>
         <?php endif; ?>
 
-        <!-- Nav Item - 团队成员主页 -->
+        <!-- Nav Item - 管理员成员 -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMembers"
-                aria-expanded="true" aria-controls="collapseMembers">
-                <i class="fas fa-fw fa-users"></i>
-                <span>团队成员</span>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmins"
+                aria-expanded="true" aria-controls="collapseAdmins">
+                <i class="fas fa-fw fa-user-shield"></i>
+                <span>管理员</span>
             </a>
-            <div id="collapseMembers" class="collapse" aria-labelledby="headingMembers" data-parent="#accordionSidebar">
+            <div id="collapseAdmins" class="collapse" aria-labelledby="headingAdmins" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">访问成员主页:</h6>
+                    <h6 class="collapse-header">访问管理员主页:</h6>
                     <?php 
                     use common\models\User;
-                    // 优先显示有学号的用户
-                    $teamMembers = User::find()
+                    use common\models\Member;
+                    // 优先显示有学号的管理员用户
+                    $adminMembers = User::find()
                         ->where(['in', 'status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE]])
                         ->andWhere(['not', ['student_id' => null]])
                         ->andWhere(['<>', 'student_id', ''])
@@ -175,15 +176,51 @@ $backendLoginUrl = $backendBaseUrl . '/index.php?r=site/login';
                         ->limit(20)
                         ->all();
                     
-                    foreach ($teamMembers as $member): 
+                    foreach ($adminMembers as $admin): 
                     ?>
-                        <a class="collapse-item" href="<?= Url::to(['/site/admin-profile', 'id' => $member->id]) ?>">
-                            <i class="fas fa-user-circle"></i> <?= \yii\helpers\Html::encode($member->username) ?>
-                            <?php if ($member->student_id): ?>
-                                <small class="text-muted">(<?= \yii\helpers\Html::encode($member->student_id) ?>)</small>
+                        <a class="collapse-item" href="<?= Url::to(['/site/admin-profile', 'id' => $admin->id]) ?>">
+                            <i class="fas fa-user-shield"></i> <?= \yii\helpers\Html::encode($admin->username) ?>
+                            <?php if ($admin->student_id): ?>
+                                <small class="text-muted">(<?= \yii\helpers\Html::encode($admin->student_id) ?>)</small>
                             <?php endif; ?>
                         </a>
                     <?php endforeach; ?>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - 普通用户成员 -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMembers"
+                aria-expanded="true" aria-controls="collapseMembers">
+                <i class="fas fa-fw fa-users"></i>
+                <span>普通用户</span>
+            </a>
+            <div id="collapseMembers" class="collapse" aria-labelledby="headingMembers" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">访问用户主页:</h6>
+                    <?php 
+                    // 显示普通用户成员（Member表）
+                    $regularMembers = Member::find()
+                        ->where(['status' => Member::STATUS_ACTIVE])
+                        ->orderBy(['created_at' => SORT_DESC])
+                        ->limit(20)
+                        ->all();
+                    
+                    if (empty($regularMembers)): ?>
+                        <span class="collapse-item text-muted" style="cursor: default;">
+                            <i class="fas fa-info-circle"></i> 暂无注册用户
+                        </span>
+                    <?php else: ?>
+                        <?php foreach ($regularMembers as $member): ?>
+                            <a class="collapse-item" href="<?= Url::to(['/site/profile', 'id' => $member->id]) ?>">
+                                <i class="fas fa-user-circle"></i> <?= \yii\helpers\Html::encode($member->username) ?>
+                                <?php if ($member->student_id): ?>
+                                    <small class="text-muted">(<?= \yii\helpers\Html::encode($member->student_id) ?>)</small>
+                                <?php endif; ?>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </li>

@@ -515,30 +515,49 @@ class SiteController extends Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         
-        if (Yii::$app->user->isGuest) {
-            return ['success' => false, 'message' => '请先登录'];
-        }
-        
-        $model = new ProfileComment();
-        $model->profile_user_id = Yii::$app->request->post('profile_user_id');
-        $model->comment_user_id = Yii::$app->user->id;
-        $model->parent_id = Yii::$app->request->post('parent_id');
-        $model->content = Yii::$app->request->post('content');
-        
-        if ($model->save()) {
+        try {
+            if (Yii::$app->user->isGuest) {
+                return ['success' => false, 'message' => '请先登录'];
+            }
+            
+            $model = new ProfileComment();
+            $model->profile_user_id = Yii::$app->request->post('profile_user_id');
+            $model->comment_user_id = Yii::$app->user->id;
+            $model->parent_id = Yii::$app->request->post('parent_id');
+            $model->content = Yii::$app->request->post('content');
+            
+            if ($model->save()) {
+                return [
+                    'success' => true,
+                    'message' => '评论成功',
+                    'comment' => [
+                        'id' => $model->id,
+                        'content' => $model->content,
+                        'username' => Yii::$app->user->identity->username,
+                        'created_at' => Yii::$app->formatter->asDatetime($model->created_at),
+                    ]
+                ];
+            }
+            
+            // 返回详细错误信息
+            $errors = $model->getErrors();
+            $errorMessages = [];
+            foreach ($errors as $field => $fieldErrors) {
+                $errorMessages[] = implode(', ', $fieldErrors);
+            }
+            
             return [
-                'success' => true,
-                'message' => '评论成功',
-                'comment' => [
-                    'id' => $model->id,
-                    'content' => $model->content,
-                    'username' => Yii::$app->user->identity->username,
-                    'created_at' => Yii::$app->formatter->asDatetime($model->created_at),
-                ]
+                'success' => false, 
+                'message' => '评论失败：' . implode('; ', $errorMessages),
+                'errors' => $errors
+            ];
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage() . "\n" . $e->getTraceAsString(), __METHOD__);
+            return [
+                'success' => false, 
+                'message' => '系统错误：' . $e->getMessage()
             ];
         }
-        
-        return ['success' => false, 'message' => '评论失败'];
     }
 
     /**
