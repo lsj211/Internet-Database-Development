@@ -241,6 +241,7 @@ $csrfToken = Yii::$app->request->csrfToken;
 $profileUserId = $user->id;
 
 $js = <<<JS
+jQuery(document).ready(function($) {
 // 评论表单提交
 $('#comment-form').on('submit', function(e) {
     e.preventDefault();
@@ -339,7 +340,8 @@ $('.reply-submit-form').on('submit', function(e) {
     
     return false;
 });
+});
 JS;
 
-$this->registerJs($js, \yii\web\View::POS_READY);
+$this->registerJs($js, \yii\web\View::POS_END);
 ?>
