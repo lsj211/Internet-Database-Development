@@ -18,7 +18,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\MemberLoginForm;
 use common\models\Member;
-use common\models\User;
+use common\models\User as AdminUser;
 use common\models\Hero;
 use common\models\HistoricalMaterial;
 use common\models\DownloadCounter;
@@ -90,7 +90,12 @@ class SiteController extends Controller
         
         // 获取统计数据
         $stats = [
-            'totalMembers' => Member::find()->where(['status' => Member::STATUS_ACTIVE])->count(),
+            'totalMembers' => AdminUser::find()
+                ->where(['in', 'status', [AdminUser::STATUS_ACTIVE, AdminUser::STATUS_INACTIVE]])
+                ->andWhere(['not', ['student_id' => null]])
+                ->andWhere(['<>', 'student_id', ''])
+                ->count(),
+            'totalUsers' => Member::find()->where(['status' => Member::STATUS_ACTIVE])->count(),
             'totalDownloads' => DownloadCounter::getTotalDownloads(),
             'totalVisits' => \common\models\PageVisit::getTotalVisits(),
             'totalHeroes' => Hero::find()->count(),
@@ -206,7 +211,7 @@ class SiteController extends Controller
     {
         $this->layout = 'sb-admin-2';
 
-        $admin = User::findOne($id);
+        $admin = AdminUser::findOne($id);
         if (!$admin) {
             throw new \yii\web\NotFoundHttpException('用户不存在');
         }
@@ -386,7 +391,11 @@ class SiteController extends Controller
         
         // 获取团队统计数据
         $stats = [
-            'totalMembers' => Member::find()->where(['status' => Member::STATUS_ACTIVE])->count(),
+            'totalMembers' => AdminUser::find()
+                ->where(['in', 'status', [AdminUser::STATUS_ACTIVE, AdminUser::STATUS_INACTIVE]])
+                ->andWhere(['not', ['student_id' => null]])
+                ->andWhere(['<>', 'student_id', ''])
+                ->count(),
             'totalDownloads' => DownloadCounter::getTotalDownloads(),
             'totalVisits' => \common\models\PageVisit::getTotalVisits(),
             'totalComments' => ProfileComment::find()->where(['status' => ProfileComment::STATUS_ACTIVE])->count(),

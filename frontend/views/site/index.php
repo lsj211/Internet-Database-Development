@@ -108,15 +108,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     <canvas id="myPieChart"></canvas>
                 </div>
                 <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> 团队成员: <?= $stats['totalMembers'] ?> 人
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> 英雄人物: <?= $stats['totalHeroes'] ?> 位
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> 历史资料: <?= $stats['totalMaterials'] ?> 份
-                    </span>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <div class="px-3 py-1">
+                            <i class="fas fa-circle text-primary"></i> 团队成员: <?= $stats['totalMembers'] ?> 人
+                        </div>
+                        <div class="px-3 py-1">
+                            <i class="fas fa-circle text-warning"></i> 用户人数: <?= $stats['totalUsers'] ?> 人
+                        </div>
+                        <div class="px-3 py-1">
+                            <i class="fas fa-circle text-success"></i> 英雄人物: <?= $stats['totalHeroes'] ?> 位
+                        </div>
+                        <div class="px-3 py-1">
+                            <i class="fas fa-circle text-info"></i> 历史资料: <?= $stats['totalMaterials'] ?> 份
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,6 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
 // 将统计数据传递给 JavaScript
 $chartData = [
     'totalMembers' => $stats['totalMembers'],
+    'totalUsers' => $stats['totalUsers'],
     'totalHeroes' => $stats['totalHeroes'],
     'totalMaterials' => $stats['totalMaterials'],
 ];
@@ -196,11 +202,11 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["团队成员", "英雄人物", "历史资料"],
+    labels: ["团队成员", "用户人数", "英雄人物", "历史资料"],
     datasets: [{
-      data: [{$chartData['totalMembers']}, {$chartData['totalHeroes']}, {$chartData['totalMaterials']}],
-      backgroundColor: ['#8B0000', '#228B22', '#4169E1'],
-      hoverBackgroundColor: ['#A52A2A', '#32CD32', '#4682B4'],
+      data: [{$chartData['totalMembers']}, {$chartData['totalUsers']}, {$chartData['totalHeroes']}, {$chartData['totalMaterials']}],
+      backgroundColor: ['#8B0000', '#FF8C00', '#228B22', '#4169E1'],
+      hoverBackgroundColor: ['#A52A2A', '#FFA500', '#32CD32', '#4682B4'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }]
   },
@@ -215,6 +221,13 @@ var myPieChart = new Chart(ctx, {
         padding: 15,
         displayColors: false,
         caretPadding: 10,
+        callbacks: {
+          label: function(context) {
+            var label = context.label || '';
+            var value = context.parsed;
+            return label + ': ' + value;
+          }
+        }
       },
       legend: {
         display: false

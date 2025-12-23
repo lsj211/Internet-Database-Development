@@ -147,6 +147,55 @@ function updateYiiBat($projectRoot, $phpExe) {
     @file_put_contents($bat, $content2);
     return [true, '已更新 yii.bat 的 PHP_COMMAND'];
 }
+
+
+function installComposerViaPowerShell($phpExe, $projectRoot) {
+    if (!isWindows()) {
+        return [false, "PowerShell 仅支持 Windows（当前非 Windows）"];
+    }
+
+    $phpExe = str_replace('/', '\\', $phpExe);
+    $projectRoot = str_replace('/', '\\', $projectRoot);
+
+    $ps = [];
+    $ps[] = '$ErrorActionPreference="Stop"';
+    $ps[] = 'cd "' . str_replace('"', '""', $projectRoot) . '"';
+    $ps[] = '[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12';
+
+    // 1) 重新下载 installer
+    $ps[] = 'Invoke-WebRequest https://getcomposer.org/installer -OutFile composer-setup.php';
+
+    // 2) 正确读取官方 SHA384 签名（bytes -> string）
+    $ps[] = '$bytes=(Invoke-WebRequest https://composer.github.io/installer.sig -UseBasicParsing).Content';
+    $ps[] = '$expected=[Text.Encoding]::ASCII.GetString($bytes).Trim().ToLower()';
+
+    // 3) 计算本地下载文件的 SHA384
+    $ps[] = '$actual=(Get-FileHash .\composer-setup.php -Algorithm SHA384).Hash.ToLower()';
+
+    // 4) 校验
+    $ps[] = 'if ($actual -ne $expected) { Remove-Item .\composer-setup.php -ErrorAction SilentlyContinue; throw "Composer installer 校验失败（hash 不匹配），已删除 composer-setup.php。expected=$expected actual=$actual" }';
+
+    // 5) 安装
+    $ps[] = '& "' . str_replace('"', '""', $phpExe) . '" .\composer-setup.php --install-dir=. --filename=composer.phar';
+    $ps[] = 'Remove-Item .\composer-setup.php -ErrorAction SilentlyContinue';
+
+    // 6) 验证
+    $ps[] = '& "' . str_replace('"', '""', $phpExe) . '" .\composer.phar -V';
+
+    $script = implode('; ', $ps);
+
+    // 用 escapeshellarg 包住整个命令脚本，避免引号炸裂
+    $cmd = 'powershell -NoProfile -ExecutionPolicy Bypass -Command ' . escapeshellarg($script);
+
+    $res = execCommand($cmd, $projectRoot);
+    $composerPhar = $projectRoot . DIRECTORY_SEPARATOR . 'composer.phar';
+
+    if ($res['return'] === 0 && file_exists($composerPhar)) {
+        return [true, "PowerShell 安装 composer.phar 成功：\n" . implode("\n", $res['output'])];
+    }
+    return [false, "PowerShell 安装 composer.phar 失败：\n" . implode("\n", $res['output'])];
+}
+
 function ensureComposerPhar($phpExe, $projectRoot) {
     $composerPhar = $projectRoot . DIRECTORY_SEPARATOR . 'composer.phar';
     if (file_exists($composerPhar)) {
@@ -157,11 +206,16 @@ function ensureComposerPhar($phpExe, $projectRoot) {
     $installer = $projectRoot . DIRECTORY_SEPARATOR . 'composer-setup.php';
     $sigFile   = $projectRoot . DIRECTORY_SEPARATOR . 'installer.sig';
 
+    // 1) 下载 installer（PHP copy）
     $d1 = execCommand("\"$phpExe\" -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\"", $projectRoot);
     if ($d1['return'] !== 0 || !file_exists($installer)) {
-        return [false, "下载 composer installer 失败（网络/SSL）。\n" . implode("\n", $d1['output'])];
+        // ✅ 兜底：PowerShell 下载
+        [$ok2, $msg2] = installComposerViaPowerShell($phpExe, $projectRoot);
+        if ($ok2) return [true, $msg2];
+        return [false, "下载 composer installer 失败（网络/SSL）。\n" . implode("\n", $d1['output']) . "\n\n--- PowerShell 兜底也失败 ---\n" . $msg2];
     }
 
+    // 2) 下载 installer.sig（PHP copy）
     $sigUrls = [
         'https://composer.github.io/installer.sig',
         'https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig',
@@ -171,38 +225,126 @@ function ensureComposerPhar($phpExe, $projectRoot) {
         $d2 = execCommand("\"$phpExe\" -r \"copy('{$sigUrl}', 'installer.sig');\"", $projectRoot);
         if ($d2['return'] === 0 && file_exists($sigFile)) break;
     }
+
     if (!$d2 || $d2['return'] !== 0 || !file_exists($sigFile)) {
         @unlink($installer);
 
-        // Fallback: direct composer.phar download (no signature check).
-        $directUrl = 'https://getcomposer.org/download/latest-stable/composer.phar';
-        $direct = execCommand("\"$phpExe\" -r \"copy('{$directUrl}', 'composer.phar');\"", $projectRoot);
-        if ($direct['return'] === 0 && file_exists($composerPhar)) {
-            return [true, "composer.phar downloaded without signature check.\n" . implode("\n", $direct['output'])];
-        }
+        // ✅ 兜底：PowerShell 下载（带校验）
+        [$ok2, $msg2] = installComposerViaPowerShell($phpExe, $projectRoot);
+        if ($ok2) return [true, $msg2];
 
-        return [false, "installer.sig download failed.\n" . implode("\n", $d2 ? $d2['output'] : []) . "\n\nDirect composer.phar download failed:\n" . implode("\n", $direct['output'])];
+        return [false,
+            "installer.sig download failed.\n" .
+            implode("\n", $d2 ? $d2['output'] : []) .
+            "\n\n--- PowerShell 兜底也失败 ---\n" . $msg2
+        ];
     }
 
+    // 3) 校验 sha384
     $expected = strtolower(trim((string)@file_get_contents($sigFile)));
     $actual   = strtolower(hash_file('sha384', $installer) ?: '');
     @unlink($sigFile);
 
     if (!$expected || !$actual || $expected !== $actual) {
         @unlink($installer);
-        return [false, "Composer installer 校验失败（hash 不匹配）。expected=$expected actual=$actual"];
+
+        // ✅ 兜底：PowerShell 下载（带校验）
+        [$ok2, $msg2] = installComposerViaPowerShell($phpExe, $projectRoot);
+        if ($ok2) return [true, $msg2];
+
+        return [false, "Composer installer 校验失败（hash 不匹配）。expected=$expected actual=$actual\n\n--- PowerShell 失败 ---\n" . $msg2];
     }
 
+    // 4) 安装 composer.phar
     $install = execCommand("\"$phpExe\" composer-setup.php --install-dir=. --filename=composer.phar", $projectRoot);
     @unlink($installer);
 
     if ($install['return'] !== 0 || !file_exists($composerPhar)) {
-        return [false, "安装 composer.phar 失败。\n" . implode("\n", $install['output'])];
+        // ✅ 兜底：PowerShell 再试一次
+        [$ok2, $msg2] = installComposerViaPowerShell($phpExe, $projectRoot);
+        if ($ok2) return [true, $msg2];
+
+        return [false, "安装 composer.phar 失败。\n" . implode("\n", $install['output']) . "\n\n--- PowerShell 失败 ---\n" . $msg2];
     }
 
+    // 5) 验证
     $ver = execCommand("\"$phpExe\" composer.phar -V", $projectRoot);
+    if ($ver['return'] !== 0) {
+        // ✅ 兜底：PowerShell 再试一次
+        [$ok2, $msg2] = installComposerViaPowerShell($phpExe, $projectRoot);
+        if ($ok2) return [true, $msg2];
+
+        return [false, "Composer 安装完成但验证失败：\n" . implode("\n", $ver['output']) . "\n\n--- PowerShell 失败 ---\n" . $msg2];
+    }
+
     return [true, "Composer 安装完成：\n" . implode("\n", $ver['output'])];
 }
+
+
+
+
+
+
+
+
+
+
+// function ensureComposerPhar($phpExe, $projectRoot) {
+//     $composerPhar = $projectRoot . DIRECTORY_SEPARATOR . 'composer.phar';
+//     if (file_exists($composerPhar)) {
+//         $ver = execCommand("\"$phpExe\" composer.phar -V", $projectRoot);
+//         return [true, "composer.phar 已存在：\n" . implode("\n", $ver['output'])];
+//     }
+
+//     $installer = $projectRoot . DIRECTORY_SEPARATOR . 'composer-setup.php';
+//     $sigFile   = $projectRoot . DIRECTORY_SEPARATOR . 'installer.sig';
+
+//     $d1 = execCommand("\"$phpExe\" -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\"", $projectRoot);
+//     if ($d1['return'] !== 0 || !file_exists($installer)) {
+//         return [false, "下载 composer installer 失败（网络/SSL）。\n" . implode("\n", $d1['output'])];
+//     }
+
+//     $sigUrls = [
+//         'https://composer.github.io/installer.sig',
+//         'https://raw.githubusercontent.com/composer/composer.github.io/master/installer.sig',
+//     ];
+//     $d2 = null;
+//     foreach ($sigUrls as $sigUrl) {
+//         $d2 = execCommand("\"$phpExe\" -r \"copy('{$sigUrl}', 'installer.sig');\"", $projectRoot);
+//         if ($d2['return'] === 0 && file_exists($sigFile)) break;
+//     }
+//     if (!$d2 || $d2['return'] !== 0 || !file_exists($sigFile)) {
+//         @unlink($installer);
+
+//         // Fallback: direct composer.phar download (no signature check).
+//         $directUrl = 'https://getcomposer.org/download/latest-stable/composer.phar';
+//         $direct = execCommand("\"$phpExe\" -r \"copy('{$directUrl}', 'composer.phar');\"", $projectRoot);
+//         if ($direct['return'] === 0 && file_exists($composerPhar)) {
+//             return [true, "composer.phar downloaded without signature check.\n" . implode("\n", $direct['output'])];
+//         }
+
+//         return [false, "installer.sig download failed.\n" . implode("\n", $d2 ? $d2['output'] : []) . "\n\nDirect composer.phar download failed:\n" . implode("\n", $direct['output'])];
+//     }
+
+//     $expected = strtolower(trim((string)@file_get_contents($sigFile)));
+//     $actual   = strtolower(hash_file('sha384', $installer) ?: '');
+//     @unlink($sigFile);
+
+//     if (!$expected || !$actual || $expected !== $actual) {
+//         @unlink($installer);
+//         return [false, "Composer installer 校验失败（hash 不匹配）。expected=$expected actual=$actual"];
+//     }
+
+//     $install = execCommand("\"$phpExe\" composer-setup.php --install-dir=. --filename=composer.phar", $projectRoot);
+//     @unlink($installer);
+
+//     if ($install['return'] !== 0 || !file_exists($composerPhar)) {
+//         return [false, "安装 composer.phar 失败。\n" . implode("\n", $install['output'])];
+//     }
+
+//     $ver = execCommand("\"$phpExe\" composer.phar -V", $projectRoot);
+//     return [true, "Composer 安装完成：\n" . implode("\n", $ver['output'])];
+// }
 
 /**
  * 只修改你的 common/config/main-local.php 中 db 组件
