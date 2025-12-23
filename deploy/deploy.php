@@ -680,8 +680,8 @@ if ($action) {
           <input id="cfg_dbhost" value="localhost" />
         </div>
         <div class="form-group">
-          <label>DB Port（你这里通常是 3307）</label>
-          <input id="cfg_dbport" value="3307" />
+          <label>DB Port</label>
+          <input id="cfg_dbport" value="3306" />
         </div>
       </div>
 
