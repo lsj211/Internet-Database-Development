@@ -144,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <img class="card-img-top" src="<?= Url::to('@web/img/member1.jpg') ?>" alt="成员1" onerror="this.src='<?= Url::to('@web/img/undraw_profile_1.svg') ?>'">
                             <div class="card-body">
                                 <h5 class="card-title">刘越帅</h5>
-                                <p class="card-text">学号：2313752<br>分工：队长，统筹+部分后端<br>具体负责：制定项目进度表，组织团队会议，审核所有交付物；用 Yii2 框架编写 1 个 Controller 层文件，负责后台用户交互逻辑处理；整合所有文件并按要求提交至指定邮箱。</p>
+                                <p class="card-text">学号：2313752<br>分工：队长，统筹+部分后端<br>具体负责：制定项目进度表，组织团队会议，审核所有交付物；撰写需求、设计、实现、用户手册、部署文档；整合所有文件并按要求提交至指定邮箱。</p>
                             </div>
                         </div>
                     </div>
@@ -153,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <img class="card-img-top" style="height: 65;"src="<?= Url::to('@web/img/member2.jpg') ?>" alt="成员2" onerror="this.src='<?= Url::to('@web/img/undraw_profile_2.svg') ?>'">
                             <div class="card-body">
                                 <h5 class="card-title">杨竣羽</h5>
-                                <p class="card-text">学号：2313043<br>分工：前端+动态图形<br>具体负责：设计团队主页原型，用 HTML5+CSS3+JavaScript 实现前后台页面布局与响应式适配；集成 JQuery/Ajax 实现留言等异步交互；开发动态图形展示模块（如抗战历史数据可视化）；完成 3 项个人作业并放入指定文件夹。</p>
+                                <p class="card-text">学号：2313043<br>分工：前端+动态图形<br>具体负责：设计团队主页原型，用 HTML5+CSS3+JavaScript 实现前后台页面布局与响应式适配；集成 JQuery/Ajax 实现留言等异步交互；开发动态图形展示模块（如抗战历史数据可视化）。</p>
                             </div>
                         </div>
                     </div>
@@ -162,7 +162,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <img class="card-img-top" src="<?= Url::to('@web/img/member3.jpg') ?>" alt="成员3" onerror="this.src='<?= Url::to('@web/img/undraw_profile_3.svg') ?>'">
                             <div class="card-body">
                                 <h5 class="card-title">程娜</h5>
-                                <p class="card-text">学号：2311828<br>分工：后端+数据库<br>具体负责：设计≥10 张数据库表（遵循 “前缀_模块名_表名” 规范），绘制 ER 图、编写数据库字典与 SQL 文件（/data/install.sql）；用 Yii2 框架编写 1 个 Model 层文件，负责数据逻辑处理；配置数据库连接（main-local.php）；确保 MVC 三层各完成 1 个文件。</p>
+                                <p class="card-text">学号：2311828<br>分工：后端+数据库<br>具体负责：设计≥10 张数据库表，绘制 ER 图、编写数据库字典与 SQL 文件（/data/install.sql）；用 Yii2 框架编写Model 层文件，负责数据逻辑处理；配置数据库连接（main-local.php）。</p>
                             </div>
                         </div>
                     </div>
@@ -171,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <img class="card-img-top" src="<?= Url::to('@web/img/member4.jpg') ?>" alt="成员4" onerror="this.src='<?= Url::to('@web/img/undraw_profile_1.svg') ?>'">
                             <div class="card-body">
                                 <h5 class="card-title">罗仕杰</h5>
-                                <p class="card-text">学号：2313965<br>分工：文档+测试+展示<br>具体负责：撰写需求、设计、实现、用户手册、部署文档（含一键部署方案加分）；编写测试用例并完成功能测试；制作项目展示 PPT（明确分工与工作量）；录制 5-15 分钟录屏讲解（含部署、网页演示、PPT 讲解）；统一规范所有文档命名格式。</p>
+                                <p class="card-text">学号：2313965<br>分工：文档+测试+展示<br>具体负责：简化部署模式,完成功能测试；连接前后端逻辑；制作项目展示 PPT（明确分工与工作量）；录制 5-15 分钟录屏讲解（含部署、网页演示、PPT 讲解）。</p>
                             </div>
                         </div>
                     </div>
