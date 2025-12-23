@@ -1,6 +1,6 @@
 <?php
 /**
- * Team: DBIS, NKU
+ * Team: 抗战纪念队, NKU
  * Coding by chengna 2311828
  * This is the message model of common.
  */

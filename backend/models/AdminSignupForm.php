@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LuoShijie 2313965
+ * Form model for updating an admin user's profile data,including optional password changes and avatar upload.
+ */
 
 namespace backend\models;
 
@@ -6,9 +11,7 @@ use Yii;
 use yii\base\Model;
 use common\models\User;
 
-/**
- * Admin signup form
- */
+
 class AdminSignupForm extends Model
 {
     public $username;

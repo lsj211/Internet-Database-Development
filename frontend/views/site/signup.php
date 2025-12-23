@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Team：DBIS， NKU
+ * Team：抗战纪念队， NKU
  * Codeing by chengna 2311828
  * This file is used to create a signup form for new users.
  */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Team: DBIS, NKU
+ * Team: 抗战纪念队, NKU
  * Coding by chengna 2311828
  * This file is part of the password reset email template.
  */

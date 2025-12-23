@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Team: DBIS, NKU
- * Coding by chengna 2311828
+ * Team: 抗战纪念队, NKU
+ * Coding by chengna 2311828 modifyed by LuoShijie 2313965
  * This file is part of the backend views for historical material management.
  */
 
