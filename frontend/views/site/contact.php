@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by YangJunyu 2313043
+ * This is the contact view for users to reach out to the team.
+ */
 /* 联系页面（简洁的 Yii2 视图模板） */
 use yii\helpers\Html;
 $this->title = '联系我们';

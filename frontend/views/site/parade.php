@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view presents the parade ceremony overview.
+ */
 use yii\helpers\Url;
 $this->title = '阅兵仪式';
 ?>

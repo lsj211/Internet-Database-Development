@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view introduces the team's mission and background.
+ */
 /* 关于页面（简洁的 Yii2 视图模板） */
 use yii\helpers\Html;
 $this->title = '关于我们';

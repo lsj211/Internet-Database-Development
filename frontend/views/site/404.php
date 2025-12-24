@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view renders the themed 404 fallback page.
+ */
 
 /* @var $this yii\web\View */
 /* @var $exception \yii\web\HttpException */

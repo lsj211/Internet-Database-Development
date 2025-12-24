@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by YangJunyu 2313043
+ * This form model validates visitor messages before dispatching emails.
+ */
 
 namespace frontend\models;
 

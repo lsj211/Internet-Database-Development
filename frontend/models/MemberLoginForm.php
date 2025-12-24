@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by YangJunyu 2313043
+ * This form model authenticates members via username, password, and captcha.
+ */
 namespace frontend\models;
 
 use Yii;

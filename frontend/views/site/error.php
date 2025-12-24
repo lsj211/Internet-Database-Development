@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This is the error view displayed when an error occurs.
+ */
 use yii\helpers\Html;
 $this->title = $name;
 ?>

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This form model processes verification tokens to activate accounts.
+ */
 
 namespace frontend\models;
 

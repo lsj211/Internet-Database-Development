@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by YangJunyu 2313043
+ * This form model lets members trigger a new verification email when needed.
+ */
 
 namespace frontend\models;
 

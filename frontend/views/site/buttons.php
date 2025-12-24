@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view showcases the available button styles and utilities.
+ */
 /* @var $this yii\web\View */
 
 $this->title = '按钮示例';

@@ -1,5 +1,10 @@
 <?php
-
+/* @var $this yii\web\View */
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view highlights the third historical document.
+ */
 /* @var $this yii\web\View */
 
 use yii\helpers\Url;

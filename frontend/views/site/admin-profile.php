@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view displays administrator profile information and avatar.
+ */
 
 use yii\helpers\Html;
 use yii\helpers\Url;

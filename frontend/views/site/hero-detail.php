@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by YangJunyu 2313043
+ * This view presents detailed information about a specific war hero.
+ */
 /* @var $this yii\web\View */
 /* @var $model common\models\Hero */
 

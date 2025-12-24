@@ -2,8 +2,8 @@
 
 /**
  * Team: 抗战纪念队, NKU
- * Coding by chengna 2311828
- * This file is used to manage the site's actions.
+ * Coding by YangJunyu 2313043
+ * This controller orchestrates the frontend routes spanning heroes, memorials, and user flows.
  */
 
 namespace frontend\controllers;

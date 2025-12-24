@@ -1,4 +1,10 @@
 <?php
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This form model verifies email ownership before issuing reset links.
+ */
+
 namespace frontend\models;
 
 use Yii;

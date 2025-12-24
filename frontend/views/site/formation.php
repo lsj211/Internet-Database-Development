@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view presents the formation and equipment overview based on type and year.
+ */
 /* @var $this yii\web\View */
 /* @var $type string */
 /* @var $year int|null */

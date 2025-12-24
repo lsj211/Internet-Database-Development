@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team: 抗战纪念队, NKU
+ * Coding by LiuYueshuai 2313752
+ * This view presents the first archival document narrative.
+ */
 /* @var $this yii\web\View */
 
 use yii\helpers\Url;
